@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import Usuario, Evento
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def home(request):
@@ -119,3 +120,22 @@ def deletar_usuario(request, pk):
         usuario.delete()
         return redirect("/usuarios/")
     
+def loginU(request):
+    if request.method == "POST":
+        nomeU = request.POST.get("nome")
+        senhaU = request.POST.get("senha")
+        
+        try:     
+            if not nomeU:
+                return HttpResponse("Insira um nome")
+            
+            if Usuario.objects.filter(nome = nomeU, senha = senhaU).exists():
+                return HttpResponse("Funfou")
+            
+            else:
+                return HttpResponse("Moiou")
+        
+        except Exception as e:
+            return HttpResponse(f"Erro {e}") 
+    
+    return render(request, "usuarios/login.html")

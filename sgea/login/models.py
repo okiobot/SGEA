@@ -5,6 +5,10 @@ class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key = True, unique = True)
     nome = models.TextField(max_length= 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
+    #telefone
+    #insti de ensino
+    #ra
+    
     
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
