@@ -1,0 +1,108 @@
+/* Fonte do site */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Cores do site */
+:root {
+    --primary-color: #0d6031;
+    --secondary-color: #5f9074;
+    --background-color: #e0ecef;
+    --background-box-color: #dfdfdf;
+    --botao-inscrito-color: black;
+    --botao-esgotado-color: #ff5757;
+}
+
+/* Reset e estilização global */
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Estilização do body */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: var(--background-color)
+}
+
+/* Estilização do container de eventos */
+.evento-container {
+    max-width: 1200px;
+    width: 900px;
+    margin: 40px auto;
+    background-color: white;
+    border: 10px solid var(--primary-color);
+    border-radius: 7px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 15px black;
+}
+
+/* Estilização do título do cadastro*/ 
+.cadastro-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color)
+}
+
+.cadastro-titulo h1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Estilização do formulário */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-linha {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Estilização dos grupos das divs*/
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-grupo input {
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--background-box-color);
+    font-size: 14px;
+    outline: none;
+}
+
+/* Estilização do botão de enviar */
+.botao-enviar{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#botao-enviar {
+    align-self: flex-start;
+    padding: 10px 25px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+#botao-enviar:hover {
+    background-color: black;
+    transform: scale(1.1);
+}
