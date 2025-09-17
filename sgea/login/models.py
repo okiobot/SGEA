@@ -7,9 +7,7 @@ class Usuario(models.Model):
     senha = models.TextField(max_length = 255, null = False)
     #telefone
     #insti de ensino
-    #ra
-    
-    
+
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
     nome = models.TextField(max_length = 255, null = True)
@@ -22,3 +20,9 @@ class Evento(models.Model):
     quantPart = models.IntegerField()
     organResp = models.TextField(max_length = 255)
     vagas = models.IntegerField()
+
+class Inscrito(models.Model):
+    id_inscricao = models.AutoField(primary_key = True)
+    usuario_id = models.ForeignKey(Usuario, on_delete = models.CASCADE)
+    evento_id = models.ForeignKey(Evento, on_delete = models.CASCADE)
+    data_inscricao = models.DateTimeField(auto_now_add = True)

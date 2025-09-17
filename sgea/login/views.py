@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import Usuario, Evento
+from .models import Usuario, Evento, Inscrito
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
@@ -23,6 +23,13 @@ def usuarios(request):
 
 def ev(request):
     return render(request, "usuarios/eventos.html")
+
+def todos_eventos(request):
+    eventos = {
+        'eventos' : Evento.objects.all()
+    }
+    
+    return render(request, "usuarios/visu_eventos.html", eventos)
 
 def eventos(request):
     try:
@@ -120,6 +127,12 @@ def deletar_usuario(request, pk):
         usuario.delete()
         return redirect("/usuarios/")
     
+def deletar_evento(request, pk):
+    evento = get_object_or_404(Evento, pk = pk)
+    if request.method == "GET":
+        evento.delete()
+        return redirect("/todos_eventos/")
+    
 def loginU(request):
     if request.method == "POST":
         nomeU = request.POST.get("nome")
@@ -139,3 +152,23 @@ def loginU(request):
             return HttpResponse(f"Erro {e}") 
     
     return render(request, "usuarios/login.html")
+
+def inscricao_evento(request, evento_id, usuario_id):
+    user = get_object_or_404(Usuario, id_usuario = usuario_id)
+    event = get_object_or_404(Evento, id_evento = evento_id)
+    
+    if Inscrito.objects.filter(user = user, event = event).exists():
+        return HttpResponse("Você já está inscrito neste evento")
+    
+    total_inscritos = Inscrito.objects.filter(event = event).count()
+    if total_inscritos >= Evento.vagas:
+        return HttpResponse("Não há mais vagas disponíveis")
+    
+    Inscrito.objects.create(user = user, event = event)
+    return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento: {Evento.nome}")
+
+def usuario_eventos(request, usuario_id):
+    user = get_object_or_404(Usuario, id_usuario = usuario_id)
+    inscricoes = Inscrito.objects.filter(user = user)
+    
+    return render(request, "meus_eventos.html", {"inscricoes" : inscricoes, "usuario" : user})

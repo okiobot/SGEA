@@ -26,6 +26,10 @@
             <td>{{evento.quantPart}} </td>
             <td>{{evento.organResp}} </td>
             <td>{{evento.vagas}} </td>
+        
+            <td> 
+                <a href = "{% url 'deletar_evento' evento.id_evento %}" class = "btn btn-danger">Deletar</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
