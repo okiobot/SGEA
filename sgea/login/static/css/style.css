@@ -71,6 +71,8 @@ body {
 .form-grupo label {
     font-weight: 600;
     margin-bottom: 6px;
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .form-grupo input {
@@ -80,6 +82,14 @@ body {
     background-color: var(--background-box-color);
     font-size: 14px;
     outline: none;
+}
+
+.form-control-sm-p {
+    width: 130px;
+}
+
+.form-control-sm-v {
+    width: 95px;
 }
 
 /* Estilização do botão de enviar */

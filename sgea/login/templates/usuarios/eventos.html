@@ -22,7 +22,7 @@
       <span class="navbar-brand mb-0 h1">Cadastre-me!</span>
   </nav>
             
-  <form action = "{% url 'visu_eventos' %}" method = "post"> 
+<form action = "{% url 'visu_eventos' %}" method = "post"> 
     {% csrf_token %}
       <div class='evento-container'> 
         <div class="cadastro-titulo">
@@ -33,59 +33,57 @@
           <div class="form-linha">
             <div class="form-grupo">
               <label>Nome</label>
-              <input name = "nome" class = "form-control-sm" type="text" autocomplete="off">
+              <input name = "nome" class = "form-control-sm" type="text" autocomplete="off" placeholder="Nome do evento">
             </div>  
 
             <div class="form-grupo">
               <label>Tipo do evento</label>
-              <input name = "tipoE" class = "form-control-sm" type = "text" autocomplete="off">
+              <input name = "tipoE" class = "form-control-sm" type = "text" autocomplete="off" placeholder="Tipo do evento">
             </div>
             
             <div class="form-grupo">
               <label>Local</label>
-              <input name = "local" class = "form-control-sm" type = "text" autocomplete="off">
+              <input name = "local" class = "form-control-sm" type = "text" autocomplete="off" placeholder="Local do evento">
             </div>
           </div>
 
-          <div class="form-linha">
-            <div class="form-grupo">  
-              <label>Vagas</label>
-              <input name="vagas" class = "form-control-sm" type = "text" autocomplete="off">
-            </div>
-
-            <div class="form-grupo">
-              <label>Quantidade de Participantes</label>
-              <input name = "quantPart" class = "form-control-sm" type ="text" autocomplete="off">
-            </div>
-
-            <div class="form-grupo">
-              <label>Organizador Responsável</label>
-              <input name = "organResp" class = "form-control-sm" type = "text" autocomplete="off">
-            </div>
-          </div>
-          
           <div class="form-linha">
             <div class="form-grupo">
               <label>Data de Início</label>
-              <input name = "dataI" class = "form-control-sm" type = "text" autocomplete="off">
+              <input name = "dataI" class = "form-control-sm" type = "text" autocomplete="off" placeholder="dd/mm/aaaa">
             </div>
 
             <div class="form-grupo">
               <label>Data de término</label>
-              <input name = "dataF" class = "form-control-sm" type = "text" autocomplete="off">
+              <input name = "dataF" class = "form-control-sm" type = "text" autocomplete="off" placeholder="dd/mm/aaaa">
+            </div>
+
+            <div class="form-grupo">
+              <label>Organizador Responsável</label>
+              <input name = "organResp" class = "form-control-sm" type = "text" autocomplete="off" placeholder="Nome do organizador">
             </div>
           </div>
           
           <div class="form-linha">
             <div class="form-grupo">
-                <label>Horário de Início</label>
-                <input name = "horarioI" class = "form-control-sm" type = "text" autocomplete="off">
-              </div>
+              <label>Horário de Início</label>
+              <input name = "horarioI" class = "form-control-sm" type = "text" autocomplete="off" placeholder="hh:mm">
+            </div>
 
-              <div class="form-grupo">
-                <label>Horário de término</label> 
-                <input name = "horarioF" class = "form-control-sm" type = "text" autocomplete="off">
-              </div>
+            <div class="form-grupo">
+              <label>Horário de término</label> 
+              <input name = "horarioF" class = "form-control-sm" type = "text" autocomplete="off" placeholder="hh:mm">
+            </div>
+            
+            <div class="form-grupo">
+              <label>Nº Participantes</label>
+              <input name = "quantPart" class = "form-control-sm-p" type ="text" autocomplete="off" placeholder="Nº Part.">
+            </div>
+
+            <div class="form-grupo">  
+              <label>Nº Vagas</label>
+              <input name="vagas" class = "form-control-sm-v" type = "text" autocomplete="off" placeholder="Nº Vagas">
+            </div>
           </div>
 
           <div class="botao-enviar">
@@ -94,7 +92,6 @@
         </div>
       </div>
   </form>
-    
 
     <!-- Optional JavaScript; choose one of the two! -->
 
