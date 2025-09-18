@@ -1,13 +1,23 @@
-<h2>Bem-vindo, {{ usuario.nome }}!</h2>
+<h1>Lista de eventos disponíveis</h1>
 
-<h3>Eventos disponíveis:</h3>
 <ul>
-    {% for evento in eventos %}
-        <li>
-            <b>{{ evento.nome }}</b> - {{ evento.local }}
-            ({{ evento.dataI }}/{{ evento.dataF }})
-        </li>
-    {% empty %}
-        <li>Nenhum evento disponível no momento.</li>
-    {% endfor %}
+{% for evento in eventos %}
+    <li>
+        <strong>{{ evento.nome }}</strong> - {{ evento.tipoevento }}
+        <br>Local: {{ evento.local }}
+        <br>Data: {{ evento.dataI }} até {{ evento.dataF }}
+        <br>Horário: {{ evento.horarioI }}h às {{ evento.horarioF }}h
+        <br>
+
+        {% if evento.id_evento in inscritos %}
+            <span style="color: green; font-weight: bold;">✅ Já inscrito</span>
+        {% else %}
+            <form method="post" action="{% url 'inscricao_evento' usuario.id_usuario evento.id_evento %}">
+                {% csrf_token %}
+                <button type="submit">Inscrever-se</button>
+            </form>
+        {% endif %}
+    </li>
+    <hr>
+{% endfor %}
 </ul>

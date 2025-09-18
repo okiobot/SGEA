@@ -29,6 +29,6 @@ urlpatterns = [
     path("deletar_evento/<int:pk>/", views.deletar_evento, name = "deletar_evento"),
     path("login/", views.loginU, name = "login"),
     path("home_inscricao/", views.home_inscricao, name = "inscricao"),
-    path("inscrever/<int:evento_id>/<int:usuario_id>/", views.inscricao_evento, name = "inscricao_evento"),
-    path("meus_eventos/<int:usuario_id>", views.usuario_eventos, name = "meus_eventos"),
+    path("inscrever/<int:usuario_id>/<int:evento_id>/", views.inscricao_evento, name = "inscricao_evento"),
+    path("meus_eventos/<int:usuario_id>/", views.usuario_eventos, name = "meus_eventos"),
 ]

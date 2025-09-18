@@ -1,9 +1,26 @@
-<h2>Meus Eventos Inscritos</h2>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Eventos</title>
+</head>
+<body>
+    <h1>Eventos em que {{ usuario.nome }} está inscrito</h1>
 
-<ul>
-    {% for insc in inscricoes %}
-        <li>{{ insc.evento.nome }} - Data: {{ insc.evento.dataI }} a {{ insc.evento.dataF }}</li>
-    {% empty %}
-        <li>Você não está inscrito em nenhum evento.</li>
-    {% endfor %}
-</ul>
+    {% if eventos %}
+        <ul>
+        {% for evento in eventos %}
+            <li>
+                {{ evento.nome }} - {{ evento.tipoevento }} <br>
+                Local: {{ evento.local }} <br>
+                Data: {{ evento.dataI }} até {{ evento.dataF }} <br>
+                Horário: {{ evento.horarioI }}h às {{ evento.horarioF }}h
+            </li>
+            <hr>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não está inscrito em nenhum evento.</p>
+    {% endif %}
+</body>
+</html>

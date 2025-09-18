@@ -142,7 +142,7 @@ def loginU(request):
             return HttpResponse("Insira um nome e senha")
             
         try:     
-            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).exists()
+            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
             if user:
                 events = Evento.objects.all()
                 return render(request, "usuarios/eventosU.html", {"usuario": user, "eventos": events})
@@ -155,34 +155,40 @@ def loginU(request):
     
     return render(request, "usuarios/login.html")
 
-def home_inscricao(request):
-    eventos = {
-        'eventos' : Evento.objects.all()
-    }
-    return render(request, "usuarios/eventosU.html", eventos)
+def home_inscricao(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
+    eventos = Evento.objects.all()
+    
+    # pega os IDs dos eventos em que o usuário já está inscrito
+    inscritos = Inscrito.objects.filter(usuario_id=usuario).values_list("evento_id", flat=True)
 
-def inscricao_evento(request):
+    return render(request, "usuarios/eventosU.html", {
+        "usuario": usuario,
+        "eventos": eventos,
+        "inscritos": inscritos
+    })
+
+def inscricao_evento(request, usuario_id, evento_id):
     if request.method == "POST":
-        user_id = request.POST.get("usuario_id")
-        event_id = request.POST.get("evento_id")
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+        evento = get_object_or_404(Evento, id_evento = evento_id)
     
-        usuario = get_object_or_404(Usuario, id_usuario = user_id)
-        evento = get_object_or_404(Evento, id_evento = event_id)
-    
-        if Inscrito.objects.filter(usuario = usuario, evento = evento).exists():
+        if Inscrito.objects.filter(usuario_id = usuario, evento_id = evento).exists():
             return HttpResponse("Você já está inscrito neste evento")
     
-        total_inscritos = Inscrito.objects.filter(evento = evento).count()
-        if total_inscritos >= Evento.vagas:
+        total_inscritos = Inscrito.objects.filter(evento_id = evento).count()
+        if total_inscritos >= evento.vagas:
             return HttpResponse("Não há mais vagas disponíveis")
     
-        Inscrito.objects.create(usuario = usuario, evento = evento)
-        return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento: {Evento.nome}")
+        Inscrito.objects.create(usuario_id = usuario, evento_id = evento)
+        return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento!: {Evento.nome}")
 
-    return render(request,"usuario/inscrever_evento.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
+    return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
 def usuario_eventos(request, usuario_id):
     user = get_object_or_404(Usuario, id_usuario = usuario_id)
-    inscricoes = Inscrito.objects.filter(user = user)
+    inscricoes = Inscrito.objects.filter(usuario_id = user)
     
-    return render(request, "usuario/meus_eventos.html", {"inscricoes" : inscricoes, "usuario" : user})
+    eventos = [inscricao.evento_id for inscricao in inscricoes]
+    
+    return render(request, "usuarios/meus_eventos.html", {"usuario" : user, "eventos" : eventos})
