@@ -16,17 +16,16 @@
     <span class="navbar-brand mb-0 h1">Cadastre-me!</span>
   </div>
 </nav>
-    <form action = "{% url 'listagem_usuarios' %}" method = "post"> 
+    <form action = "{% url 'inscricao' %}" method = "post"> 
         {% csrf_token %}
         <div style = "text-align: center" class = 'container'> 
-            <h1>Cadastro de Usuários</h1>
+            <h1>Inscrição em eventos</h1>
             Nome <input name = "nome" class = "form-control-sm" type = "text">
-            Senha <input name = "senha" class = "form-control-sm" type = "text">
+            ID do evento <input name = "id_evento" class = "form-control-sm" type = "text">
             <button class = "form-control-sm" >Enviar </button>
 
-            <a href = "cadastro_eventos" class = "btn btn-danger"></a>
             <a href = "login" class = "btn btn-danger"></a>
-          </div>
+        </div>
     </form>
     
 

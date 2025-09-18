@@ -1,0 +1,13 @@
+<h2>Bem-vindo, {{ usuario.nome }}!</h2>
+
+<h3>Eventos disponíveis:</h3>
+<ul>
+    {% for evento in eventos %}
+        <li>
+            <b>{{ evento.nome }}</b> - {{ evento.local }}
+            ({{ evento.dataI }}/{{ evento.dataF }})
+        </li>
+    {% empty %}
+        <li>Nenhum evento disponível no momento.</li>
+    {% endfor %}
+</ul>

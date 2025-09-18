@@ -1,0 +1,9 @@
+<h2>Meus Eventos Inscritos</h2>
+
+<ul>
+    {% for insc in inscricoes %}
+        <li>{{ insc.evento.nome }} - Data: {{ insc.evento.dataI }} a {{ insc.evento.dataF }}</li>
+    {% empty %}
+        <li>Você não está inscrito em nenhum evento.</li>
+    {% endfor %}
+</ul>
