@@ -181,7 +181,7 @@ def inscricao_evento(request, usuario_id, evento_id):
             return HttpResponse("Não há mais vagas disponíveis")
     
         Inscrito.objects.create(usuario_id = usuario, evento_id = evento)
-        return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento!: {Evento.nome}")
+        return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento!: {evento.nome}")
 
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
