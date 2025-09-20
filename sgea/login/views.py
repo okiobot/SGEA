@@ -221,24 +221,37 @@ def ver_certificados(request):
 
 def emitir_certificados(request, evento_id):
     with transaction.atomic():
-        evento = get_object_or_404(Evento, pk=evento_id)
-        
-        inscricoes = Inscrito.objects.filter(evento_id=evento.id_evento)
-        
-        if not inscricoes.exists():
-            return HttpResponse("Não há inscritos para este evento.")
-        
-        for inscricao in inscricoes:
-            Certificado.objects.create(usuario_id=inscricao.usuario_id, evento_id=inscricao.evento_id)
+        try:
+            evento = get_object_or_404(Evento, pk = evento_id)
+
+            inscricoes = Inscrito.objects.filter(evento_id = evento.id_evento)
+
+            if not inscricoes.exists():
+                return HttpResponse("Não há inscritos para este evento.")
             
-        inscricoes.delete()
-        evento.delete()
-        
-    return redirect("/certificados/") 
+            for inscricao in inscricoes:
+                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id)
+            
+            inscricoes.delete()        
+            #evento.delete()
+            
+        except Exception as e:
+            return HttpResponse(f"Erro na emissão de certificados: {e}")
+            
+    return redirect("/certificados/")
 
 def meus_certificados(request, usuario_id):
-    usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
-    certs = Certificado.objects.filter(usuario_id = usuario)
+    # Imprime o ID do usuário que a função recebeu
+    print(f"Buscando certificados para o usuário ID: {usuario_id}")
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+        # Filtra os certificados pelo objeto usuário
+        certs = Certificado.objects.filter(usuario_id = usuario)
+        # Imprime o número de certificados encontrados
+        print(f"Certificados encontrados: {certs.count()}")
+    except Exception as e:
+        # Se ocorrer um erro, ele será exibido no terminal
+        print(f"Ocorreu um erro ao buscar certificados: {e}")
+        return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
-     
