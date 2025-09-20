@@ -2,21 +2,36 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from .models import Usuario, Evento, Inscrito
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
+
+telefones_usados = []
 
 # Create your views here.
 def home(request):
     return render(request, 'usuarios/home.html')
 
-def usuarios(request):
+def cadastro_usuarios(request):
     if request.method == "POST":
-        novo_usuario = Usuario()
         nome = request.POST.get("nome")
         senha = request.POST.get("senha")
-        if nome and senha:
-            Usuario.objects.create(nome = nome, senha = senha)
+        telefone = request.POST.get("telefone")
+        validator = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
         
+        try:
+            validator(telefone)
+            
+            if Usuario.objects.filter(telefone = telefone).exists():
+                return HttpResponse("Este telefone já foi cadastrado.")
+            
+            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone)
+            return redirect("listagem_usuarios")
+       
+        except ValidationError:
+            return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
+    
     usuarios = {
-        'usuarios' : Usuario.objects.all()
+        'usuarios' : Usuario.objects.all(),
     }
     
     return render(request, 'usuarios/usuarios.html', usuarios)

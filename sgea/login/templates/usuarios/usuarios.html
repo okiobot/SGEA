@@ -1,15 +1,21 @@
 <div class = "container"> 
     <table> 
+        {% if err %}
+    <p style="color: red;">{{ err }}</p>
+        {% endif %}
+        
         <tr> 
             <th>id</th>
             <th>nome</th>
             <th>senha</th>
+            <th>telefone</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
             <td>{{usuario.id_usuario}} </td>
             <td>{{usuario.nome}} </td>
             <td>{{usuario.senha}} </td>
+            <td>{{usuario.telefone}} </td>
             <td> 
                 <a href = "{% url 'deletar_usuario' usuario.id_usuario %}" class = "btn btn-danger">Deletar</a>
             </td>
