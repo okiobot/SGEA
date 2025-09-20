@@ -20,15 +20,25 @@ from login import views
  
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    #Página incial
     path('', views.home, name = 'home'),
+    
+    #Verificar usuários cadastrados
     path("usuarios/", views.cadastro_usuarios, name = 'listagem_usuarios'),
+    
+    #Operações com os usuários
+    path("inscrever/<int:usuario_id>/<int:evento_id>/", views.inscricao_evento, name = "inscricao_evento"),
+    path("deletar_usuario/<int:pk>/", views.deletar_usuario, name = "deletar_usuario"),
+    path("meus_eventos/<int:usuario_id>/", views.usuario_eventos, name = "meus_eventos"),
+    
+    #Operações com os eventos
     path("cadastro_eventos/", views.ev, name = 'ev'),
     path("eventos/", views.eventos, name = 'visu_eventos'),
     path("todos_eventos/", views.todos_eventos, name = "even"),
-    path("deletar_usuario/<int:pk>/", views.deletar_usuario, name = "deletar_usuario"),
     path("deletar_evento/<int:pk>/", views.deletar_evento, name = "deletar_evento"),
+    
+    #Login do usuário
     path("login/", views.loginU, name = "login"),
     path("home_inscricao/", views.home_inscricao, name = "inscricao"),
-    path("inscrever/<int:usuario_id>/<int:evento_id>/", views.inscricao_evento, name = "inscricao_evento"),
-    path("meus_eventos/<int:usuario_id>/", views.usuario_eventos, name = "meus_eventos"),
 ]
