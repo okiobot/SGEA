@@ -21,7 +21,7 @@ from login import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = 'home'),
-    path("usuarios/", views.usuarios, name = 'listagem_usuarios'),
+    path("usuarios/", views.cadastro_usuarios, name = 'listagem_usuarios'),
     path("cadastro_eventos/", views.ev, name = 'ev'),
     path("eventos/", views.eventos, name = 'visu_eventos'),
     path("todos_eventos/", views.todos_eventos, name = "even"),

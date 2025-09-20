@@ -1,13 +1,14 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 # Create your models here.
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key = True, unique = True)
     nome = models.TextField(max_length= 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
-    telefone = models.TextField(max_length = 13, null = False)
-
-
+    telefone = models.CharField(max_length = 13, unique = True ,validators = [RegexValidator(regex = r'^\+?1?\d{13}$', 
+                                message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")])
+    
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
     nome = models.TextField(max_length = 255, null = True)
