@@ -12,15 +12,19 @@ def home(request):
     return render(request, 'usuarios/home.html')
 
 def cadastro_usuarios(request):
+    #Adquire todas as informações inseridas pelo usuário
     if request.method == "POST":
         nome = request.POST.get("nome")
         senha = request.POST.get("senha")
         telefone = request.POST.get("telefone")
+        
+        #Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
         validator = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
         
         try:
             validator(telefone)
             
+            #Caso o telefone já tenha sido utilizado, é impedido 
             if Usuario.objects.filter(telefone = telefone).exists():
                 return HttpResponse("Este telefone já foi cadastrado.")
             
@@ -174,7 +178,6 @@ def home_inscricao(request, usuario_id):
     usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
     eventos = Evento.objects.all()
     
-    # pega os IDs dos eventos em que o usuário já está inscrito
     inscritos = Inscrito.objects.filter(usuario_id=usuario).values_list("evento_id", flat=True)
 
     return render(request, "usuarios/eventosU.html", {
