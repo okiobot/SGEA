@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import Usuario, Evento, Inscrito
+from .models import Usuario, Evento, Inscrito, Certificado
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
-
-telefones_usados = []
+from django.db import transaction
 
 # Create your views here.
 def home(request):
@@ -24,13 +23,15 @@ def cadastro_usuarios(request):
         try:
             validator(telefone)
             
-            #Caso o telefone já tenha sido utilizado, é impedido 
+            #Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
             if Usuario.objects.filter(telefone = telefone).exists():
                 return HttpResponse("Este telefone já foi cadastrado.")
             
+            #Se todas as informações são válidas, um novo usuário é criado
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone)
             return redirect("listagem_usuarios")
        
+        #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
     
@@ -210,3 +211,34 @@ def usuario_eventos(request, usuario_id):
     eventos = [inscricao.evento_id for inscricao in inscricoes]
     
     return render(request, "usuarios/meus_eventos.html", {"usuario" : user, "eventos" : eventos})
+
+def ver_certificados(request):
+    eventos = {
+        'eventos' : Evento.objects.all()
+    }
+    
+    return render(request, "usuarios/certificados.html", eventos)
+
+def emitir_certificados(request, evento_id):
+    with transaction.atomic():
+        evento = get_object_or_404(Evento, pk=evento_id)
+        
+        inscricoes = Inscrito.objects.filter(evento_id=evento.id_evento)
+        
+        if not inscricoes.exists():
+            return HttpResponse("Não há inscritos para este evento.")
+        
+        for inscricao in inscricoes:
+            Certificado.objects.create(usuario_id=inscricao.usuario_id, evento_id=inscricao.evento_id)
+            
+        inscricoes.delete()
+        evento.delete()
+        
+    return redirect("/certificados/") 
+
+def meus_certificados(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    certs = Certificado.objects.filter(usuario_id = usuario)
+    
+    return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
+     

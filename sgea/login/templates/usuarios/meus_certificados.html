@@ -1,0 +1,14 @@
+<h1>Certificados de {{ usuario.nome }}</h1>
+
+{% if certificado %}
+    <ul>
+        {% for cert in certificado %}
+            <li>
+                <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
+                <strong>Participante:</strong> {{ cert.usuario_id.nome }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Você ainda não possui certificados emitidos.</p>
+{% endif %}

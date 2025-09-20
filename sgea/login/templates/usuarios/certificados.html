@@ -1,0 +1,18 @@
+<h1>Lista de eventos disponíveis</h1>
+<ul>
+  {% for evento in eventos %}
+    <li>
+      <strong>{{ evento.nome }}</strong> - {{ evento.tipoevento }}<br>
+      Local: {{ evento.local }}<br>
+      Data: {{ evento.dataI }} até {{ evento.dataF }}<br>
+      Horário: {{ evento.horarioI }} às {{ evento.horarioF }}<br>
+
+      <!-- Botão para emitir certificados -->
+      <form method="post" action="{% url 'emitir_certificados' evento.id_evento %}">
+        {% csrf_token %}
+        <button type="submit">Emitir certificados</button>
+      </form>
+    </li>
+    <hr>
+  {% endfor %}
+</ul>

@@ -1,14 +1,13 @@
 from django.db import models
-from django.core.validators import RegexValidator
+from django.utils import timezone
 
 # Create your models here.
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key = True, unique = True)
     nome = models.TextField(max_length= 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
-    telefone = models.CharField(max_length = 13, unique = True ,validators = [RegexValidator(regex = r'^\+?1?\d{13}$', 
-                                message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")])
-    
+    telefone = models.CharField(max_length = 13, unique = True, null = False)
+
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
     nome = models.TextField(max_length = 255, null = True)
@@ -27,3 +26,9 @@ class Inscrito(models.Model):
     usuario_id = models.ForeignKey(Usuario, on_delete = models.CASCADE)
     evento_id = models.ForeignKey(Evento, on_delete = models.CASCADE)
     data_inscricao = models.DateTimeField(auto_now_add = True)
+    
+class Certificado(models.Model):
+    id_cert = models.AutoField(primary_key = True)
+    usuario_id = models.ForeignKey(Usuario, on_delete = models.CASCADE)
+    evento_id = models.ForeignKey(Evento, on_delete = models.CASCADE)
+    data_emissao = models.DateTimeField(default = timezone.now)
