@@ -196,10 +196,15 @@ def inscricao_evento(request, usuario_id, evento_id):
             return HttpResponse("Você já está inscrito neste evento")
     
         total_inscritos = Inscrito.objects.filter(evento_id = evento).count()
-        if total_inscritos >= evento.vagas:
+        
+        if evento.vagas <= 0:
             return HttpResponse("Não há mais vagas disponíveis")
     
         Inscrito.objects.create(usuario_id = usuario, evento_id = evento)
+
+        evento.vagas -= 1
+        evento.save()
+        
         return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento!: {evento.nome}")
 
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
@@ -241,17 +246,11 @@ def emitir_certificados(request, evento_id):
     return redirect("/certificados/")
 
 def meus_certificados(request, usuario_id):
-    # Imprime o ID do usuário que a função recebeu
-    print(f"Buscando certificados para o usuário ID: {usuario_id}")
     try:
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
-        # Filtra os certificados pelo objeto usuário
         certs = Certificado.objects.filter(usuario_id = usuario)
-        # Imprime o número de certificados encontrados
-        print(f"Certificados encontrados: {certs.count()}")
-    except Exception as e:
-        # Se ocorrer um erro, ele será exibido no terminal
-        print(f"Ocorreu um erro ao buscar certificados: {e}")
+    
+    except Exception:
         return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
