@@ -8,7 +8,7 @@
       Horário: {{ evento.horarioI }} às {{ evento.horarioF }}<br>
       Vagas disponíveis: {{ evento.vagas }}
 
-      {% if evento.id_evento in inscritos_ids %}
+      {% if evento.id_evento in inscritos_id %}
         <span style="color: green; font-weight: bold;">✔️ Já inscrito</span>
       {% else %}
         <form method="post" action="{% url 'inscricao_evento' usuario.id_usuario evento.id_evento %}">

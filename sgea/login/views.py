@@ -254,3 +254,4 @@ def meus_certificados(request, usuario_id):
         return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
+     
