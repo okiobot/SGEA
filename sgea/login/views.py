@@ -194,9 +194,7 @@ def inscricao_evento(request, usuario_id, evento_id):
     
         if Inscrito.objects.filter(usuario_id = usuario, evento_id = evento).exists():
             return HttpResponse("Você já está inscrito neste evento")
-    
-        total_inscritos = Inscrito.objects.filter(evento_id = evento).count()
-        
+     
         if evento.vagas <= 0:
             return HttpResponse("Não há mais vagas disponíveis")
     
@@ -219,7 +217,7 @@ def usuario_eventos(request, usuario_id):
 
 def ver_certificados(request):
     eventos = {
-        'eventos' : Evento.objects.all()
+        'eventos' : Evento.objects.filter(emitido = False)
     }
     
     return render(request, "usuarios/certificados.html", eventos)
@@ -238,7 +236,8 @@ def emitir_certificados(request, evento_id):
                 Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id)
             
             inscricoes.delete()        
-            #evento.delete()
+            evento.emitido = True
+            evento.save()
             
         except Exception as e:
             return HttpResponse(f"Erro na emissão de certificados: {e}")
@@ -254,4 +253,3 @@ def meus_certificados(request, usuario_id):
         return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
-     

@@ -20,6 +20,7 @@ class Evento(models.Model):
     quantPart = models.IntegerField()
     organResp = models.TextField(max_length = 255)
     vagas = models.IntegerField()
+    emitido = models.BooleanField(default = False)
 
 class Inscrito(models.Model):
     id_inscricao = models.AutoField(primary_key = True)
