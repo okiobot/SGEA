@@ -201,4 +201,87 @@ body {
     transform: scale(1.1);
 }
 
-/**/
+/*---------------------------------------------------------*/
+
+/* Estilização dos eventos disponíveis para os usuários */
+
+/* Estilização do container de eventos para os usuários */
+
+.eventosDisp-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: white;
+    border: 10px solid var(--primary-color);
+    border-radius: 7px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 15px black;
+}
+
+/* Estilização do título dos eventos disponíveis*/
+.eventosDisp-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color)
+}
+
+.eventosDisp-titulo h1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Estilização do quadro de eventos disponíveis */
+.eventosDisp-quadro {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 15px
+}
+
+/* Estilização da tabela de eventos disponíveis */
+.eventos-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Estilização de cada evento disponível */
+.eventos-itens {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.eventos-itens h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.eventos-itens p {
+    margin: 5px 0;
+}
+
+.eve-btn {
+    display: flex;
+    justify-content: center;
+}         
+
+/* Estilização do botão de inscrever-se */
+.eventos-inscricao-btn {
+    margin-top: 10px;
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+.eventos-inscricao-btn:hover {
+    background-color: var(--botao-preto-color);
+    transform: scale(1.1);
+}
+
+
