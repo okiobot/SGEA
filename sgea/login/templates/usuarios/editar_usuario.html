@@ -1,0 +1,15 @@
+<h1>Editar Perfil</h1>
+
+<form method="post">
+  {% csrf_token %}
+  <label for="nome">Nome:</label>
+  <input type="text" name="nome" value="{{ usuario.nome }}" required><br>
+
+  <label for="telefone">Telefone:</label>
+  <input type="text" name="telefone" value="{{ usuario.telefone }}" required><br>
+
+  <label for="senha">Senha:</label>
+  <input type="text" name="senha" value="{{ usuario.senha }}" required><br>
+
+  <button type="submit">Salvar alterações</button>
+</form>

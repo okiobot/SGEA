@@ -10,7 +10,17 @@
 </head>
 
 <body>
-    
+    <div class = "info-usuario">
+        <h2>Bem vindo, {{ usuario.nome }} </h2>
+        <p><strong>Telefone: </strong>{{ usuario.telefone }}</p>
+        <p><strong>Senha: </strong>***</p>
+        
+        <a href = "{% url 'editar_usuario' usuario.id_usuario %}">
+            <button class = "editar_usuario-btn">Editar perfil </button>
+        </a>
+    </div>
+    <hr>
+
 <div class="eventosDisp-container">
     <div class="eventosDisp-titulo">
         <h1>Eventos disponíveis</h1>

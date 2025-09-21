@@ -10,6 +10,14 @@ from django.db import transaction
 def home(request):
     return render(request, 'usuarios/home.html')
 
+#Funções envolvendo usuários------------------------------------------------------------------------------------------------------------
+
+def deletar_usuario(request, pk):
+    usuario = get_object_or_404(Usuario, pk = pk)
+    if request.method == "GET":
+        usuario.delete()
+        return redirect("/usuarios/")
+
 def cadastro_usuarios(request):
     #Adquire todas as informações inseridas pelo usuário
     if request.method == "POST":
@@ -41,8 +49,51 @@ def cadastro_usuarios(request):
     
     return render(request, 'usuarios/usuarios.html', usuarios)
 
-def ev(request):
-    return render(request, "usuarios/eventos.html")
+def loginU(request):
+    #Adquire as informações que forem inseridas pelo usuário
+    if request.method == "POST":
+        nomeU = request.POST.get("nome")
+        senhaU = request.POST.get("senha")
+        
+        #Se elas não existirem 
+        if not nomeU or not senhaU:
+            return HttpResponse("Insira um nome e senha")
+            
+        try:     
+            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
+            if user:
+                return redirect("inscricao", usuario_id = user.id_usuario)
+            
+            else:
+                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente")
+        
+        except Exception as e:
+            return HttpResponse(f"Erro {e}") 
+    
+    return render(request, "usuarios/login.html")
+
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        senha = request.POST.get("senha")
+        telefone = request.POST.get("telefone")
+        
+        if Usuario.objects.filter(telefone = telefone).exclude(id_usuario = usuario_id).exists():
+            return HttpResponse("Este telefone já está cadastrado por outro usuário")
+        
+        usuario.nome = nome
+        usuario.senha = senha
+        usuario.telefone = telefone
+        usuario.save()
+    
+        return redirect("inscricao", usuario_id = usuario.id_usuario)
+
+    return render(request, "usuarios/editar_usuario.html", {"usuario" : usuario})
+
+
+#Funções envolvendo eventos------------------------------------------------------------------------------------------------------------
 
 def todos_eventos(request):
     eventos = {
@@ -141,41 +192,16 @@ def eventos(request):
     
     return render(request, 'usuarios/visu_eventos.html', eventos)
 
-def deletar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk = pk)
-    if request.method == "GET":
-        usuario.delete()
-        return redirect("/usuarios/")
-    
+def ev(request):
+    return render(request, "usuarios/eventos.html")
+
 def deletar_evento(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
     if request.method == "GET":
         evento.delete()
         return redirect("/todos_eventos/")
-    
-def loginU(request):
-    #Adquire as informações que forem inseridas pelo usuário
-    if request.method == "POST":
-        nomeU = request.POST.get("nome")
-        senhaU = request.POST.get("senha")
-        
-        #Se elas não existirem 
-        if not nomeU or not senhaU:
-            return HttpResponse("Insira um nome e senha")
-            
-        try:     
-            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
-            if user:
-                events = Evento.objects.all()
-                return render(request, "usuarios/eventosU.html", {"usuario": user, "eventos": events})
-            
-            else:
-                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente)")
-        
-        except Exception as e:
-            return HttpResponse(f"Erro {e}") 
-    
-    return render(request, "usuarios/login.html")
+
+#Funções envolvendo inscrições------------------------------------------------------------------------------------------------------------
 
 def home_inscricao(request, usuario_id):
     usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
@@ -216,6 +242,8 @@ def usuario_eventos(request, usuario_id):
     eventos = [inscricao.evento_id for inscricao in inscricoes]
     
     return render(request, "usuarios/meus_eventos.html", {"usuario" : user, "eventos" : eventos})
+
+#Funções envolvendo certificados------------------------------------------------------------------------------------------------------------
 
 def ver_certificados(request):
     eventos = {
