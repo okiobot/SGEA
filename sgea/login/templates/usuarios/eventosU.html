@@ -18,7 +18,8 @@
 
     <div class="eventosDisp-quadro">
         <div class="eventos-lista">
-            {% for evento in eventos %}
+            {% for evento in eventos  %}
+                {%if not evento.emitido %}
                 <div class="eventos-itens">
                     <h3>{{ evento.nome }} - {{ evento.tipoevento }}</h3>
                     <p><strong>Local:</strong> {{ evento.local }}</p> 
@@ -36,6 +37,7 @@
                         </form>
                     {% endif %}
                 </div>
+            {% endif %}
             {% endfor %}        
         </div>
 

@@ -12,6 +12,7 @@
             <th>Quantidade de participantes</th>
             <th>Organizador responsável</th>
             <th>Vagas</th>
+            <th>Emitido</th>
         </tr>
         {% for evento in eventos %}
         <tr>
@@ -26,7 +27,8 @@
             <td>{{evento.quantPart}} </td>
             <td>{{evento.organResp}} </td>
             <td>{{evento.vagas}} </td>
-        
+            <td>{{evento.emitido}} </td>
+
             <td> 
                 <a href = "{% url 'deletar_evento' evento.id_evento %}" class = "btn btn-danger">Deletar</a>
             </td>

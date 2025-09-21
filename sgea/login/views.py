@@ -154,10 +154,12 @@ def deletar_evento(request, pk):
         return redirect("/todos_eventos/")
     
 def loginU(request):
+    #Adquire as informações que forem inseridas pelo usuário
     if request.method == "POST":
         nomeU = request.POST.get("nome")
         senhaU = request.POST.get("senha")
         
+        #Se elas não existirem 
         if not nomeU or not senhaU:
             return HttpResponse("Insira um nome e senha")
             
@@ -227,7 +229,7 @@ def emitir_certificados(request, evento_id):
         try:
             evento = get_object_or_404(Evento, pk = evento_id)
 
-            inscricoes = Inscrito.objects.filter(evento_id = evento.id_evento)
+            inscricoes = Inscrito.objects.filter(evento_id = evento.pk)
 
             if not inscricoes.exists():
                 return HttpResponse("Não há inscritos para este evento.")
@@ -235,7 +237,8 @@ def emitir_certificados(request, evento_id):
             for inscricao in inscricoes:
                 Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id)
             
-            inscricoes.delete()        
+            Inscrito.objects.filter(evento_id = evento.pk).delete()        
+            
             evento.emitido = True
             evento.save()
             
