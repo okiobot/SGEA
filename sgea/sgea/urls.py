@@ -39,6 +39,7 @@ urlpatterns = [
     path("eventos/", views.eventos, name = 'visu_eventos'),
     path("todos_eventos/", views.todos_eventos, name = "even"),
     path("deletar_evento/<int:pk>/", views.deletar_evento, name = "deletar_evento"),
+    path("editar_evento/<int:pk>/", views.editar_evento, name = "editar_evento"),
     
     #Login do usuário
     path("login/", views.loginU, name = "login"),

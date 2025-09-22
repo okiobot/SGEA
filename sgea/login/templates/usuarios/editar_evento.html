@@ -1,0 +1,36 @@
+<h1>Editar evento</h1>
+
+<form method = "post">
+    {% csrf_token %}
+    <label for = "nome">Nome: </label>
+    <input type = "text" name = "nome" value = "{{ evento.nome }}" required><br>
+    
+    <label for = "tipo_evento">Tipo do evento: </label>
+    <input type = "text" name = "tipo_evento" value = "{{ evento.tipoevento }}" required><br>
+    
+    <label for = "dataI">Data inicial: </label>
+    <input type = "text" name = "dataI" value = "{{ evento.dataI }}" required><br>
+    
+    <label for = "dataF">Data final: </label>
+    <input type = "text" name = "dataF" value = "{{ evento.dataF }}" required><br>
+
+    <label for = "horarioI">Horário inicial: </label>
+    <input type = "text" name = "horarioI" value = "{{ evento.horarioI }}" required><br>
+
+    <label for = "horarioF">Horário final: </label>
+    <input type = "text" name = "horarioF" value = "{{ evento.horarioF }}" required><br>
+
+    <label for = "local">Local: </label>
+    <input type = "text" name = "local" value = "{{ evento.local }}" required><br>
+
+    <label for = "quantPart">Quantidade de participantes: </label>
+    <input type = "text" name = "quantPart" value = "{{ evento.quantPart }}" required><br>
+
+    <label for = "organResp">Organizador responsável: </label>
+    <input type = "text" name = "organResp" value = "{{ evento.organResp }}" required><br>
+
+    <label for = "vagas">Quantidade de vagas: </label>
+    <input type = "text" name = "vagas" value = "{{ evento.vagas }}" required><br>
+
+    <button type = "submit">Salvar alterações</button>
+</form>

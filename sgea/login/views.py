@@ -62,10 +62,11 @@ def loginU(request):
         try:     
             user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
             if user:
-                return redirect("inscricao", usuario_id = user.id_usuario)
+                events = Evento.objects.all()
+                return render(request, "usuarios/eventosU.html", {"usuario": user, "eventos": events})
             
             else:
-                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente")
+                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente)")
         
         except Exception as e:
             return HttpResponse(f"Erro {e}") 
@@ -82,6 +83,14 @@ def editar_usuario(request, usuario_id):
         
         if Usuario.objects.filter(telefone = telefone).exclude(id_usuario = usuario_id).exists():
             return HttpResponse("Este telefone já está cadastrado por outro usuário")
+        
+        validator = RegexValidator(regex = r'^\+?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
+        
+        try:
+            validator(telefone)
+        
+        except ValidationError:
+            return HttpResponse("O número deve ser inserido no seguinte formato: '+9999999999999'.")
         
         usuario.nome = nome
         usuario.senha = senha
@@ -200,6 +209,69 @@ def deletar_evento(request, pk):
     if request.method == "GET":
         evento.delete()
         return redirect("/todos_eventos/")
+
+def editar_evento(request, pk):
+    evento = get_object_or_404(Evento, pk = pk)
+
+    if request.method == "POST":
+        nome = request.POST.get("nome")
+        tipoevento = request.POST.get("tipo_evento")
+        dataI_str = request.POST.get("dataI")
+        dataF_str = request.POST.get("dataF")
+        horarioI_str = request.POST.get("horarioI")
+        horarioF_str = request.POST.get("horarioF")
+        local = request.POST.get("local")
+        quantPart_str = request.POST.get("quantPart")
+        organResp = request.POST.get("organResp")
+        vagas_str = request.POST.get("vagas")
+        
+        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas:
+            dataI = int(dataI_str)
+            dataF = int(dataF_str)
+            vagas = int(vagas_str)
+            quantPart = int(quantPart_str)
+            horarioI = int(horarioI_str)
+            horarioF = int(horarioF_str)
+            
+            if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
+                return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
+            
+            if quantPart == 0:
+                return HttpResponse("Um evento não pode ter 0 participantes.")
+            
+            if quantPart < 0:
+                return HttpResponse("O evento não pode possuir um número negativo de participantes.")
+        
+            if dataI > dataF:
+                return HttpResponse("A data inicial não pode ser depois da data final.")
+        
+            if horarioI < 0 or horarioI > 24 or horarioF < 0 or horarioF > 31:
+                return HttpResponse("O horário deve ser entre 0 e 24.")
+        
+            if vagas > quantPart:
+                return HttpResponse("Não pode haver uma quantidade maior de vagas do que de participantes.")
+        
+            if horarioI > horarioF:
+                return HttpResponse("O horário inicial não pode ser menor que o horário final.")
+        
+            evento.nome = nome
+            evento.tipoevento = tipoevento
+            evento.dataI = dataI
+            evento.dataF = dataF
+            evento.horarioI = horarioI
+            evento.horarioF = horarioF
+            evento.local = local
+            evento.quantPart = quantPart
+            evento.organResp = organResp
+            evento.vagas = vagas
+            evento.save()
+
+            return redirect("/todos_eventos/")
+
+        else:
+            return HttpResponse("Nenhum dos campos pode estar vazio.")
+
+    return render(request, "usuarios/editar_evento.html")
 
 #Funções envolvendo inscrições------------------------------------------------------------------------------------------------------------
 
