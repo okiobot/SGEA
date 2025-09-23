@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}VouMudarDepois{% endblock %}</title>
+</head>
+<body>
+    
+    <header id="header-usuario">
+        <div class="logo-container">
+            <img src="{% static 'assets/logos/atena_logo.png' %}" alt="Logo Atena" class="logo_atena">
+        </div>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="" id="nav-sobre">Sobre</a>
+                </li>
+                <li>
+                    <a href="{% url 'inscricao' usuario.id_usuario %}" id="nav-eventos" 
+                        class="{% if 'inscricao' in request.path %}ativo{% endif %}">Eventos
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'meus_certificados' usuario.id_usuario %}" id="nav-certif" 
+                        class="{% if 'meus_certificados' in request.path %}ativo{% endif %}">Certificados
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="usuario-icon-container">
+            <img src="{% static 'assets/icons/usuario-icon-branco.png' %}" alt="icon usuario" width="40px" height="40px">
+
+            <div class="info-usuario-container">
+                <h2>Bem vindo(a), {{ usuario.nome }} </h2>
+                <p><strong>Telefone: </strong>{{ usuario.telefone }}</p>
+                <p><strong>Senha: </strong>***</p>
+                    
+                <a href="{% url 'editar_usuario' usuario.id_usuario %}">
+                    <button class="editar_usuario-btn">Editar perfil </button>
+                </a>
+            </div>
+        </div>
+    </header>   
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script href="{% static 'js/script.js' %}"></script>
+</body>
+</html>
