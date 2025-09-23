@@ -1,14 +1,23 @@
-<h1>Certificados de {{ usuario.nome }}</h1>
+{% extends 'usuarios/base.html' %}
+{% load static %}
 
-{% if certificados %}
-    <ul>
-    {% for cert in certificados %}
-        <li>
-            <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
-            <strong>Participante:</strong> {{ cert.usuario_id.nome }}
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Você ainda não possui certificados emitidos.</p>
-{% endif %}
+{% block title %}Eventos{% endblock %}
+
+{% block content %} 
+
+    <h1>Certificados de {{ usuario.nome }}</h1>
+
+    {% if certificados %}
+        <ul>
+        {% for cert in certificados %}
+            <li>
+                <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
+                <strong>Participante:</strong> {{ cert.usuario_id.nome }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não possui certificados emitidos.</p>
+    {% endif %}
+
+{% endblock %}    

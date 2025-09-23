@@ -1,25 +1,9 @@
+{% extends 'usuarios/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Eventos</title>
-</head>
+{% block title %}Eventos{% endblock %}
 
-<body>
-    <div class = "info-usuario">
-        <h2>Bem vindo, {{ usuario.nome }} </h2>
-        <p><strong>Telefone: </strong>{{ usuario.telefone }}</p>
-        <p><strong>Senha: </strong>***</p>
-        
-        <a href = "{% url 'editar_usuario' usuario.id_usuario %}">
-            <button class = "editar_usuario-btn">Editar perfil </button>
-        </a>
-    </div>
-    <hr>
+{% block content %} 
 
 <div class="eventosDisp-container">
     <div class="eventosDisp-titulo">
@@ -50,12 +34,6 @@
             {% endif %}
             {% endfor %}        
         </div>
-
     </div>
-
 </div>
-
-</body>
-</html>
-
-
+{% endblock %}
