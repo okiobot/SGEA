@@ -31,6 +31,7 @@
 
             <td> 
                 <a href = "{% url 'deletar_evento' evento.id_evento %}" class = "btn btn-danger">Deletar</a>
+                <a href = "{% url 'editar_evento' evento.id_evento %}" class = "btn btn-danger">Editar</a>
             </td>
         </tr>
         {% endfor %}
