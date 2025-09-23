@@ -22,10 +22,132 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: var(--background-color)
+    background: var(--background-color);
+    
 }
 
-/* Estilização do container de eventos */
+/* Estilização do header */
+#header-usuario {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 40px;
+    background-color: #2a2a2a;
+    color: #fff;
+    position: relative;
+}
+.logo-container {
+    flex: 1;
+}
+
+#header-usuario .logo-container img {
+    height: 90px;
+}
+
+/* Estilizando a navegação no header */
+
+nav {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    align-items: center;
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+nav a {
+    line-height: 1.2;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    border-bottom: 4px solid transparent;
+}
+
+nav a.ativo {
+    color: #ff943c; 
+    border-bottom: 4px solid #ff943c;
+}
+
+nav a:hover {
+    color: #ff943c; 
+}
+
+/* Estilizando o ícone do usuário e o menu suspenso do header*/
+
+.usuario-icon-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.usuario-icon-container img {
+    border: 3px solid  white;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    transition: transform 1s ease;
+}
+
+.usuario-icon-container img:hover {
+    transform: scale(1.2);
+}
+
+.info-usuario-container {
+    position: absolute;
+    top: 110px;  
+    right: 10px;   
+    width: 400px;
+    background-color: white;       
+    color: black; 
+    padding: 15px;
+    border: black 3px solid;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.5s ease;
+}
+
+.usuario-icon-container:hover .info-usuario-container, .info-usuario-container:hover {
+    opacity: 1;
+    visibility: visible;
+    
+}
+.info-usuario-container h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+}
+
+.info-usuario-container button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+.info-usuario-container button:hover {
+    background-color: var(--botao-preto-color);
+    transform: scale(1.1);
+}
+
+/*-----------------------------------------------------------------------*/
+
+/* Estilização do container de criaçao de eventos */
 .evento-container {
     max-width: 1200px;
     width: 900px;
@@ -117,7 +239,7 @@ body {
     transform: scale(1.1);
 }
 
-/*---------------------------------------------------------*/
+/*-----------------------------------------------------------------------*/
 
 /* Estilização do container de login */
 
@@ -201,15 +323,14 @@ body {
     transform: scale(1.1);
 }
 
-/*---------------------------------------------------------*/
+/*-----------------------------------------------------------------------*/
 
 /* Estilização dos eventos disponíveis para os usuários */
-
-/* Estilização do container de eventos para os usuários */
 
 .eventosDisp-container {
     max-width: 1000px;
     margin: 40px auto;
+    margin-top: 100px;
     background-color: white;
     border: 10px solid var(--primary-color);
     border-radius: 7px;
@@ -283,5 +404,3 @@ body {
     background-color: var(--botao-preto-color);
     transform: scale(1.1);
 }
-
-
