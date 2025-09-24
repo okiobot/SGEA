@@ -1,4 +1,4 @@
-# 📅 SGEA 📅
+# 🏛️ CASA DE ATENA 🏛️
 ### Sistema de Gerenciamento de Eventos Acadêmicos ###
 
 Sistema web para gestão de eventos acadêmicos e emissão de certificados.  
@@ -10,7 +10,7 @@ Permite o cadastro e autenticação de usuários, criação e inscrição em eve
 
 ## 📸 PREVIEW (Projeto em progresso!)
 
-![Preview of the current progress](./sgea/login/static/assets/imgs/PreviewCadastroEventos.png)
+![Preview of the current progress](./sgea/login/static/assets/imgs/PreviewCasaDeAtena.png)
 
 ## 🛠️ Status
 
