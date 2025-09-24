@@ -1,15 +1,40 @@
-<h1>Editar Perfil</h1>
+{% extends 'usuarios/base.html' %}
+{% load static %}
+
+{% block title %}Eventos{% endblock %}
+
+{% block content %} 
+
 
 <form method="post">
-  {% csrf_token %}
-  <label for="nome">Nome:</label>
-  <input type="text" name="nome" value="{{ usuario.nome }}" required><br>
+    {% csrf_token %}
+    <div class="editar-perfil-container">
+      <div class="editar-perfil-titulo">
+          <h1>Editar Perfil</h1>
+      </div>
 
-  <label for="telefone">Telefone:</label>
-  <input type="text" name="telefone" value="{{ usuario.telefone }}" required><br>
+      <div class="formulario-editar-perfil">
+          <div class="form-ep-grupo">
+              <label for="nome">Nome</label>
+              <input type="text" name="nome" value="{{ usuario.nome }}" required>
+          </div>
 
-  <label for="senha">Senha:</label>
-  <input type="text" name="senha" value="{{ usuario.senha }}" required><br>
+          <div class="form-ep-grupo">
+              <label for="telefone">Telefone</label>
+              <input type="text" name="telefone" value="{{ usuario.telefone }}" required>
+          </div>
 
-  <button type="submit">Salvar alterações</button>
+          <div class="form-ep-grupo">
+              <label for="senha">Senha</label>
+              <input type="text" name="senha" value="{{ usuario.senha }}" required>
+          </div>
+          
+          <div class="botao-salvar-editar-perfil">
+              <button type="submit">Salvar alterações</button>
+          </div>
+      </div>
+    </div>
 </form>
+
+
+{% endblock %}
