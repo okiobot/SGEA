@@ -7,6 +7,7 @@ class Usuario(models.Model):
     nome = models.TextField(max_length= 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
     telefone = models.CharField(max_length = 13, unique = True, null = False)
+    instituicao = models.CharField(max_length = 50, null = False)
 
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
@@ -15,7 +16,7 @@ class Evento(models.Model):
     dataI = models.IntegerField()
     dataF = models.IntegerField()
     horarioI = models.IntegerField()
-    horarioF = models.IntegerField()
+    horarioF = models.IntegerField()    
     local = models.TextField(max_length = 255)
     quantPart = models.IntegerField()
     organResp = models.TextField(max_length = 255)

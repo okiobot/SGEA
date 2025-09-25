@@ -24,6 +24,7 @@ def cadastro_usuarios(request):
         nome = request.POST.get("nome")
         senha = request.POST.get("senha")
         telefone = request.POST.get("telefone")
+        instituicao = request.POST.get("ensi")
         
         #Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
         validator = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
@@ -36,7 +37,7 @@ def cadastro_usuarios(request):
                 return HttpResponse("Este telefone já foi cadastrado.")
             
             #Se todas as informações são válidas, um novo usuário é criado
-            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone)
+            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, instituicao = instituicao)
             return redirect("listagem_usuarios")
        
         #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
