@@ -10,6 +10,7 @@
             <th>senha</th>
             <th>telefone</th>
             <th>instuicao de ensino</th>
+            <th>tipo</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
@@ -18,6 +19,7 @@
             <td>{{usuario.senha}} </td>
             <td>{{usuario.telefone}} </td>
             <td>{{usuario.instituicao}} </td>
+            <td>{{usuario.tipo}} </td>
             <td> 
                 <a href = "{% url 'deletar_usuario' usuario.id_usuario %}" class = "btn btn-danger">Deletar</a>
             </td>

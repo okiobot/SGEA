@@ -34,6 +34,25 @@
               <option value = "UNIPLAN"> UNIPLAN </option>
             </select>
             
+            <label for="tipo">Você é:</label>
+              <select name="tipo" id="tipo" onchange="mostrarCampoSenha()">
+                  <option value="estudante">Estudante</option>
+                  <option value="professor">Professor</option>
+              </select>
+
+              <div id="campoSenhaProfessor" style="display:none; margin-top:10px;">
+                  <label for="senha_professor">Senha de professor:</label>
+                  <input type="password" name="senha_professor" id="senha_professor">
+              </div>
+
+              <script>
+              function mostrarCampoSenha() {
+                  const tipo = document.getElementById("tipo").value;
+                  const campoSenha = document.getElementById("campoSenhaProfessor");
+                  campoSenha.style.display = tipo === "professor" ? "block" : "none";
+              }
+              </script>
+            
             <button class = "form-control-sm">Enviar </button>
               <a href = "cadastro_eventos" class = "btn btn-danger"></a>
               <a href = "login" class = "btn btn-danger"></a>
