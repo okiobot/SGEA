@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Header 2{% endblock %}</title>
+</head>
+<body>
+    
+    <header id="header-usuario-2">
+        <div class="logo-container-2">
+            <img src="{% static 'assets/logos/atena_logo.png' %}" alt="Logo Atena" class="logo_atena">
+        </div>
+    </header>   
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
