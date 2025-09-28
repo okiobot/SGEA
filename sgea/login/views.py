@@ -26,7 +26,7 @@ def cadastro_usuarios(request):
         telefone = request.POST.get("telefone")
         instituicao = request.POST.get("ensi")
         tipo_usuario = request.POST.get("tipo")
-        senha = request.POST.get("senha_professor")
+        senha_professor = request.POST.get("senha_professor")
         
         SENHA = "123"
         
@@ -43,7 +43,7 @@ def cadastro_usuarios(request):
             #Se todas as informações são válidas, um novo usuário é criado
        
             if tipo_usuario == "professor":
-                if senha != SENHA:
+                if senha_professor != SENHA:
                     return HttpResponse("Senha do professor inválida. Cadastro negado.")
                 
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, instituicao = instituicao, tipo = tipo_usuario)
