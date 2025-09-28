@@ -46,6 +46,21 @@ body {
     height: 90px;
 }
 
+#header-usuario-2 {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 40px;
+    background-color: #2a2a2a;
+    color: #fff;
+    position: relative;
+}
+
+#header-usuario-2 .logo-container-2 img {
+    height: 90px;
+    justify-content: center;
+}
+
 /* Estilizando a navegação no header */
 
 nav {
@@ -149,12 +164,150 @@ nav a:hover {
 
 /*-----------------------------------------------------------------------*/
 
+/* Estilização do container de cadastro de usuários */
+.cadastroUsu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 950px;
+    margin: 40px auto;
+    margin-top: 100px;
+    background-color: var(--primary-color);
+    border-radius: 7px;
+    padding: 25px 25px;
+    box-shadow: 0 4px 15px black;
+}
+
+.formulario-cadastroUsu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    border-radius: 10px; 
+    padding: 30px;
+    width: 550px;
+}
+
+/* Estilização do título do cadastro*/
+.cadastroUsu-titulo {
+    text-align: center;
+    color: var(--primary-color)
+}
+
+.form-cadastroUsu-linha {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+/* Estilização dos grupos das divs*/
+.form-cadastroUsu-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-cadastroUsu-grupo label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.form-cadastroUsu-grupo input {
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--background-box-color);
+    font-size: 14px;
+    outline: none;
+}
+
+#campoSenhaProfessor {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-cadastroUsu-grupo select {
+    padding: 15px;
+    border-radius: 10px;
+    width: 227px;
+    border: none;
+    background-color: var(--background-box-color);
+    font-size: 14px;
+    outline: none;
+}
+
+.botao-enviar-cadastroUsu{
+    display: flex;
+    justify-content: center;
+}
+
+#botao-enviar-cadastroUsu {
+    margin-top: 30px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    width: 145px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+#botao-enviar-cadastroUsu:hover {
+    background-color: var(--botao-emerg-color);
+    transform: scale(1.1);
+}
+
+.ja-possui-conta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.ja-possui-conta h1 {
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
+.ja-possui-conta a {
+    color: white;
+    padding: 10px 40px;
+    border: 3px solid white;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+.ja-possui-conta a:hover {
+    background-color: var(--botao-preto-color);
+    border: 3px solid var(--botao-preto-color);
+    transform: scale(1.1);
+}
+
+
+/*-----------------------------------------------------------------------*/
+
 /* Estilização do container de login */
 
 .login-container {
     max-width: 1200px;
     width: 450px;
     margin: 40px auto;
+    margin-top: 100px;
     background-color: white;
     border: 10px solid var(--primary-color);
     border-radius: 7px;
@@ -305,6 +458,7 @@ nav a:hover {
     max-width: 1200px;
     width: 900px;
     margin: 40px auto;
+    margin-top: 100px;
     background-color: white;
     border: 10px solid var(--primary-color);
     border-radius: 7px;
