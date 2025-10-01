@@ -7,8 +7,10 @@ class Usuario(models.Model):
     nome = models.TextField(max_length= 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
     telefone = models.CharField(max_length = 13, unique = True, null = False)
+    email = models.CharField(max_length = 255, unique = True, null = False)
     instituicao = models.CharField(max_length = 50, null = False)
     tipo = models.CharField(max_length = 50, choices = [("estudante","Estudante"), ("professor","Professor")], default = "estudante") 
+
 
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)

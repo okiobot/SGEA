@@ -24,6 +24,7 @@ def cadastro_usuarios(request):
         nome = request.POST.get("nome")
         senha = request.POST.get("senha")
         telefone = request.POST.get("telefone")
+        email = request.POST.get("email")
         instituicao = request.POST.get("ensi")
         tipo_usuario = request.POST.get("tipo")
         senha_professor = request.POST.get("senha_professor")
@@ -31,22 +32,31 @@ def cadastro_usuarios(request):
         SENHA = "123"
         
         #Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
-        validator = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
+        validatorT = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
+        
+        validatorE = RegexValidator(regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
         
         try:
-            validator(telefone)
+            validatorT(telefone)
+            validatorE(email)
             
             #Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
             if Usuario.objects.filter(telefone = telefone).exists():
                 return HttpResponse("Este telefone já foi cadastrado.")
-            
+ 
             #Se todas as informações são válidas, um novo usuário é criado
-       
             if tipo_usuario == "professor":
                 if senha_professor != SENHA:
                     return HttpResponse("Senha do professor inválida. Cadastro negado.")
+            
+            try:    
+                if Usuario.objects.filter(email = email).exists():
+                    return HttpResponse("Este email já foi cadastrado.")
+            
+            except ValidationError:
+                return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
-            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, instituicao = instituicao, tipo = tipo_usuario)
+            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
             return redirect("listagem_usuarios")
        
         #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
