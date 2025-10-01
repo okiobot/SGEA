@@ -1,17 +1,29 @@
-<div class = "container"> 
-    <table> 
+{% extends 'usuarios/base2.html' %}
+{% load static %}
+
+{% block title %}Todos os Usuários Cadastrados - Casa de Atena{% endblock %}
+
+{% block content %} 
+
+
+<div class="todos-usuarios-container"> 
+    <div class="tabela-usuarios-titulo">
+        <h1>Usuários Cadastrados</h1>
+    </div>
+
+    <table class="todos-usuarios-tabela"> 
         {% if err %}
     <p style="color: red;">{{ err }}</p>
         {% endif %}
         
         <tr> 
             <th>id</th>
-            <th>nome</th>
-            <th>senha</th>
-            <th>telefone</th>
-            <th>email</th>
-            <th>instuicao de ensino</th>
-            <th>tipo</th>
+            <th>Nome</th>
+            <th>Senha</th>
+            <th>Telefone</th>
+            <th>Instuicao de ensino</th>
+            <th>Email</th>
+            <th>Tipo</th>
         </tr>
         {% for usuario in usuarios %}
         <tr>
@@ -21,9 +33,10 @@
             <td>{{usuario.telefone}} </td>
             <td>{{usuario.email}} </td>
             <td>{{usuario.instituicao}} </td>
+            <td>exemploemail@gmail.com</td>
             <td>{{usuario.tipo}} </td>
             <td> 
-                <a href = "{% url 'deletar_usuario' usuario.id_usuario %}" class = "btn btn-danger">Deletar</a>
+                <a href = "{% url 'deletar_usuario' usuario.id_usuario %}" class="botao-tabela-usuarios">Deletar</a>
             </td>
             
         </tr>
@@ -31,3 +44,5 @@
     </table>
 
 </div>
+
+{% endblock %}    
