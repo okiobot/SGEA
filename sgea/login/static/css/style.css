@@ -627,3 +627,143 @@ nav a:hover {
     background-color: var(--botao-preto-color);
     transform: scale(1.1);
 }
+
+/*-----------------------------------------------------------------------*/
+
+/* Tabela de todos os eventos cadastrados */
+.todos-eventos-container {
+    margin: 40px auto;
+    background-color: #fff;
+    margin-top: 100px;
+    width: 1500px;
+    max-width: 1560px;
+    border: 10px solid var(--tertiary-color);
+    border-radius: 7px;
+    padding: 20px 40px;
+    box-shadow: 0 4px 15px black;
+}
+
+.tabela-eventos-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--tertiary-color);
+}
+
+.tabela-eventos-titulo h1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Tabela */
+.todos-eventos-tabela {
+    border-collapse: collapse;
+}
+
+.todos-eventos-tabela th {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Linhas */
+.todos-eventos-tabela td {
+    padding: 5px 15px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1.5px solid var(--secondary-color);
+}
+
+.todos-eventos-tabela tr:hover {
+    background-color: var(--background-box-color)
+}
+
+.todos-eventos-tabela a.botao-tabela-eventos {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.todos-eventos-tabela a.botao-tabela-eventos {
+    background-color: var(--botao-preto-color);
+}
+
+.todos-eventos-tabela a.botao-tabela-eventos:hover {
+    background-color: var(--botao-emerg-color);
+}
+
+/* ----------------------------------------------------------------------- */
+
+/* Tabela de todos os usuarios cadastrados */
+
+.todos-usuarios-container {
+    margin: 40px auto;
+    background-color: #fff;
+    margin-top: 100px;
+    width: 1100px;
+    border: 10px solid var(--tertiary-color);
+    border-radius: 7px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 15px black;
+}
+
+.tabela-usuarios-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--tertiary-color);
+}
+
+.tabela-usuarios-titulo h1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Tabela */
+.todos-usuarios-tabela {
+    border-collapse: collapse;
+}
+
+.todos-usuarios-tabela th {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 20px 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Linhas */
+.todos-usuarios-tabela td {
+    padding: 14px 15px;
+    text-align: center;
+    border-bottom: 1.5px solid var(--secondary-color);
+    font-size: 14px;
+}
+
+.todos-usuarios-tabela tr:hover {
+    background-color: var(--background-box-color)
+}
+
+.todos-usuarios-tabela a.botao-tabela-usuarios {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.todos-usuarios-tabela a.botao-tabela-usuarios {
+    background-color: var(--botao-preto-color);
+}
+
+.todos-usuarios-tabela a.botao-tabela-usuarios:hover {
+    background-color: var(--botao-emerg-color);
+}
