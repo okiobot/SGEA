@@ -82,8 +82,7 @@ def loginU(request):
         try:     
             user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
             if user:
-                events = Evento.objects.all()
-                return render(request, "usuarios/eventosU.html", {"usuario": user, "eventos": events})
+                return redirect("inscricao", usuario_id = user.id_usuario)
             
             else:
                 return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente)")
@@ -140,6 +139,8 @@ def eventos(request):
         #Verifica se os espaços dos dias não estão vazios
         if not dia_inicio_str or not dia_fim_str:  
             return HttpResponse("O campo data de início e final são obrigatórios")
+
+        ass = request.POST.get("assinatura")
 
         try:
             dia_inicio = int(dia_inicio_str)
@@ -207,6 +208,7 @@ def eventos(request):
         quantPart = quantParticipantesInt,
         organResp = request.POST.get("organResp"),
         vagas = vagasInt,
+        assinatura = ass,
         )
         
         novo_evento.save()    
@@ -244,6 +246,8 @@ def editar_evento(request, pk):
         quantPart_str = request.POST.get("quantPart")
         organResp = request.POST.get("organResp")
         vagas_str = request.POST.get("vagas")
+        assinatura = request.POST.get("assinatura")
+        
         
         if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas:
             dataI = int(dataI_str)
@@ -284,6 +288,7 @@ def editar_evento(request, pk):
             evento.quantPart = quantPart
             evento.organResp = organResp
             evento.vagas = vagas
+            evento.assinatura = assinatura 
             evento.save()
 
             return redirect("/todos_eventos/")
@@ -355,7 +360,7 @@ def emitir_certificados(request, evento_id):
                 return HttpResponse("Não há inscritos para este evento.")
             
             for inscricao in inscricoes:
-                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id)
+                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura)
             
             Inscrito.objects.filter(evento_id = evento.pk).delete()        
             

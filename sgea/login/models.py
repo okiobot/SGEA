@@ -11,7 +11,6 @@ class Usuario(models.Model):
     instituicao = models.CharField(max_length = 50, null = False)
     tipo = models.CharField(max_length = 50, choices = [("estudante","Estudante"), ("professor","Professor")], default = "estudante") 
 
-
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
     nome = models.TextField(max_length = 255, null = True)
@@ -25,6 +24,7 @@ class Evento(models.Model):
     organResp = models.TextField(max_length = 255)
     vagas = models.IntegerField()
     emitido = models.BooleanField(default = False)
+    assinatura = models.TextField(max_length = 255, null = False)
 
 class Inscrito(models.Model):
     id_inscricao = models.AutoField(primary_key = True)
@@ -36,4 +36,5 @@ class Certificado(models.Model):
     id_cert = models.AutoField(primary_key = True)
     usuario_id = models.ForeignKey(Usuario, on_delete = models.CASCADE)
     evento_id = models.ForeignKey(Evento, on_delete = models.CASCADE)
+    assinatura = models.TextField(max_length = 255, null = True, blank = True)
     data_emissao = models.DateTimeField(default = timezone.now)

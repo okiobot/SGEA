@@ -12,7 +12,8 @@
         {% for cert in certificados %}
             <li>
                 <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
-                <strong>Participante:</strong> {{ cert.usuario_id.nome }}
+                <strong>Participante:</strong> {{ cert.usuario_id.nome }} <br>
+                <strong>Assinado por:</strong> {{ cert.assinatura }}
             </li>
         {% endfor %}
         </ul>
