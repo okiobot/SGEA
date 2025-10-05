@@ -19,6 +19,7 @@
               <p><strong>Local:</strong> {{ evento.local }}</p> 
               <p><strong>Data:</strong> {{ evento.dataI }} até {{ evento.dataF }}</p> 
               <p><strong>Horário:</strong> {{ evento.horarioI }}h às {{ evento.horarioF }}h</p> 
+              <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p>  
 
               <form method="post" action="{% url 'emitir_certificados' evento.id_evento %}">
                 {% csrf_token %}
