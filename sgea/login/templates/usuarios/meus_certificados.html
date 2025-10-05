@@ -13,9 +13,11 @@
             <li>
                 <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
                 <strong>Participante:</strong> {{ cert.usuario_id.nome }} <br>
-                <strong>Assinado por:</strong> {{ cert.assinatura }}
+                <strong>Horas complementares:</strong> {{ cert.horas }} <br>
+                <strong>Assinado por:</strong> {{ cert.assinatura }} <br>
+                ---------------------------------------------------
             </li>
-        {% endfor %}
+            {% endfor %}
         </ul>
     {% else %}
         <p>Você ainda não possui certificados emitidos.</p>

@@ -25,6 +25,7 @@ class Evento(models.Model):
     vagas = models.IntegerField()
     emitido = models.BooleanField(default = False)
     assinatura = models.TextField(max_length = 255, null = False)
+    horas = models.IntegerField(null = True, blank = True)
 
 class Inscrito(models.Model):
     id_inscricao = models.AutoField(primary_key = True)
@@ -38,3 +39,4 @@ class Certificado(models.Model):
     evento_id = models.ForeignKey(Evento, on_delete = models.CASCADE)
     assinatura = models.TextField(max_length = 255, null = True, blank = True)
     data_emissao = models.DateTimeField(default = timezone.now)
+    horas = models.TextField(max_length = 255, null = True, blank = True)

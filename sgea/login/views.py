@@ -196,6 +196,14 @@ def eventos(request):
         if vagasInt < 0:
             return HttpResponse("Não pode haver uma quantidade negativa de vagas")
         
+        horasC = horario_final - horario_inicio
+        
+        horasinp = request.POST.get("horas")
+        if horasinp and horasinp.isdigit():
+            horas = int(horasinp)
+        else:
+            horas = horasC
+        
         #Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento(
         nome = request.POST.get("nome"),
@@ -209,6 +217,7 @@ def eventos(request):
         organResp = request.POST.get("organResp"),
         vagas = vagasInt,
         assinatura = ass,
+        horas = horas
         )
         
         novo_evento.save()    
@@ -247,15 +256,20 @@ def editar_evento(request, pk):
         organResp = request.POST.get("organResp")
         vagas_str = request.POST.get("vagas")
         assinatura = request.POST.get("assinatura")
+        horasinp = request.POST.get("horas")
         
-        
-        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas:
+        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas or horasinp or assinatura:
             dataI = int(dataI_str)
             dataF = int(dataF_str)
             vagas = int(vagas_str)
             quantPart = int(quantPart_str)
             horarioI = int(horarioI_str)
             horarioF = int(horarioF_str)
+            
+            if horasinp and horasinp.isdigit():
+                horas = int(horasinp)
+            else:
+                horas = horarioF - horarioI 
             
             if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
                 return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
@@ -288,6 +302,7 @@ def editar_evento(request, pk):
             evento.quantPart = quantPart
             evento.organResp = organResp
             evento.vagas = vagas
+            evento.horas = horas
             evento.assinatura = assinatura 
             evento.save()
 
@@ -360,7 +375,7 @@ def emitir_certificados(request, evento_id):
                 return HttpResponse("Não há inscritos para este evento.")
             
             for inscricao in inscricoes:
-                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura)
+                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas)
             
             Inscrito.objects.filter(evento_id = evento.pk).delete()        
             
