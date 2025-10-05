@@ -72,20 +72,20 @@ def cadastro_usuarios(request):
 def loginU(request):
     #Adquire as informações que forem inseridas pelo usuário
     if request.method == "POST":
-        nomeU = request.POST.get("nome")
+        emailU = request.POST.get("email")
         senhaU = request.POST.get("senha")
         
         #Se elas não existirem 
-        if not nomeU or not senhaU:
-            return HttpResponse("Insira um nome e senha")
+        if not emailU or not senhaU:
+            return HttpResponse("Insira um email e senha")
             
         try:     
-            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
+            user = Usuario.objects.filter(email = emailU, senha = senhaU).first()
             if user:
                 return redirect("inscricao", usuario_id = user.id_usuario)
             
             else:
-                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente)")
+                return HttpResponse("Usuário não encontrado (email ou senha foram inseridos incorretamente)")
         
         except Exception as e:
             return HttpResponse(f"Erro {e}") 
