@@ -5,22 +5,55 @@
 
 {% block content %} 
 
-    <h1>Certificados de {{ usuario.nome }}</h1>
+    <div class="meus-certificados-container">
+        <div class="meus-certificados-titulo">
+            <h1>Certificados de <strong>{{ usuario.nome }}</strong></h1>
+        </div>
+            <div class="meus-certificados-lista">
+                {% if certificados %}
+                    {% for cert in certificados %}
+                    <div class="meus-certificados-itens">
+                        <h1>CERTIFICADO</h1>
 
-    {% if certificados %}
-        <ul>
-        {% for cert in certificados %}
-            <li>
-                <strong>Evento:</strong> {{ cert.evento_id.nome }} <br>
-                <strong>Participante:</strong> {{ cert.usuario_id.nome }} <br>
-                <strong>Horas complementares:</strong> {{ cert.horas }} <br>
-                <strong>Assinado por:</strong> {{ cert.assinatura }} <br>
-                ---------------------------------------------------
-            </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>Você ainda não possui certificados emitidos.</p>
-    {% endif %}
+                        <p>Certificamos que</p>
+                        <div class="certificado-participante">
+                            <h2>{{ cert.usuario_id.nome }}</h2>
+                        </div>
+
+                        <div class="certificado-texto">
+                            <p>participou do evento 
+                                <label style="font-size: 25px; text-transform: uppercase;">
+                                    <strong>{{ cert.evento_id.nome }}</strong>
+                                </label> 
+                                demonstrando interesse e compromisso com o aprendizado e a troca de experiências.
+                            </p>
+                                
+                            <p style="color: rgb(28, 28, 28);">
+                                <strong>Horas complementares:</strong> {{ cert.horas }}h 
+                            </p>
+                        </div>
+                        
+                        <div class="logo-assinatura">
+                            <div class="certificado-logo">
+                                <img src="../../static/assets/logos/atena_logo_2.png" alt="">
+                            </div>
+
+                            <div class="certificado-assinatura">
+                                <h2>{{ cert.assinatura }}</h2>
+                                <h1>Responsável</h1>
+                            </div>
+                        </div>
+                        
+                        
+                    </div> 
+                    {% endfor %}
+                {% else %}
+                    <div class="zero-certificados">
+                        <p>Você ainda não possui certificados emitidos.</p>
+                    </div>
+                {% endif %}
+            </div>
+        
+    </div>
 
 {% endblock %}    

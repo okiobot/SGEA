@@ -40,6 +40,8 @@
                 <h2>Bem vindo(a), {{ usuario.nome }} </h2>
                 <p><strong>Telefone: </strong>{{ usuario.telefone }}</p>
                 <p><strong>Senha: </strong>***</p>
+                <p><strong>Email: </strong>{{ usuario.email }}</p>
+
                     
                 <a href="{% url 'editar_usuario' usuario.id_usuario %}">
                     <button class="editar_usuario-btn">Editar perfil </button>

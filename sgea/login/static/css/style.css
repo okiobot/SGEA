@@ -1,6 +1,6 @@
 /* Fonte do site */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 /* Cores do site */
 :root {
     --primary-color: #0d6031;
@@ -514,14 +514,6 @@ nav a:hover {
     outline: none;
 }
 
-.form-control-sm-p {
-    width: 130px;
-}
-
-.form-control-sm-v {
-    width: 95px;
-}
-
 /* Estilização do botão de enviar */
 .botao-enviar{
     display: flex;
@@ -849,4 +841,101 @@ nav a:hover {
 
 .todos-usuarios-tabela a.botao-tabela-usuarios:hover {
     background-color: var(--botao-emerg-color);
+}
+
+/* --------------------------------------------------------------------- */
+
+/* Certificados do usuário */
+
+
+.meus-certificados-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: none;
+    padding: 15px;
+}
+
+.meus-certificados-titulo {
+    margin: 40px auto;
+    text-align: center;
+    width: 750px;
+}
+
+.meus-certificados-titulo h1 {
+    text-align: center;
+    color: var(--tertiary-color);
+}
+
+.meus-certificados-lista {
+    display: grid;
+    gap: 50px;
+}
+
+.meus-certificados-itens {
+    justify-content: column;
+    background-color: white;
+    padding: 15px;
+    border: var(--primary-color) 12px solid;
+    box-shadow: 0 4px 15px black;
+}
+
+.meus-certificados-itens h1 {
+    text-align: center;
+    font-size: 40px;
+    color: var(--primary-color);
+}
+
+.certificado-texto {
+    width: 600px;
+    margin: 40px auto;
+}
+
+.meus-certificados-itens p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.certificado-participante {
+    width: 600px;
+    margin: 40px auto;
+}
+
+.certificado-participante h2 {
+    text-align: center;
+    font-family: 'Allura';
+    font-size: 35px;
+    border-bottom: 2px solid var(--tertiary-color);
+}
+
+.logo-assinatura {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.certificado-logo img {
+    height: 80px;
+    margin-left: 50px;
+}
+
+.certificado-assinatura {
+    width: 350px;
+    margin-right: 50px;
+}
+
+.certificado-assinatura h1 {
+    font-size: 20px;
+}
+
+.certificado-assinatura h2 {
+    text-align: center;
+    font-family: 'Allura';
+    font-size: 35px;
+    border-bottom: 2px solid var(--tertiary-color);
+}
+
+/* caso nao tenha certificado */
+
+.zero-certificados {
+    text-align: center;
 }
