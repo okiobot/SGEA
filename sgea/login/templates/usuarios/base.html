@@ -21,14 +21,17 @@
                     <a href="" id="nav-sobre">Sobre</a>
                 </li>
                 <li>
-                    <a href="{% url 'inscricao' usuario.id_usuario %}" id="nav-eventos" 
+                    <a href="{% url 'inscricao' %}" id="nav-eventos" 
                         class="{% if 'inscricao' in request.path %}ativo{% endif %}">Eventos
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'meus_certificados' usuario.id_usuario %}" id="nav-certif" 
+                    <a href="{% url 'meus_certificados' %}" id="nav-certif" 
                         class="{% if 'meus_certificados' in request.path %}ativo{% endif %}">Certificados
                     </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Sair</a>
                 </li>
             </ul>
         </nav>
@@ -43,7 +46,7 @@
                 <p><strong>Email: </strong>{{ usuario.email }}</p>
 
                     
-                <a href="{% url 'editar_usuario' usuario.id_usuario %}">
+                <a href="{% url 'editar_usuario' %}">
                     <button class="editar_usuario-btn">Editar perfil </button>
                 </a>
             </div>

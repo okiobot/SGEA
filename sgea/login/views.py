@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -56,6 +58,13 @@ def cadastro_usuarios(request):
             except ValidationError:
                 return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
+            user = Usuario.objects.create_user(
+                nome = nome,
+                senha = senha,
+                email = email,
+            )
+                
+            user.save()
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
             return redirect("login")
        
@@ -70,29 +79,35 @@ def cadastro_usuarios(request):
     return render(request, 'usuarios/usuarios.html', usuarios)
 
 def loginU(request):
-    #Adquire as informações que forem inseridas pelo usuário
     if request.method == "POST":
-        emailU = request.POST.get("email")
-        senhaU = request.POST.get("senha")
-        
-        #Se elas não existirem 
-        if not emailU or not senhaU:
-            return HttpResponse("Insira um email e senha")
-            
-        try:     
-            user = Usuario.objects.filter(email = emailU, senha = senhaU).first()
-            if user:
-                return redirect("inscricao", usuario_id = user.id_usuario)
-            
-            else:
-                return HttpResponse("Usuário não encontrado (email ou senha foram inseridos incorretamente)")
-        
-        except Exception as e:
-            return HttpResponse(f"Erro {e}") 
-    
+        email = request.POST.get("email")
+        senha = request.POST.get("senha")
+
+        if not email or not senha:
+            return HttpResponse("Insira um email e uma senha.")
+
+        # Busca o usuário
+        user = Usuario.objects.filter(email=email, senha=senha).first()
+
+        if user:
+            # Armazena o ID do usuário na sessão
+            request.session["usuario_id"] = user.id_usuario
+
+            # Redireciona para a página inicial (sem o ID na URL)
+            return redirect("inscricao")
+
+        else:
+            return HttpResponse("Usuário ou senha incorretos.")
+
+    # Renderiza a página de login com o token CSRF
     return render(request, "usuarios/login.html")
 
-def editar_usuario(request, usuario_id):
+def editar_usuario(request):
+    usuario_id = request.session.get("usuario_id")
+    
+    if not usuario_id:
+        redirect("login")
+    
     usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
     
     if request.method == "POST":
@@ -315,8 +330,13 @@ def editar_evento(request, pk):
 
 #Funções envolvendo inscrições------------------------------------------------------------------------------------------------------------
 
-def home_inscricao(request, usuario_id):
-    usuario = get_object_or_404(Usuario, id_usuario=usuario_id)
+def home_inscricao(request):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+
+    usuario = Usuario.objects.get(id_usuario=usuario_id)
     eventos = Evento.objects.all()
     
     inscritos = Inscrito.objects.filter(usuario_id=usuario).values_list("evento_id", flat=True)
@@ -387,7 +407,9 @@ def emitir_certificados(request, evento_id):
             
     return redirect("/certificados/")
 
-def meus_certificados(request, usuario_id):
+def meus_certificados(request):
+    usuario_id = request.session.get("usuario_id")
+    
     try:
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
         certs = Certificado.objects.filter(usuario_id = usuario)
@@ -396,3 +418,14 @@ def meus_certificados(request, usuario_id):
         return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
+
+#Deslogar---------------------------------------------------------------------------------------------------------
+
+def logout(request):
+    
+    if "usuario_id" in request.session:
+        del request.session["usuario_id"]
+    
+    request.session.flush()
+    
+    return redirect("home")
