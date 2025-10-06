@@ -57,7 +57,7 @@ def cadastro_usuarios(request):
                 return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
-            return redirect("listagem_usuarios")
+            return redirect("login")
        
         #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
@@ -72,21 +72,20 @@ def cadastro_usuarios(request):
 def loginU(request):
     #Adquire as informações que forem inseridas pelo usuário
     if request.method == "POST":
-        nomeU = request.POST.get("nome")
+        emailU = request.POST.get("email")
         senhaU = request.POST.get("senha")
         
         #Se elas não existirem 
-        if not nomeU or not senhaU:
-            return HttpResponse("Insira um nome e senha")
+        if not emailU or not senhaU:
+            return HttpResponse("Insira um email e senha")
             
         try:     
-            user = Usuario.objects.filter(nome = nomeU, senha = senhaU).first()
+            user = Usuario.objects.filter(email = emailU, senha = senhaU).first()
             if user:
-                events = Evento.objects.all()
-                return render(request, "usuarios/eventosU.html", {"usuario": user, "eventos": events})
+                return redirect("inscricao", usuario_id = user.id_usuario)
             
             else:
-                return HttpResponse("Usuário não encontrado (nome ou senha foram inseridos incorretamente)")
+                return HttpResponse("Usuário não encontrado (email ou senha foram inseridos incorretamente)")
         
         except Exception as e:
             return HttpResponse(f"Erro {e}") 
@@ -140,6 +139,8 @@ def eventos(request):
         #Verifica se os espaços dos dias não estão vazios
         if not dia_inicio_str or not dia_fim_str:  
             return HttpResponse("O campo data de início e final são obrigatórios")
+
+        ass = request.POST.get("assinatura")
 
         try:
             dia_inicio = int(dia_inicio_str)
@@ -195,6 +196,14 @@ def eventos(request):
         if vagasInt < 0:
             return HttpResponse("Não pode haver uma quantidade negativa de vagas")
         
+        horasC = horario_final - horario_inicio
+        
+        horasinp = request.POST.get("horas")
+        if horasinp and horasinp.isdigit():
+            horas = int(horasinp)
+        else:
+            horas = horasC
+        
         #Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento(
         nome = request.POST.get("nome"),
@@ -207,6 +216,8 @@ def eventos(request):
         quantPart = quantParticipantesInt,
         organResp = request.POST.get("organResp"),
         vagas = vagasInt,
+        assinatura = ass,
+        horas = horas
         )
         
         novo_evento.save()    
@@ -244,14 +255,21 @@ def editar_evento(request, pk):
         quantPart_str = request.POST.get("quantPart")
         organResp = request.POST.get("organResp")
         vagas_str = request.POST.get("vagas")
+        assinatura = request.POST.get("assinatura")
+        horasinp = request.POST.get("horas")
         
-        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas:
+        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas or horasinp or assinatura:
             dataI = int(dataI_str)
             dataF = int(dataF_str)
             vagas = int(vagas_str)
             quantPart = int(quantPart_str)
             horarioI = int(horarioI_str)
             horarioF = int(horarioF_str)
+            
+            if horasinp and horasinp.isdigit():
+                horas = int(horasinp)
+            else:
+                horas = horarioF - horarioI 
             
             if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
                 return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
@@ -284,6 +302,8 @@ def editar_evento(request, pk):
             evento.quantPart = quantPart
             evento.organResp = organResp
             evento.vagas = vagas
+            evento.horas = horas
+            evento.assinatura = assinatura 
             evento.save()
 
             return redirect("/todos_eventos/")
@@ -355,7 +375,7 @@ def emitir_certificados(request, evento_id):
                 return HttpResponse("Não há inscritos para este evento.")
             
             for inscricao in inscricoes:
-                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id)
+                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas)
             
             Inscrito.objects.filter(evento_id = evento.pk).delete()        
             

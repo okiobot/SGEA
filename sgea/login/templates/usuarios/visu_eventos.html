@@ -20,10 +20,12 @@
             <th>Horário de início</th>
             <th>Horário de término</th>
             <th>Local</th>
-            <th>Quantidade de participantes</th>
             <th>Organizador responsável</th>
+            <th>Quantidade de participantes</th>
             <th>Vagas</th>
             <th>Emitido</th>
+            <th>Horas complementares</th>
+            <th>Assinado por</th>
         </tr>
         {% for evento in eventos %}
         <tr>
@@ -35,10 +37,12 @@
             <td>{{evento.horarioI}} </td>
             <td>{{evento.horarioF}} </td>
             <td>{{evento.local}} </td>
-            <td>{{evento.quantPart}} </td>
             <td>{{evento.organResp}} </td>
+            <td>{{evento.quantPart}} </td>
             <td>{{evento.vagas}} </td>
             <td>{{evento.emitido}} </td>
+            <td>{{evento.horas}} </td>
+            <td>{{evento.assinatura}} </td>
 
             <td> 
                 <a href = "{% url 'deletar_evento' evento.id_evento %}" class="botao-tabela-eventos">Deletar</a>

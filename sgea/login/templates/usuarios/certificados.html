@@ -1,18 +1,35 @@
-<h1>Lista de eventos disponíveis</h1>
-<ul>
-  {% for evento in eventos %}
-    <li>
-      <strong>{{ evento.nome }}</strong> - {{ evento.tipoevento }}<br>
-      Local: {{ evento.local }}<br>
-      Data: {{ evento.dataI }} até {{ evento.dataF }}<br>
-      Horário: {{ evento.horarioI }} às {{ evento.horarioF }}<br>
+{% extends 'usuarios/base2.html' %}
+{% load static %}
 
-      <!-- Botão para emitir certificados -->
-      <form method="post" action="{% url 'emitir_certificados' evento.id_evento %}">
-        {% csrf_token %}
-        <button type="submit">Emitir certificados</button>
-      </form>
-    </li>
-    <hr>
-  {% endfor %}
-</ul>
+{% block title %}Emissão de Certficados - Casa de Atena{% endblock %}
+
+{% block content %} 
+
+
+<div class="emissao-certi-container">
+    <div class="emissao-certi-titulo">
+        <h1>Emissão de certificados</h1>
+    </div>
+
+    <div class="emissao-certi-quadro">
+        <div class="eventos-lista">
+          {% for evento in eventos %}
+            <div class="eventos-itens">
+              <h3>{{ evento.nome }} - {{ evento.tipoevento }}</h3>
+              <p><strong>Local:</strong> {{ evento.local }}</p> 
+              <p><strong>Data:</strong> {{ evento.dataI }} até {{ evento.dataF }}</p> 
+              <p><strong>Horário:</strong> {{ evento.horarioI }}h às {{ evento.horarioF }}h</p> 
+              <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p>  
+
+              <form method="post" action="{% url 'emitir_certificados' evento.id_evento %}">
+                {% csrf_token %}
+                <div class="botao-ctf"> 
+                  <button type="submit" class="botao-emissao-ctf">Emitir certificados</button>
+                </div>
+              </form>
+            </div>
+          {% endfor %}
+        </div>  
+    </div>
+
+{% endblock %}   

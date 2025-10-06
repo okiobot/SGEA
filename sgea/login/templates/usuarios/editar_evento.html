@@ -31,6 +31,12 @@
 
     <label for = "vagas">Quantidade de vagas: </label>
     <input type = "text" name = "vagas" value = "{{ evento.vagas }}" required><br>
+   
+    <label for = "horas">Horas complementares: </label>
+    <input type = "number" name = "horas" value = "{{ evento.horas }}" oninput="validity.valid||(value='');" ><br>
+    
+    <label for = "assinatura">Assinado por: </label>
+    <input type = "text" name = "assinatura" value = "{{ evento.assinatura }}" required><br>
 
     <button type = "submit">Salvar alterações</button>
 </form>
