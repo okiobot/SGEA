@@ -48,7 +48,7 @@ urlpatterns = [
     #Operações com certificados
     path("emitir_certificados/<int:evento_id>/", views.emitir_certificados, name = "emitir_certificados"),
     path("certificados/", views.ver_certificados, name = "ver_certs"),
-
+    
     #Finalizar sessão (logout)
     path("logout/", views.logout, name = "logout"),
 ]
