@@ -376,3 +376,18 @@ def meus_certificados(request, usuario_id):
         return HttpResponse("Erro ao buscar certificados.")
     
     return render(request, "usuarios/meus_certificados.html", {"usuario" : usuario, "certificados" : certs})
+
+def coordenador(request, usuario_id):
+    try: 
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+        certs = Certificado.objects.filter(usuario_id = usuario)
+    
+    except Exception:
+        return HttpResponse("Erro ao buscar certificados.")
+
+    eventos = Evento.objects.all()
+
+    return render(
+        request,
+        "usuarios/coordenador.html",
+        {"usuario" : coordenador, "certificados" : certs, "eventos" : eventos})
