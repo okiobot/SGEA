@@ -7,6 +7,7 @@ Permite o cadastro e autenticação de usuários, criação e inscrição em eve
 ### Desenvolvedores
 - **👤💻 [okiobot (Mateus Rodrigues)](https://github.com/okiobot)**
 - **👤💻 [corvinyy (Lorena Araujo)](https://github.com/corvinyy)**
+- - **👤💻 [devlucasaf (Lucas Freitas)](https://github.com/devlucasaf)**
 
 ## 📸 PREVIEW (Projeto em progresso!)
 
