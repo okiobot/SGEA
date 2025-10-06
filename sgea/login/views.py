@@ -57,7 +57,7 @@ def cadastro_usuarios(request):
                 return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
-            return redirect("listagem_usuarios")
+            return redirect("login")
        
         #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:

@@ -22,10 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     #Página incial
-    path('', views.home, name = 'home'),
+    path('', views.home, name = "home"),
     
     #Verificar usuários cadastrados
-    path("usuarios/", views.cadastro_usuarios, name = 'listagem_usuarios'),
+    path("usuarios/", views.cadastro_usuarios, name = "listagem_usuarios"),
     
     #Operações com os usuários
     path("inscrever/<int:usuario_id>/<int:evento_id>/", views.inscricao_evento, name = "inscricao_evento"),

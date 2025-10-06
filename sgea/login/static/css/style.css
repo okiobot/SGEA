@@ -933,7 +933,6 @@ nav a:hover {
     font-size: 35px;
     border-bottom: 2px solid var(--tertiary-color);
 }
-
 /* caso nao tenha certificado */
 
 .zero-certificados {
