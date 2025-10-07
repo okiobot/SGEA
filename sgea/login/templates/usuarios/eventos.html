@@ -4,7 +4,13 @@
 {% block title %}Cadastro de Eventos - Casa de Atena{% endblock %}
 
 {% block content %} 
-        
+
+<div class="botao-voltar">
+  <a href = "{% url 'ver_certs' %}">
+    Voltar
+  </a>
+</div>
+
   <form action = "{% url 'visu_eventos' %}" method = "post"> 
   {% csrf_token %}
       <div class='evento-container'> 

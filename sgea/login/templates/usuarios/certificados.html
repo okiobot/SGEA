@@ -5,6 +5,24 @@
 
 {% block content %} 
 
+<div class="botao-voltar">
+  <a href = "{% url 'inscricao' %}">
+    Voltar
+  </a>
+</div>
+
+<div class="botao-cadastrar-eventos">
+  <a href = "{% url 'ev' %}">
+    Cadastro de eventos
+  </a>
+</div>
+
+<div class="botao-visualizar-eventos">
+  <a href = "{% url 'even' %}">
+    Visualizar todos os eventos
+  </a>
+</div>
+
 
 <div class="emissao-certi-container">
     <div class="emissao-certi-titulo">
@@ -27,6 +45,14 @@
                   <button type="submit" class="botao-emissao-ctf">Emitir certificados</button>
                 </div>
               </form>
+            
+              <form method="post" action="{% url 'deletar_evento' evento.id_evento %}">
+                {% csrf_token %}
+                <div class="botao-ctf"> 
+                  <button type="submit" class="botao-emissao-ctf">Deletar evento</button>
+                </div>
+              </form>
+
             </div>
           {% endfor %}
         </div>  

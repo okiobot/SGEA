@@ -21,7 +21,7 @@ def deletar_usuario(request, pk):
         return redirect("/usuarios/")
 
 def cadastro_usuarios(request):
-    #Adquire todas as informações inseridas pelo usuário
+    # Adquire todas as informações inseridas pelo usuário
     if request.method == "POST":
         nome = request.POST.get("nome")
         senha = request.POST.get("senha")
@@ -29,11 +29,12 @@ def cadastro_usuarios(request):
         email = request.POST.get("email")
         instituicao = request.POST.get("ensi")
         tipo_usuario = request.POST.get("tipo")
-        senha_professor = request.POST.get("senha_professor")
+        senha_tipo = request.POST.get("senha_tipo")
         
-        SENHA = "123"
+        SENHAPROF = "123"
+        SENHAORG = "321"
         
-        #Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
+        # Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
         validatorT = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
         
         validatorE = RegexValidator(regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
@@ -42,13 +43,13 @@ def cadastro_usuarios(request):
             validatorT(telefone)
             validatorE(email)
             
-            #Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
+            # Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
             if Usuario.objects.filter(telefone = telefone).exists():
                 return HttpResponse("Este telefone já foi cadastrado.")
  
-            #Se todas as informações são válidas, um novo usuário é criado
+            # Se todas as informações são válidas, um novo usuário é criado
             if tipo_usuario == "professor":
-                if senha_professor != SENHA:
+                if senha_tipo != SENHAPROF:
                     return HttpResponse("Senha do professor inválida. Cadastro negado.")
             
             try:    
@@ -58,17 +59,10 @@ def cadastro_usuarios(request):
             except ValidationError:
                 return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
-            user = Usuario.objects.create_user(
-                nome = nome,
-                senha = senha,
-                email = email,
-            )
-                
-            user.save()
             Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
             return redirect("login")
        
-        #Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
+        # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
     
@@ -87,19 +81,22 @@ def loginU(request):
             return HttpResponse("Insira um email e uma senha.")
 
         # Busca o usuário
-        user = Usuario.objects.filter(email=email, senha=senha).first()
+        user = Usuario.objects.get(email=email, senha=senha)
 
         if user:
             # Armazena o ID do usuário na sessão
             request.session["usuario_id"] = user.id_usuario
 
-            # Redireciona para a página inicial (sem o ID na URL)
+            #if user.tipo == "organizador":
+            #    return redirect("home_org")
+
+            # Redireciona para a página inicial 
             return redirect("inscricao")
 
         else:
             return HttpResponse("Usuário ou senha incorretos.")
 
-    # Renderiza a página de login com o token CSRF
+    # Renderiza a página 
     return render(request, "usuarios/login.html")
 
 def editar_usuario(request):
@@ -135,7 +132,6 @@ def editar_usuario(request):
 
     return render(request, "usuarios/editar_usuario.html", {"usuario" : usuario})
 
-
 #Funções envolvendo eventos------------------------------------------------------------------------------------------------------------
 
 def todos_eventos(request):
@@ -147,11 +143,11 @@ def todos_eventos(request):
 
 def eventos(request):
     try:
-        #Validação das informações adquiridas no campo das datas
+        # Validação das informações adquiridas no campo das datas
         dia_inicio_str = request.POST.get("dataI")
         dia_fim_str = request.POST.get("dataF")
 
-        #Verifica se os espaços dos dias não estão vazios
+        # Verifica se os espaços dos dias não estão vazios
         if not dia_inicio_str or not dia_fim_str:  
             return HttpResponse("O campo data de início e final são obrigatórios")
 
@@ -162,16 +158,16 @@ def eventos(request):
             dia_fim = int(dia_fim_str)
         except ValueError:
             return HttpResponse("O campo data de início e final devem ser um número inteiro")
-
-        #Verifica se a data é um dia válido (entre 1 ou 31)
+ 
+        # Verifica se a data é um dia válido (entre 1 ou 31)
         if dia_inicio < 1 or dia_inicio > 31 or dia_fim < 1 or dia_fim > 31:
             return HttpResponse("O dia de início e final devem estar entre 1 e 31")
         
-        #Validação das informações adquiridas no campo dos horários
+        # Validação das informações adquiridas no campo dos horários
         horarioI_str = request.POST.get("horarioI")
         horarioF_str = request.POST.get("horarioF")
         
-        #Verifica se os espaços não estão vazios
+        # Verifica se os espaços não estão vazios
         if not horarioI_str or not horarioF_str:
             return HttpResponse("O campo do horário inicial e final são obrigatórios")
         
@@ -181,15 +177,15 @@ def eventos(request):
         except ValueError:
             return HttpResponse("O campo do horário inicial e final devem ser número inteiros")
             
-        #Verifica se os horários estão entre horários existentes (entre 0 ou 24 horas)
+        # Verifica se os horários estão entre horários existentes (entre 0 ou 24 horas)
         if horario_inicio < 0 or horario_inicio > 24 or horario_final < 0 or horario_final > 24:
             return HttpResponse("O horário inicial e final devem estar entre 0 e 24")
         
-        #Validação das informações adquiridas no campo das vagas
+        # Validação das informações adquiridas no campo das vagas
         vagas_str = request.POST.get("vagas")
         quantParticipantes_str = request.POST.get("quantPart")
         
-        #Verifica se a informação adquirida é um número inteiro
+        # Verifica se a informação adquirida é um número inteiro
         try:
             vagasInt = int(vagas_str)
         except ValueError:
@@ -200,11 +196,11 @@ def eventos(request):
         except ValueError:
             return HttpResponse("O valor da quantidade de participantes deve ser um valor inteiro positivo")
         
-        #Verifica se há uma quantidade maior de vagas do que de participantes
+        # Verifica se há uma quantidade maior de vagas do que de participantes
         if vagasInt > quantParticipantesInt:
             return HttpResponse("Não pode haver um número maior de vagas do que de participantes")
         
-        #Verifica se os valores são positivos
+        # Verifica se os valores são positivos
         if quantParticipantesInt < 0:
             return HttpResponse("Não pode haver uma quantidade negativa de participantes")
         
@@ -219,7 +215,7 @@ def eventos(request):
         else:
             horas = horasC
         
-        #Caso todas as informações sejam verificadas, um novo evento é criado
+        # Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento(
         nome = request.POST.get("nome"),
         tipoevento = request.POST.get("tipoE"),
@@ -252,9 +248,9 @@ def ev(request):
 
 def deletar_evento(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
-    if request.method == "GET":
+    if request.method == "POST":
         evento.delete()
-        return redirect("/todos_eventos/")
+        return redirect("ver_certs")
 
 def editar_evento(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
