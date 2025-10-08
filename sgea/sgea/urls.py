@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     #Página incial
-    path('', views.home, name = "home"),
+    path('cadastro', views.cadastro_usuarios, name = "cadastro"),
     
     #Verificar usuários cadastrados
     path("usuarios/", views.ver_usuarios, name = "listagem_usuarios"),

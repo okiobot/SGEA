@@ -30,7 +30,7 @@ def cadastro_usuarios(request):
         email = request.POST.get("email")
         instituicao = request.POST.get("ensi")
         tipo_usuario = request.POST.get("tipo")
-        senha_tipo = request.POST.get("senha_tipo")
+        senha_tipo = request.POST.get("senha_acesso")
         
         SENHAPROF = "123"
         SENHAORG = "321"
@@ -53,6 +53,10 @@ def cadastro_usuarios(request):
                 if senha_tipo != SENHAPROF:
                     return HttpResponse("Senha do professor inválida. Cadastro negado.")
             
+            elif tipo_usuario == "organizador":
+                if senha_tipo != SENHAORG:
+                    return HttpResponse("Senha do organizador inválida. Cadastro negado.")
+            
             try:    
                 if Usuario.objects.filter(email = email).exists():
                     return HttpResponse("Este email já foi cadastrado.")
@@ -66,6 +70,8 @@ def cadastro_usuarios(request):
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
+
+    return render(request, "usuarios/home.html")
 
 def ver_usuarios(request):
     usuario_id = request.session.get("usuario_id")
@@ -500,4 +506,4 @@ def logout(request):
     
     request.session.flush()
     
-    return redirect("home")
+    return redirect("cadastro")

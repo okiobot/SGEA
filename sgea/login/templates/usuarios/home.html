@@ -4,7 +4,7 @@
 {% block title %}Cadastre-se - Casa de Atena{% endblock %}
 {% block content %}
 
-    <form action = "{% url 'listagem_usuarios' %}" method = "post"> 
+    <form action = "{% url 'cadastro' %}" method = "post"> 
         {% csrf_token %}
             <div class='cadastroUsu-container'>
 
@@ -64,9 +64,9 @@
                       <input name = "email" class = "form control-sm" type = "text" required>
                     </div>  
 
-                    <div class="form-cadastroUsu-grupo" id="campoSenhaProfessor" style="display:none;">
-                        <label for="senha_professor">Senha de professor</label>
-                        <input type="password" name="senha_professor" id="senha_professor">
+                    <div class="form-cadastroUsu-grupo" id="campoSenhaAcesso" style="display:none;">
+                        <label for="senha_acesso">Senha de acesso</label>
+                        <input type="password" name="senha_acesso" id="senha_acesso">
                     </div>
                   </div>
 
