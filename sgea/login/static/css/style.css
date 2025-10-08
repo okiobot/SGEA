@@ -938,3 +938,41 @@ nav a:hover {
 .zero-certificados {
     text-align: center;
 }
+
+
+/* --------------------------------------------------------------------- */
+
+/* Botões do Organizador */
+
+.botoes-organizador {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 1100px;
+    margin: 40px auto;
+    margin-top: 100px;
+    background-color: none  ;
+    padding: 20px 70px;
+}
+
+.botao-organizador a {
+    text-align: center;
+    display: inline-block; 
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: var(--tertiary-color);
+    border-bottom: 4px solid transparent;
+    border-radius: 7px;
+    padding: 13px 20px;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease;
+    min-width: 150px; 
+}
+
+.botao-organizador a:hover {
+    background-color: var(--botao-emerg-color);
+    transform: scale(1.1); 
+}

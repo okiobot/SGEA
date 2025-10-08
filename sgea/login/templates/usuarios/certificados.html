@@ -5,31 +5,31 @@
 
 {% block content %} 
 
-<div class="botao-voltar">
-  <a href = "{% url 'inscricao' %}">
-    Voltar
-  </a>
-</div>
+<section class="botoes-organizador">
+  <div class="botao-organizador">
+    <a href="{% url 'inscricao' %}">
+      Voltar
+    </a>
+  </div>
 
-<div class="botao-cadastrar-eventos">
-  <a href = "{% url 'ev' %}">
-    Cadastro de eventos
-  </a>
-</div>
+  <div class="botao-organizador">
+    <a href="{% url 'ev' %}">
+      Cadastrar Eventos
+    </a>
+  </div>
 
-<div class="botao-visualizar-eventos">
-  <a href = "{% url 'even' %}">
-    Visualizar todos os eventos
-  </a>
-</div>
+  <div class="botao-organizador">
+    <a href="{% url 'even' %}">
+      Visualizar Eventos
+    </a>
+  </div>
 
-<div class="botao-visualizar-usuarios">
-  <a href = "{% url 'listagem_usuarios' %}">
-    Visualizar todos os usuários
-  </a>
-</div>
-
-
+  <div class="botao-organizador">
+    <a href="{% url 'listagem_usuarios' %}">
+      Visualizar Usuários
+    </a>
+  </div>
+</section>
 
 <div class="emissao-certi-container">
     <div class="emissao-certi-titulo">
