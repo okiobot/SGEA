@@ -66,11 +66,26 @@ def cadastro_usuarios(request):
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
+
+def ver_usuarios(request):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+    
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    except Usuario.DoesNotExist:
+        return HttpResponse("Usuário não foi encontrado.")
+    
+    if usuario.tipo != "organizador":
+        return redirect("inscricao")
     
     usuarios = {
-        'usuarios' : Usuario.objects.all(),
-    }
-    
+    'usuarios' : Usuario.objects.all(),
+    }  
+
     return render(request, 'usuarios/usuarios.html', usuarios)
 
 def loginU(request):
