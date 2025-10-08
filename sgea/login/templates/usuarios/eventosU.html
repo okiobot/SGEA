@@ -19,11 +19,11 @@
                     <p><strong>Local:</strong> {{ evento.local }}</p> 
                     <p><strong>Data:</strong> {{ evento.dataI }} até {{ evento.dataF }}</p> 
                     <p><strong>Horário:</strong> {{ evento.horarioI }}h às {{ evento.horarioF }}h</p> 
-                    <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p> 
-
+                    
                     {% if evento.id_evento in inscritos %}
-                        <span style="color: green; font-weight: bold;">✅ Já inscrito</span>
+                    <span style="color: green; font-weight: bold;">✅ Já inscrito</span>
                     {% else %}
+                    <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p> 
                         <form method="post" action="{% url 'inscricao_evento' usuario.id_usuario evento.id_evento %}">
                             {% csrf_token %}
                             <div class="eve-btn"> 

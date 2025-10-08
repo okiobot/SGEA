@@ -52,7 +52,7 @@
 
             <td> 
                 <a href = "{% url 'deletar_evento' evento.id_evento %}" class="botao-tabela-eventos">Deletar</a>
-                <a href = "{% url 'editar_evento' evento.id_evento %}" class="botao-tabela-eventos">Editar</a>
+                <a href = "{% url 'editar_evento' pk=evento.pk %}" class="botao-tabela-eventos">Editar</a>
             </td>
         </tr>
         {% endfor %}

@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 def home(request):
@@ -77,27 +78,31 @@ def loginU(request):
         email = request.POST.get("email")
         senha = request.POST.get("senha")
 
-        if not email or not senha:
-            return HttpResponse("Insira um email e uma senha.")
+        try:
+            if not email or not senha:
+                return HttpResponse("Insira um email e uma senha.")
 
-        # Busca o usuário
-        user = Usuario.objects.get(email=email, senha=senha)
+            # Busca o usuário
+            user = Usuario.objects.get(email=email, senha=senha)
 
-        if user:
-            # Armazena o ID do usuário na sessão
-            request.session["usuario_id"] = user.id_usuario
+            if user:
+                # Armazena o ID do usuário na sessão
+                request.session["usuario_id"] = user.id_usuario
 
-            #if user.tipo == "organizador":
-            #    return redirect("home_org")
+                #if user.tipo == "organizador":
+                #    return redirect("home_org")
 
-            # Redireciona para a página inicial 
-            return redirect("inscricao")
+                # Redireciona para a página inicial 
+                return redirect("inscricao")
 
-        else:
-            return HttpResponse("Usuário ou senha incorretos.")
+            else:
+                return HttpResponse("Usuário ou senha incorretos.")
 
-    # Renderiza a página 
+        except Usuario.DoesNotExist:
+            return HttpResponse("Usuário não encontrado")
+
     return render(request, "usuarios/login.html")
+    # Renderiza a página 
 
 def editar_usuario(request):
     usuario_id = request.session.get("usuario_id")
@@ -135,6 +140,20 @@ def editar_usuario(request):
 #Funções envolvendo eventos------------------------------------------------------------------------------------------------------------
 
 def todos_eventos(request):
+    usuario_id = request.session.get("usuario_id")
+    
+    if not usuario_id:
+        return redirect("login")
+      
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    except Usuario.DoesNotExist:
+        return HttpResponse("Usuário não foi encontrado.")
+    
+    if usuario.tipo != "organizador":
+        return redirect("inscricao")
+    
     eventos = {
         'eventos' : Evento.objects.all()
     }
@@ -244,15 +263,57 @@ def eventos(request):
     return render(request, 'usuarios/visu_eventos.html', eventos)
 
 def ev(request):
-    return render(request, "usuarios/eventos.html")
+    usuario_id = request.session.get("usuario_id")
+    
+    if not usuario_id:
+        return redirect("login")
+      
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    except Usuario.DoesNotExist:
+        return HttpResponse("Usuário não foi encontrado.")
+    
+    if usuario.tipo != "organizador":
+        return redirect("inscricao")
+    
+    return render(request, "usuarios/eventos.html", {"usuarios" : usuario})
 
 def deletar_evento(request, pk):
+    usuario_id = request.session.get("usuario_id")
+    
+    if not usuario_id:
+        return redirect("login")
+      
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    except Usuario.DoesNotExist:
+        return HttpResponse("Usuário não foi encontrado.")
+    
+    if usuario.tipo != "organizador":
+        return redirect("inscricao")
+    
     evento = get_object_or_404(Evento, pk = pk)
-    if request.method == "POST":
-        evento.delete()
-        return redirect("ver_certs")
+    
+    evento.delete()
+    return redirect("even")
 
 def editar_evento(request, pk):
+    usuario_id = request.session.get("usuario_id")
+    
+    if not usuario_id:
+        return redirect("login")
+      
+    try:
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+    
+    except Usuario.DoesNotExist:
+        return HttpResponse("Usuário não foi encontrado.")
+    
+    if usuario.tipo != "organizador":
+        return redirect("inscricao")
+    
     evento = get_object_or_404(Evento, pk = pk)
 
     if request.method == "POST":
@@ -317,12 +378,12 @@ def editar_evento(request, pk):
             evento.assinatura = assinatura 
             evento.save()
 
-            return redirect("/todos_eventos/")
+            return redirect("todos_eventos")
 
         else:
             return HttpResponse("Nenhum dos campos pode estar vazio.")
 
-    return render(request, "usuarios/editar_evento.html")
+    return render(request, "usuarios/editar_evento.html", {"evento" : evento})
 
 #Funções envolvendo inscrições------------------------------------------------------------------------------------------------------------
 
