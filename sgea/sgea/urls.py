@@ -22,14 +22,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     #Página incial
-    path('cadastro', views.cadastro_usuarios, name = "cadastro"),
+    path('', views.cadastro_usuarios, name = "cadastro"),
     
     #Verificar usuários cadastrados
     path("usuarios/", views.ver_usuarios, name = "listagem_usuarios"),
     
     #Operações com os usuários
     path("inscrever/<int:usuario_id>/<int:evento_id>/", views.inscricao_evento, name = "inscricao_evento"),
-    path("deletar_usuario/<int:pk>/", views.deletar_usuario, name = "deletar_usuario"),
+    path("deletar_usuario/", views.deletar_usuario, name = "deletar_usuario"),
     path("meus_eventos/<int:usuario_id>/", views.usuario_eventos, name = "meus_eventos"),
     path("meus_certificados/", views.meus_certificados, name = "meus_certificados"),
     path("editar_usuario/", views.editar_usuario, name="editar_usuario"),

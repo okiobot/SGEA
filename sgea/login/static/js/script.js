@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (tipo == "organizador") {
             campoSenha.style.display = tipo === "organizador" ? "flex" : "none";
         }
+        if (tipo == "estudante") {
+            campoSenha.style.display = "none";
+        }
     }
 
     if (tipoSelect) {

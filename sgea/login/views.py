@@ -15,11 +15,24 @@ def home(request):
 
 #Funções envolvendo usuários------------------------------------------------------------------------------------------------------------
 
-def deletar_usuario(request, pk):
-    usuario = get_object_or_404(Usuario, pk = pk)
+def deletar_usuario(request):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+    
     if request.method == "GET":
+         return render(request, "usuarios/deletar_usuario.html")
+
+    if request.method == "POST":
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+        
+        senha = request.POST.get("senha")
+        if usuario.senha != senha:
+            return HttpResponse("Senha incorreta. Exclusão interrompida.")
+        
         usuario.delete()
-        return redirect("/usuarios/")
+        return redirect("cadastro")
 
 def cadastro_usuarios(request):
     # Adquire todas as informações inseridas pelo usuário
@@ -69,7 +82,7 @@ def cadastro_usuarios(request):
        
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
         except ValidationError:
-            return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '+9999999999999'.")
+            return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '9999999999999'.")
 
     return render(request, "usuarios/home.html")
 
@@ -154,7 +167,7 @@ def editar_usuario(request):
         usuario.telefone = telefone
         usuario.save()
     
-        return redirect("inscricao", usuario_id = usuario.id_usuario)
+        return redirect("inscricao")
 
     return render(request, "usuarios/editar_usuario.html", {"usuario" : usuario})
 

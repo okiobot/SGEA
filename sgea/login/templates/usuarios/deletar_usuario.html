@@ -1,0 +1,34 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+
+{% block title %}Deletar Perfil - Casa de Atena{% endblock %}
+
+{% block content %} 
+
+<form method="post">
+    {% csrf_token %}
+    <div class="deletar-perfil-container">
+      <div class="deletar-perfil-titulo">
+          <h1>Deletar Perfil</h1>
+      </div>
+
+          <div class="form-ep-grupo">
+              <label for="senha">Senha</label>
+              <input type="text" name="senha" value="{{ usuario.senha }}" required>
+          </div>
+          
+          <div class="botao-salvar-deletar-perfil">
+              <button type="submit">Confirmar</button>
+          </div>
+      </div>
+
+    <div class="botao-voltar">
+        <a href = "{% url 'inscricao' %}">
+        Voltar
+        </a>
+    </div>
+
+    </div>
+</form>
+
+{% endblock %}
