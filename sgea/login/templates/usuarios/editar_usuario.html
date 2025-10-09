@@ -7,6 +7,14 @@
 
 <form method="post">
     {% csrf_token %}
+    <section class="botoes-organizador">
+        <div class="botao-organizador">
+                <a href = "{% url 'inscricao' %}">
+                    Voltar
+                </a>
+        </div>
+    </section>
+    
     <div class="editar-perfil-container">
       <div class="editar-perfil-titulo">
           <h1>Editar Perfil</h1>

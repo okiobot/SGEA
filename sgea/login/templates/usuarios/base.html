@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>{% block title %}VouMudarDepois{% endblock %}</title>
+    <title>{% block title %}Header 1{% endblock %}</title>
 </head>
 <body>
     
@@ -35,9 +35,6 @@
                     <a href="{% url 'ver_certs' %}">Emissão</a>
                 </li>
                 {% endif %}
-                <li>
-                    <a href="{% url 'logout' %}">Sair</a>
-                </li>
             </ul>
         </nav>
 
@@ -46,7 +43,7 @@
 
             <div class="info-usuario-container">
                 <h2>Bem vindo(a), {{ usuario.nome }} </h2>
-                <p><strong>Telefone: </strong>+{{ usuario.telefone }}</p>
+                <p><strong>Telefone: </strong>{{ usuario.telefone }}</p>
                 <p><strong>Senha: </strong>***</p>
                 <p><strong>Email: </strong>{{ usuario.email }}</p>
  
@@ -54,8 +51,13 @@
                     <button class="editar_usuario-btn">Editar perfil </button>
                 </a>
                 
-                <a href={% url 'deletar_usuario' %}>Deletar</a>
+                <a href="{% url 'deletar_usuario' %}">
+                    <button class="editar_usuario-btn">Deletar Perfil</button>
+                </a>
                 
+                <a href="{% url 'logout' %}">
+                    <button class="editar_usuario-btn">Sair</button>
+                </a>
             </div>
         </div>
     </header>   
@@ -65,5 +67,24 @@
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>
+
+    <footer id="footer-container">
+        <div class="footer-info">
+            <p>&copy; {% now "Y" %} Casa de Atena. Todos os direitos reservados.</p>
+
+            <div class="footer-email">
+                <img src="{% static 'assets/icons/email-icon.png' %}" alt="Icon Email" width="20px" height="20px"> 
+                <a href="mailto:casadeatena@gmail.com">casadeatena@gmail.com</a>
+            </div>
+            <ul class="footer-links">
+                <li><a href="{% url 'inscricao' %}">Eventos</a></li>
+                <li><a href="{% url 'meus_certificados' %}">Certificados</a></li>
+            </ul>
+        </div>
+
+        <div class="logo-container-footer">
+            <img src="{% static 'assets/logos/atena_logo.png' %}" alt="Logo Atena" class="logo_atena" width="120px">
+        </div>
+    </footer>
 </body>
 </html>

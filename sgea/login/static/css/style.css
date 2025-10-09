@@ -144,6 +144,10 @@ nav a:hover {
     color: var(--primary-color);
     font-size: 20px;
 }
+.info-usuario-container a {
+    display: inline-block; 
+    margin-right: 10px;  
+}
 
 .info-usuario-container button {
     margin-top: 10px;
@@ -163,6 +167,68 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+/*-----------------------------------------------------------------------*/
+
+/* FOOTER/RODAPÉ */
+#footer-container {
+    background-color: #2a2a2a;
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 200px;
+}
+
+#footer-container .footer-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#footer-container .footer-info a {
+    color: white;
+    text-decoration: none;
+}
+
+#footer-container .footer-info a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-email {
+    align-items: center;
+    gap: 10px; 
+}
+
+.footer-email img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#footer-container .footer-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#footer-container .footer-links li a {
+    color: white;
+    text-decoration: none;
+}
+
+#footer-container .footer-links li a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.logo-container-footer {
+    margin-top: 30px; 
+}
 /*-----------------------------------------------------------------------*/
 
 /* Estilização do container de cadastro de usuários */
@@ -451,7 +517,91 @@ nav a:hover {
     background-color: var(--botao-emerg-color);
     transform: scale(1.1);
 }
+/*-----------------------------------------------------------------------*/
+/* Estilização do container de deletar perfil*/
 
+.deletar-perfil-container {
+    max-width: 1200px;
+    width: 530px;
+    margin: 40px auto;
+    background-color: white;
+    border: 10px solid var(--primary-color);
+    border-radius: 7px;
+    padding: 50px 70px;
+    box-shadow: 0 4px 15px black;
+}
+
+/* Estilização do título do deletar perfil*/
+.deletar-perfil-titulo {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color)
+}
+
+/* Estilização do formulário de deletar perfil */
+.formulario-deletar-perfil {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formulario-deletar-perfil label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.formulario-deletar-perfil input {
+    width: 370px;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--background-box-color);
+    font-size: 14px;
+    outline: none;
+}
+
+/* Estilização do botão de salvar alterações */
+.botao-salvar-deletar-perfil button {
+    margin-top: 30px;
+    align-self: self-start;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 180px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+.botao-salvar-deletar-perfil button:hover {
+    background-color: var(--botao-emerg-color);
+    transform: scale(1.1);
+}
+
+.botao-voltar a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 180px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform 1s ease, background-color 0.3s ease; 
+}
+
+.botao-voltar a:hover {
+    background-color: var(--botao-emerg-color);
+    transform: scale(1.1);
+}
 /*-----------------------------------------------------------------------*/
 
 /* Estilização do container de criaçao de eventos */
@@ -950,7 +1100,7 @@ nav a:hover {
     align-items: center;
     width: 1100px;
     margin: 40px auto;
-    margin-top: 100px;
+    margin-top: 50px;
     background-color: none  ;
     padding: 20px 70px;
 }

@@ -21,5 +21,24 @@
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>
+
+    <footer id="footer-container">
+        <div class="footer-info">
+            <p>&copy; {% now "Y" %} Casa de Atena. Todos os direitos reservados.</p>
+
+            <div class="footer-email">
+                <img src="{% static 'assets/icons/email-icon.png' %}" alt="Icon Email" width="20px" height="20px"> 
+                <a href="mailto:casadeatena@gmail.com">casadeatena@gmail.com</a>
+            </div>
+            <ul class="footer-links">
+                <li><a href="{% url 'inscricao' %}">Eventos</a></li>
+                <li><a href="{% url 'meus_certificados' %}">Certificados</a></li>
+            </ul>
+        </div>
+
+        <div class="logo-container-footer">
+            <img src="{% static 'assets/logos/atena_logo.png' %}" alt="Logo Atena" class="logo_atena" width="120px">
+        </div>
+    </footer>
 </body>
 </html>
