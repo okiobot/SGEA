@@ -22,7 +22,8 @@ def deletar_usuario(request):
         return redirect("login")
     
     if request.method == "GET":
-         return render(request, "usuarios/deletar_usuario.html")
+        usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
+        return render(request, "usuarios/deletar_usuario.html", {"usuario" : usuario})
 
     if request.method == "POST":
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
