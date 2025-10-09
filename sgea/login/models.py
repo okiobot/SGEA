@@ -5,6 +5,7 @@ from django.utils import timezone
 class Usuario(models.Model):
     id_usuario = models.AutoField(primary_key = True, unique = True)
     nome = models.TextField(max_length= 255, null = False)
+    sobrenome = models.TextField(max_length = 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
     telefone = models.CharField(max_length = 13, unique = True, null = False)
     email = models.CharField(max_length = 255, unique = True, null = False)

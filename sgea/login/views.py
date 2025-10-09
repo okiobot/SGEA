@@ -39,6 +39,7 @@ def cadastro_usuarios(request):
     # Adquire todas as informações inseridas pelo usuário
     if request.method == "POST":
         nome = request.POST.get("nome")
+        sobrenome = request.POST.get("sobrenome")
         senha = request.POST.get("senha")
         telefone = request.POST.get("telefone")
         email = request.POST.get("email")
@@ -78,7 +79,7 @@ def cadastro_usuarios(request):
             except ValidationError:
                 return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
                 
-            Usuario.objects.create(nome = nome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
+            Usuario.objects.create(nome = nome, sobrenome = sobrenome ,senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
             return redirect("login")
        
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
@@ -365,55 +366,59 @@ def editar_evento(request, pk):
         assinatura = request.POST.get("assinatura")
         horasinp = request.POST.get("horas")
         
-        if nome or tipoevento or dataI_str or dataF_str or horarioI or horarioF or local or quantPart or organResp or vagas or horasinp or assinatura:
-            dataI = int(dataI_str)
-            dataF = int(dataF_str)
-            vagas = int(vagas_str)
-            quantPart = int(quantPart_str)
-            horarioI = int(horarioI_str)
-            horarioF = int(horarioF_str)
+        try:
+            if nome and tipoevento and dataI_str and dataF_str and horarioI_str and horarioF_str and local and quantPart_str and organResp and vagas_str and assinatura and horasinp:
+                dataI = int(dataI_str)
+                dataF = int(dataF_str)
+                vagas = int(vagas_str)
+                quantPart = int(quantPart_str)
+                horarioI = int(horarioI_str)
+                horarioF = int(horarioF_str)
+                
+                if horasinp and horasinp.isdigit():
+                    horas = int(horasinp)
+                else:
+                    horas = horarioF - horarioI 
+                
+                if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
+                    return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
+                
+                if quantPart == 0:
+                    return HttpResponse("Um evento não pode ter 0 participantes.")
+                
+                if quantPart < 0:
+                    return HttpResponse("O evento não pode possuir um número negativo de participantes.")
             
-            if horasinp and horasinp.isdigit():
-                horas = int(horasinp)
-            else:
-                horas = horarioF - horarioI 
+                if dataI > dataF:
+                    return HttpResponse("A data inicial não pode ser depois da data final.")
             
-            if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
-                return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
+                if horarioI < 0 or horarioI > 24 or horarioF < 0 or horarioF > 31:
+                    return HttpResponse("O horário deve ser entre 0 e 24.")
             
-            if quantPart == 0:
-                return HttpResponse("Um evento não pode ter 0 participantes.")
+                if vagas > quantPart:
+                    return HttpResponse("Não pode haver uma quantidade maior de vagas do que de participantes.")
             
-            if quantPart < 0:
-                return HttpResponse("O evento não pode possuir um número negativo de participantes.")
-        
-            if dataI > dataF:
-                return HttpResponse("A data inicial não pode ser depois da data final.")
-        
-            if horarioI < 0 or horarioI > 24 or horarioF < 0 or horarioF > 31:
-                return HttpResponse("O horário deve ser entre 0 e 24.")
-        
-            if vagas > quantPart:
-                return HttpResponse("Não pode haver uma quantidade maior de vagas do que de participantes.")
-        
-            if horarioI > horarioF:
-                return HttpResponse("O horário inicial não pode ser menor que o horário final.")
-        
-            evento.nome = nome
-            evento.tipoevento = tipoevento
-            evento.dataI = dataI
-            evento.dataF = dataF
-            evento.horarioI = horarioI
-            evento.horarioF = horarioF
-            evento.local = local
-            evento.quantPart = quantPart
-            evento.organResp = organResp
-            evento.vagas = vagas
-            evento.horas = horas
-            evento.assinatura = assinatura 
-            evento.save()
+                if horarioI > horarioF:
+                    return HttpResponse("O horário inicial não pode ser menor que o horário final.")
+            
+                evento.nome = nome
+                evento.tipoevento = tipoevento
+                evento.dataI = dataI
+                evento.dataF = dataF
+                evento.horarioI = horarioI
+                evento.horarioF = horarioF
+                evento.local = local
+                evento.quantPart = quantPart
+                evento.organResp = organResp
+                evento.vagas = vagas
+                evento.horas = horas
+                evento.assinatura = assinatura 
+                evento.save()
 
-            return redirect("todos_eventos")
+                return redirect("even")
+
+        except UnboundLocalError:
+            return HttpResponse("Todas as caixas devem ser preenchidas.")
 
         else:
             return HttpResponse("Nenhum dos campos pode estar vazio.")
