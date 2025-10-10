@@ -1,42 +1,100 @@
-<h1>Editar evento</h1>
+{% extends 'usuarios/base2.html' %}
+{% load static %}
+
+{% block title %}Cadastro de Eventos - Casa de Atena{% endblock %}
+
+{% block content %} 
+
+<section class="botoes-organizador">
+  <div class="botao-organizador">
+    <a href = "{% url 'ver_certs' %}">
+      Voltar
+    </a>
+  </div>
+</section>
 
 <form action = "{% url 'editar_evento' pk=evento.id_evento %}" method = "post">
     {% csrf_token %}
-    <label for = "nome">Nome: </label>
-    <input type = "text" name = "nome" value = "{{ evento.nome }}" required><br>
-    
-    <label for = "tipo_evento">Tipo do evento: </label>
-    <input type = "text" name = "tipo_evento" value = "{{ evento.tipoevento }}" required><br>
-    
-    <label for = "dataI">Data inicial: </label>
-    <input type = "text" name = "dataI" value = "{{ evento.dataI }}" required><br>
-    
-    <label for = "dataF">Data final: </label>
-    <input type = "text" name = "dataF" value = "{{ evento.dataF }}" required><br>
 
-    <label for = "horarioI">Horário inicial: </label>
-    <input type = "text" name = "horarioI" value = "{{ evento.horarioI }}" required><br>
+    <div class="evento-container" style="background-color: rgb(151, 151, 154);">
+        <div class="cadastro-titulo">
+            <h1>Editar evento</h1>
+        </div>
 
-    <label for = "horarioF">Horário final: </label>
-    <input type = "text" name = "horarioF" value = "{{ evento.horarioF }}" required><br>
+        <div class="formulario">
+            <div class="form-linha">
+                <div class="form-grupo">
+                    <label>Nome do evento</label>
+                    <input type="text" class="form-control-sm" name="nome" value="{{ evento.nome }}" required>
+                </div>   
 
-    <label for = "local">Local: </label>
-    <input type = "text" name = "local" value = "{{ evento.local }}" required><br>
+                <div class="form-grupo">
+                    <label for="tipo_evento">Tipo do evento</label>
+                    <input type="text" class="form-control-sm" name="tipo_evento" value="{{ evento.tipoevento }}" required>
+                </div>  
 
-    <label for = "quantPart">Quantidade de participantes: </label>
-    <input type = "text" name = "quantPart" value = "{{ evento.quantPart }}" required><br>
+                <div class="form-grupo">
+                    <label for="local">Local</label>
+                    <input type="text" class="form-control-sm" name="local" value="{{ evento.local }}" required>
+                </div>
+            </div>
+            
+            <div class="form-linha">
+                <div class="form-grupo">
+                    <label for="dataI">Data inicial</label>
+                    <input type="text" class="form-control-sm" name="dataI" value="{{ evento.dataI }}" required>
+                </div>
 
-    <label for = "organResp">Organizador responsável: </label>
-    <input type = "text" name = "organResp" value = "{{ evento.organResp }}" required><br>
+                <div class="form-grupo">
+                    <label for="dataF">Data final</label>
+                    <input type="text" class="form-control-sm" name="dataF" value="{{ evento.dataF }}" required>
+                </div>
 
-    <label for = "vagas">Quantidade de vagas: </label>
-    <input type = "text" name = "vagas" value = "{{ evento.vagas }}" required><br>
-   
-    <label for = "assinatura">Assinado por: </label>
-    <input type = "text" name = "assinatura" value = "{{ evento.assinatura }}" required><br>
+                <div class="form-grupo">
+                    <label for="organResp">Organizador responsável</label>
+                    <input type="text" class="form-control-sm" name="organResp" value="{{ evento.organResp }}" required>
+                </div>
+            </div>
+            
+            <div class="form-linha">
+                <div class="form-grupo">
+                    <label for="horarioI">Horário inicial</label>
+                    <input type="text" class="form-control-sm" name="horarioI" value="{{ evento.horarioI }}" required>
+                </div>
 
-    <label for = "horas">Horas complementares: </label>
-    <input type = "number" name = "horas" value = "{{ evento.horas }}" oninput="validity.valid||(value='');" ><br>
-    
-    <button type = "submit">Salvar alterações</button>
+                <div class="form-grupo">
+                    <label for="horarioF">Horário final</label>
+                    <input type="text" class="form-control-sm" name="horarioF" value="{{ evento.horarioF }}" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="quantPart">Nº Participantes</label>
+                    <input type="text" class="form-control-sm" name="quantPart" value="{{ evento.quantPart }}" required>
+                </div>
+            </div>
+            
+            <div class="form-linha">
+                <div class="form-grupo">
+                    <label for="vagas">Nº vagas</label>
+                    <input type="text" class="form-control-sm" name="vagas" value="{{ evento.vagas }}" required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="assinatura">Assinatura</label>
+                    <input type="text" class="form-control-sm" name="assinatura" value="{{ evento.assinatura }}" required>
+                </div>  
+
+                <div class="form-grupo">
+                    <label for="horas">Horas complementares: </label>
+                    <input type="number" class="form-control-sm" name="horas" value="{{ evento.horas }}" oninput="validity.valid||(value='');" >
+                </div>
+            </div>
+            
+            <div class="botao-enviar">
+                <button type="submit" class="form-control-sm" id="botao-enviar">Salvar alterações</button>
+            </div>
+        </div>
+    </div>
 </form>
+
+{% endblock %}
