@@ -16,15 +16,19 @@ def home(request):
 #Funções envolvendo usuários------------------------------------------------------------------------------------------------------------
 
 def deletar_usuario(request):
+    # Adquire o ID e verifica se há algum, casa não haja, redireciona o usuário à tela de login
     usuario_id = request.session.get("usuario_id")
 
     if not usuario_id:
         return redirect("login")
     
+    # Caso o método de acesso da página seja um GET, apenas será enviado os dados do usuário e a renderização da página
     if request.method == "GET":
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
         return render(request, "usuarios/deletar_usuario.html", {"usuario" : usuario})
 
+    # Caso o método de acesso da página seja um POST, ele irá adquirir os dados do usuário e requerir uma senha, se a senha inserida for igual 
+    # a senha anterior o perfil será deletado
     if request.method == "POST":
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
         
@@ -47,48 +51,50 @@ def cadastro_usuarios(request):
         tipo_usuario = request.POST.get("tipo")
         senha_tipo = request.POST.get("senha_acesso")
         
+        # Senhas de acesso para a criação de perfis de tipo 'professor' e 'organizador', respectivamente
         SENHAPROF = "123"
         SENHAORG = "321"
         
-        # Verifica se o número inserido está conforme a regra definida (começar com +, possuir 13 caracteres e apenas números)
-        validatorT = RegexValidator(regex = r'^\+?1?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
-        
+        # Verifica se o número inserido está conforme a regra definida (, possuir 13 caracteres e apenas números)
+        validatorT = RegexValidator(regex = r'^\d{13}$')
         validatorE = RegexValidator(regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
         
         try:
             validatorT(telefone)
-            validatorE(email)
-            
-            # Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
-            if Usuario.objects.filter(telefone = telefone).exists():
-                return HttpResponse("Este telefone já foi cadastrado.")
- 
-            # Se todas as informações são válidas, um novo usuário é criado
-            if tipo_usuario == "professor":
-                if senha_tipo != SENHAPROF:
-                    return HttpResponse("Senha do professor inválida. Cadastro negado.")
-            
-            elif tipo_usuario == "organizador":
-                if senha_tipo != SENHAORG:
-                    return HttpResponse("Senha do organizador inválida. Cadastro negado.")
-            
-            try:    
-                if Usuario.objects.filter(email = email).exists():
-                    return HttpResponse("Este email já foi cadastrado.")
-            
-            except ValidationError:
-                return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
-                
-            Usuario.objects.create(nome = nome, sobrenome = sobrenome ,senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
-            return redirect("login")
-       
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
-        except ValidationError:
+        except Exception:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '9999999999999'.")
+            
+        try:
+            validatorE(email)
+        # Caso o email inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
+        except Exception:
+            return HttpResponse("Email inserido de forma inválida, deve seguir o seguinte modelo: 'exemplo@exemplo.com'")
+        
+        # Caso o telefone já tenha sido utilizado, o sistema impede de criar um novo usuário
+        if Usuario.objects.filter(telefone = telefone).exists():
+            return HttpResponse("Este telefone já foi cadastrado.")
 
+        # Se todas as informações são válidas, um novo usuário é criado
+        if tipo_usuario == "professor":
+            if senha_tipo != SENHAPROF:
+                return HttpResponse("Senha do professor inválida. Cadastro negado.")
+        
+        elif tipo_usuario == "organizador":
+            if senha_tipo != SENHAORG:
+                return HttpResponse("Senha do organizador inválida. Cadastro negado.")
+        
+        if Usuario.objects.filter(email = email).exists():
+            return HttpResponse("Este email já foi cadastrado.")
+            
+        # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado
+        Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
+        return redirect("login")
+       
     return render(request, "usuarios/home.html")
 
 def ver_usuarios(request):
+    # Adquire o ID e verifica se há algum, casa não haja, redireciona o usuário à tela de login
     usuario_id = request.session.get("usuario_id")
 
     if not usuario_id:
@@ -100,6 +106,8 @@ def ver_usuarios(request):
     except Usuario.DoesNotExist:
         return HttpResponse("Usuário não foi encontrado.")
     
+    # Como está é uma página restrita a organizadores, caso uma pessoa já logada como 'estudante' ou 'professor' tente realizar o acesso a está página,
+    # o sistema irá verificar o tipo do perfil, caso seja diferente de 'organizador', irá redirecionar o usuário a sua tela principal
     if usuario.tipo != "organizador":
         return redirect("inscricao")
     
@@ -118,17 +126,10 @@ def loginU(request):
             if not email or not senha:
                 return HttpResponse("Insira um email e uma senha.")
 
-            # Busca o usuário
             user = Usuario.objects.get(email=email, senha=senha)
 
             if user:
-                # Armazena o ID do usuário na sessão
                 request.session["usuario_id"] = user.id_usuario
-
-                #if user.tipo == "organizador":
-                #    return redirect("home_org")
-
-                # Redireciona para a página inicial 
                 return redirect("inscricao")
 
             else:
@@ -138,7 +139,6 @@ def loginU(request):
             return HttpResponse("Usuário não encontrado")
 
     return render(request, "usuarios/login.html")
-    # Renderiza a página 
 
 def editar_usuario(request):
     usuario_id = request.session.get("usuario_id")
@@ -156,7 +156,7 @@ def editar_usuario(request):
         if Usuario.objects.filter(telefone = telefone).exclude(id_usuario = usuario_id).exists():
             return HttpResponse("Este telefone já está cadastrado por outro usuário")
         
-        validator = RegexValidator(regex = r'^\+?\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
+        validator = RegexValidator(regex = r'^\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
         
         try:
             validator(telefone)
@@ -164,6 +164,7 @@ def editar_usuario(request):
         except ValidationError:
             return HttpResponse("O número deve ser inserido no seguinte formato: '+9999999999999'.")
         
+        # Caso as informações sejam inseridas corretamente, as mudanças são salvas
         usuario.nome = nome
         usuario.senha = senha
         usuario.telefone = telefone
@@ -519,7 +520,7 @@ def meus_certificados(request):
 #Deslogar---------------------------------------------------------------------------------------------------------
 
 def logout(request):
-    
+    # Verifica se há um id de usuário armazenado na sessão, se houver, o deletar e redireciona o usuário para a tela de login
     if "usuario_id" in request.session:
         del request.session["usuario_id"]
     
