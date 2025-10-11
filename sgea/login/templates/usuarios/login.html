@@ -8,6 +8,12 @@
     <form method="post">
         {% csrf_token %}
 
+        <div class="botao-organizador">
+            <a href = "{% url 'cadastro' %}">
+                Voltar
+            </a>
+        </div>
+
         <div class="login-container">
             <div class="login-titulo">
                 <h1>Login</h1>

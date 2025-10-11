@@ -457,6 +457,11 @@ def home_inscricao(request):
     })
 
 def inscricao_evento(request, usuario_id, evento_id):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+    
     if request.method == "POST":
         usuario = get_object_or_404(Usuario, id_usuario = usuario_id)
         evento = get_object_or_404(Evento, id_evento = evento_id)
