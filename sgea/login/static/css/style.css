@@ -1,7 +1,8 @@
-/* Fonte do site */
+/* Fontes do site */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-/* Cores do site */
+
+/* Variáveis de cores do site */
 :root {
     --primary-color: #0d6031;
     --secondary-color: #5f9074;
@@ -14,30 +15,49 @@
     --botao-emerg-color: #ff5757;
 }
 
-/* Reset e estilização global */
+/*
+EM CADA ID/CLASSE, AS CATEGORIAS ESTÃO SEPARADAS NESSA ORDEM:
+
+-> POSICIONAMENTO
+-> TAMANHO
+-> ESPAÇAMENTO
+-> CORES
+-> FONTES/TEXTO
+-> VISIBILIDADE
+-> ANIMAÇÕES/TRANSIÇÕES
+
+*/
+
+/* Global */
 * {
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
-/* Estilização do body */
+/* Body */
 body {
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
     background: var(--background-color);
     
 }
 
-/* Estilização do header */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* Header (base.html)*/
 #header-usuario {
     display: flex;
+    position: relative;
     justify-content: space-between; 
     align-items: center;
+
     padding: 40px;
+
     background-color: #2a2a2a;
     color: #fff;
-    position: relative;
 }
 .logo-container {
     flex: 1;
@@ -47,23 +67,25 @@ body {
     height: 90px;
 }
 
+/* Header 2 (base2.html) */
 #header-usuario-2 {
     display: flex;
+    position: relative;
     justify-content: center; 
     align-items: center;
+
     padding: 40px;
+
     background-color: #2a2a2a;
     color: #fff;
-    position: relative;
 }
 
 #header-usuario-2 .logo-container-2 img {
-    height: 90px;
     justify-content: center;
+    height: 90px;
 }
 
-/* Estilizando a navegação no header */
-
+/* Header - navegação*/
 nav {
     flex: 2;
     display: flex;
@@ -71,23 +93,31 @@ nav {
 }
 
 nav ul {
-    align-items: center;
-    list-style: none;
     display: flex;
+    align-items: center;
+
     gap: 30px;
     margin: 0;
     padding: 0;
+
+    list-style: none;
 }
+
 nav a {
+    position: relative;
+
     line-height: 1.2;
     box-sizing: border-box;
-    text-decoration: none;
+    
+
     color: white;
+
     font-weight: bold;
     font-size: 20px;
-    transition: color 0.3s ease-in-out;
-    position: relative;
+    text-decoration: none;
     border-bottom: 4px solid transparent;
+
+    transition: color 0.3s ease-in-out;
 }
 
 nav a.ativo {
@@ -99,39 +129,52 @@ nav a:hover {
     color: var(--quaternary-color); 
 }
 
-/* Estilizando o ícone do usuário e o menu suspenso do header*/
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-.usuario-icon-container {
+/* Header - Info de usuários */
+.usuario-icon-container {    /* icon */
     flex: 1;
     display: flex;
     justify-content: flex-end;
+
     cursor: pointer;
 }
 
-.usuario-icon-container img {
+.usuario-icon-container img {  /* icon */
+    background-color: var(--primary-color);
+
     border: 3px solid  white;
     border-radius: 50%;
-    background-color: var(--primary-color);
+
     transition: transform 1s ease;
 }
 
-.usuario-icon-container img:hover {
+.usuario-icon-container img:hover {  
     transform: scale(1.2);
 }
 
+/* Informações do usuário */
 .info-usuario-container {
     position: absolute;
     top: 110px;  
-    right: 10px;   
+    right: 10px;  
+
     width: 400px;
+
+    padding: 15px;
+
     background-color: white;       
     color: black; 
-    padding: 15px;
+
     border: var(--tertiary-color) 3px solid;
     border-radius: 10px;
+
     box-shadow: 0 4px 10px black;
     opacity: 0;
     visibility: hidden;
+    
     transition: opacity 0.8s ease, visibility 0.5s ease;
 }
 
@@ -149,15 +192,20 @@ nav a:hover {
     margin-right: 10px;  
 }
 
+/* Botões de editar, deletar e sair do perfil */
 .info-usuario-container button {
     margin-top: 10px;
     padding: 8px 15px;
-    border-radius: 10px;
+    
     background-color: var(--primary-color);
     color: white;
+
+    border-radius: 10px;
     border: none;
+
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -167,24 +215,30 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/*-----------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* FOOTER/RODAPÉ */
+/* Footer (Rodapé, tambem nos arquivos bases) */
 #footer-container {
+    padding: 50px 0;
+    margin-top: 200px;
+
     background-color: #2a2a2a;
     color: #fff;
-    padding: 50px 0;
+
     text-align: center;
-    margin-top: 200px;
 }
 
 #footer-container .footer-info {
+    display: flex;
+    flex-direction: column;
+
     max-width: 1200px;
+
     margin: 0 auto;
     padding: 0 20px;
     gap: 20px;
-    display: flex;
-    flex-direction: column;
 }
 
 #footer-container .footer-info a {
@@ -202,18 +256,22 @@ nav a:hover {
     gap: 10px; 
 }
 
+/* Icon de email */
 .footer-email img {
     display: inline-block;
     vertical-align: middle;
 }
 
+/* Links de navegação do footer */
 #footer-container .footer-links {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
     display: flex;
     justify-content: center;
+    
+    padding: 0;
+    margin-top: 10px;
     gap: 20px;
+
+    list-style: none;
 }
 
 #footer-container .footer-links li a {
@@ -229,99 +287,128 @@ nav a:hover {
 .logo-container-footer {
     margin-top: 30px; 
 }
-/*-----------------------------------------------------------------------*/
 
-/* Estilização do container de cadastro de usuários */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* Cadastro de usuários (home.html) */
 .cadastroUsu-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     max-width: 1200px;
     width: 950px;
+
     margin: 40px auto;
     margin-top: 100px;
-    background-color: var(--primary-color);
-    border-radius: 7px;
     padding: 25px 25px;
+
+    background-color: var(--primary-color);
+
+    border-radius: 7px;
     box-shadow: 0 4px 15px black;
 }
 
+/* Cadastro USU - Formulário de envio */
 .formulario-cadastroUsu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    background-color: white;
-    border-radius: 10px; 
-    padding: 30px;
     width: 550px;
+
+    gap: 20px;
+    padding: 30px;
+
+    background-color: white;
+
+    border-radius: 10px; 
 }
 
-/* Estilização do título do cadastro*/
+/* Cadastro USU - Título */
 .cadastroUsu-titulo {
+    color: var(--primary-color);
     text-align: center;
-    color: var(--primary-color)
 }
 
+/* Cadastro USU - Cada linha de inputs */
 .form-cadastroUsu-linha {
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
+    
+    gap: 20px;
 }
 
-
-/* Estilização dos grupos das divs*/
+/* Cadastro USU - Cada grupo de inputs dentro de uma linha */
 .form-cadastroUsu-grupo {
     display: flex;
     flex-direction: column;
 }
 
 .form-cadastroUsu-grupo label {
-    font-weight: 600;
-    margin-bottom: 6px;
     display: inline-block;
     white-space: nowrap;
+
+    margin-bottom: 6px;
+
+    font-weight: 600;
 }
 
 .form-cadastroUsu-grupo input {
     padding: 15px;
+
+    background-color: var(--background-box-color);
+
     border-radius: 10px;
     border: none;
-    background-color: var(--background-box-color);
+
     font-size: 14px;
+
     outline: none;
 }
 
+/* Cadastro USU - Campo de senha para professores e organizadores */
 #campoSenhaProfessor {
     display: flex;
     flex-direction: column;
 }
 
+/* Cadastro USU - Campo de seleção de faculdade */
 .form-cadastroUsu-grupo select {
-    padding: 15px;
-    border-radius: 10px;
     width: 227px;
-    border: none;
+
+    padding: 15px;
+
     background-color: var(--background-box-color);
+    border-radius: 10px;
+    border: none;
+
     font-size: 14px;
     outline: none;
 }
 
+/* Cadastro USU - Botão de se cadastrar */
 .botao-enviar-cadastroUsu{
     display: flex;
     justify-content: center;
 }
 
 #botao-enviar-cadastroUsu {
+    width: 145px;
+
     margin-top: 30px;
     padding: 15px 25px;
-    border-radius: 10px;
-    width: 145px;
+    
     background-color: var(--primary-color);
     color: white;
+
     border: none;
+    border-radius: 10px;
+
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -331,30 +418,38 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+/* Cadastro USU - Tela para seguir ao login caso o usuário já tenha conta */
 .ja-possui-conta {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     padding-left: 20px;
     padding-right: 20px;
+
     text-align: center;
 }
 
 .ja-possui-conta h1 {
-    text-align: center;
     color: white;
+
     font-size: 25px;
+    text-align: center;
 }
 
 .ja-possui-conta a {
-    color: white;
+    
     padding: 10px 40px;
+
+    color: white;
     border: 3px solid white;
     border-radius: 10px;
+
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -365,28 +460,33 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/*-----------------------------------------------------------------------*/
-
-/* Estilização do container de login */
+/* Login de usuários (login.html) */
 
 .login-container {
     max-width: 1200px;
     width: 450px;
+
     margin: 40px auto;
     margin-top: 100px;
+    padding: 50px 70px;
+
     background-color: white;
+
     border: 10px solid var(--primary-color);
     border-radius: 7px;
-    padding: 50px 70px;
+    
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título do login*/
+/* Login USU - Título */
 .login-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: var(--primary-color)
+    color: var(--primary-color);
+    text-align: center;
 }
 
 .login-titulo h1 {
@@ -394,54 +494,67 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Estilização do formulário de login */
+/* Login USU - Formulário de envio */
 .formulario-login {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 35px;
 }
 
+/* Login USU - Inputs */
 .form-login-grupo {
     display: flex;
     align-items: center;
-    background-color: var(--background-box-color);
+
     width: 330px;
+
+    background-color: var(--background-box-color);
     border-radius: 10px;
-    
 }
 
 .form-login-grupo label {
-    font-weight: 600px;
-    margin-bottom: 6px;
     display: inline-block;
     white-space: nowrap;
+
+    margin-bottom: 6px;
+
+    font-weight: 600px;
 }
 
 .form-login-grupo input {
     width: 300px;
+
     padding: 15px;
+
+    background-color: var(--background-box-color);
+
     border-radius: 10px;
     border: none;
-    background-color: var(--background-box-color);
+
     font-size: 14px;
     outline: none;
 }
 
-/* Estilização do botão de entrar do login*/
-
-
+/* Login USU - Botão de entrar no site com a conta */
 #botao-entrar-login {
-    margin-top: 30px;
     align-self: self-start;
-    padding: 10px 25px;
-    border-radius: 10px;
+
     width: 150px;
+
+    margin-top: 30px;
+    padding: 10px 25px;
+
     background-color: var(--primary-color);
     color: white;
+
     border: none;
+    border-radius: 10px;
+
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -450,65 +563,85 @@ nav a:hover {
     background-color: var(--botao-preto-color);
     transform: scale(1.1);
 }
-/*-----------------------------------------------------------------------*/
 
-/* Estilização do container de editar perfil*/
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
+/* Editar perfil de usuário (editar_usuario.html) */
+
+/* Editar perfil USU - Tela */
 .editar-perfil-container {
     max-width: 1200px;
     width: 530px;
+
     margin: 40px auto;
+    padding: 50px 70px;
+
     background-color: white;
     border: 10px solid var(--primary-color);
     border-radius: 7px;
-    padding: 50px 70px;
+    
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título do editar perfil*/
+/* Editar perfil USU - Título */
 .editar-perfil-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: var(--primary-color)
+    color: var(--primary-color);
+    text-align: center;
 }
 
-/* Estilização do formulário de editar perfil */
+/* Editar perfil USU - Formulário de envio */
 .formulario-editar-perfil {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     gap: 20px;
 }
 
 .formulario-editar-perfil label {
-    font-weight: 600;
-    margin-bottom: 6px;
     display: inline-block;
     white-space: nowrap;
+    
+    margin-bottom: 6px;
+
+    font-weight: 600;
 }
 
 .formulario-editar-perfil input {
     width: 370px;
+
     padding: 15px;
+
+    background-color: var(--background-box-color);
+
     border-radius: 10px;
     border: none;
-    background-color: var(--background-box-color);
+
     font-size: 14px;
     outline: none;
 }
 
-/* Estilização do botão de salvar alterações */
+/* Editar perfil USU - Botão de salvar alterações */
 .botao-salvar-editar-perfil button {
-    margin-top: 30px;
     align-self: self-start;
-    padding: 10px 20px;
-    border-radius: 10px;
+
     width: 180px;
+
+    margin-top: 30px;
+    padding: 10px 20px;
+    
     background-color: var(--primary-color);
     color: white;
+
     border: none;
+    border-radius: 10px;
+
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -517,64 +650,86 @@ nav a:hover {
     background-color: var(--botao-emerg-color);
     transform: scale(1.1);
 }
-/*-----------------------------------------------------------------------*/
-/* Estilização do container de deletar perfil*/
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* Deletar perfil (deletar_usuario.html) */
 
 .deletar-perfil-container {
     max-width: 1200px;
     width: 530px;
+
     margin: 40px auto;
+    padding: 50px 70px;
+
     background-color: white;
+
     border: 10px solid var(--primary-color);
     border-radius: 7px;
-    padding: 50px 70px;
+
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título do deletar perfil*/
+/* Deletar Perfil - Título */
 .deletar-perfil-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: var(--primary-color)
+    color: var(--primary-color);
+    text-align: center;
 }
 
-/* Estilização do formulário de deletar perfil */
+/* Deletar Perfil - Formulário de Envio */ 
 .formulario-deletar-perfil {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     gap: 20px;
 }
 
 .formulario-deletar-perfil label {
-    font-weight: 600;
-    margin-bottom: 6px;
     display: inline-block;
     white-space: nowrap;
+
+    margin-bottom: 6px;
+
+    font-weight: 600;
 }
 
 .formulario-deletar-perfil input {
     width: 370px;
+
     padding: 15px;
+
+    background-color: var(--background-box-color);
+
     border-radius: 10px;
     border: none;
-    background-color: var(--background-box-color);
+
     font-size: 14px;
     outline: none;
 }
 
-/* Estilização do botão de salvar alterações */
+/* Deletar Perfil - Botão de confirmar deleção */ 
+
 .botao-salvar-deletar-perfil button {
-    margin-top: 30px;
     align-self: self-start;
-    padding: 10px 20px;
-    border-radius: 10px;
+
     width: 180px;
+
+    margin-top: 30px;
+    padding: 10px 20px;
+    
     background-color: var(--primary-color);
     color: white;
+    
     border: none;
+    border-radius: 10px;
+
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -584,16 +739,23 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+/* Deletar Perfil - Botão para voltar para página anterior */ 
+
 .botao-voltar a {
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 10px;
     width: 180px;
+
+    padding: 10px 20px;
+    
     background-color: var(--primary-color);
     color: white;
+
     border: none;
+    border-radius: 10px;
+
+    text-decoration: none;
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -602,26 +764,35 @@ nav a:hover {
     background-color: var(--botao-emerg-color);
     transform: scale(1.1);
 }
-/*-----------------------------------------------------------------------*/
 
-/* Estilização do container de criaçao de eventos */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* Cadastro de Eventos (eventos.html) */
 .evento-container {
     max-width: 1200px;
     width: 900px;
+
+    padding: 30px 40px;
     margin: 40px auto;
     margin-top: 100px;
+
     background-color: white;
+
     border: 10px solid var(--tertiary-color);
     border-radius: 7px;
-    padding: 30px 40px;
+    
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título do cadastro*/ 
+/* Cadastro de Eventos - Título */
 .cadastro-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: var(--tertiary-color)
+
+    color: var(--tertiary-color);
+
+    text-align: center;
 }
 
 .cadastro-titulo h1 {
@@ -629,57 +800,70 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Estilização do formulário */
+/* Cadastro de Eventos - Formulário */
 .formulario {
     display: flex;
     flex-direction: column;
+
     gap: 20px;
 }
 
+/* Cadastro de Eventos - Cada linha de inputs */
 .form-linha {
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
+
+    gap: 20px;
 }
 
-/* Estilização dos grupos das divs*/
+/* Cadastro de Eventos - Cada grupo de inputs nas linhas */
 .form-grupo {
     display: flex;
     flex-direction: column;
 }
 
 .form-grupo label {
-    font-weight: 600;
-    margin-bottom: 6px;
     display: inline-block;
     white-space: nowrap;
+
+    margin-bottom: 6px;
+
+    font-weight: 600;
 }
 
 .form-grupo input {
     padding: 15px;
+
+    background-color: var(--background-box-color);
     border-radius: 10px;
     border: none;
-    background-color: var(--background-box-color);
+
     font-size: 14px;
     outline: none;
 }
 
-/* Estilização do botão de enviar */
+/* Cadastro de Eventos - Botão de enviar evento */
 .botao-enviar{
     display: flex;
     justify-content: center;
+
     margin-top: 20px;
 }
 
 #botao-enviar {
     align-self: flex-start;
+
     padding: 10px 25px;
-    border-radius: 10px;
+
     background-color: var(--tertiary-color);
     color: white;
+
     border: none;
+    border-radius: 10px;
+
     font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -689,26 +873,33 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/*-----------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* Estilização dos eventos disponíveis para os usuários */
-
+/* Eventos disponíveis (eventosU.html) */
 .eventosDisp-container {
     max-width: 1000px;
+
     margin: 40px auto;
     margin-top: 100px;
+    padding: 20px 40px;
+
     background-color: white;
+
     border: 10px solid var(--primary-color);
     border-radius: 7px;
-    padding: 20px 40px;
+    
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título dos eventos disponíveis*/
+/* Eventos disponíveis - Título */
 .eventosDisp-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: var(--primary-color)
+
+    color: var(--primary-color);
+
+    text-align: center;
 }
 
 .eventosDisp-titulo h1 {
@@ -716,31 +907,38 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Estilização do quadro de eventos disponíveis */
+/* Eventos disponíveis - Tela de eventos */
 .eventosDisp-quadro {
+    padding: 15px;
+
     background-color: var(--secondary-color);
+
     border-radius: 10px;
-    padding: 15px
 }
 
-/* Estilização da tabela de eventos disponíveis */
+/* Eventos disponíveis - Lista de cada evento */
 .eventos-lista {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 20px;
 }
 
-/* Estilização de cada evento disponível */
+/* Eventos disponíveis - Informações sobre cada evento */
 .eventos-itens {
-    background-color: white;
     padding: 15px;
+
+    background-color: white;
+   
     border-radius: 10px;
 }
 
 .eventos-itens h3 {
-    text-align: center;
     margin-bottom: 10px;
+
     font-size: 20px;
+    text-align: center;
 }
 
 .eventos-itens p {
@@ -752,16 +950,20 @@ nav a:hover {
     justify-content: center;
 }         
 
-/* Estilização do botão de inscrever-se */
+/* Eventos disponíveis - Botão de se inscrever no evento*/
 .eventos-inscricao-btn {
     margin-top: 10px;
-    font-weight: bold;
+    padding: 10px 20px;
+    
     background-color: var(--primary-color);
     color: white;
-    padding: 10px 20px;
+    
     border: none;
     border-radius: 10px;
+    
+    font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -771,25 +973,34 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/*-----------------------------------------------------------------------*/
-/* Estilização dos eventos disponíveis para os usuários */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* Emissão de certificados (certificados.html) */
 
 .emissao-certi-container {
     max-width: 1000px;
+
+    padding: 20px 40px;
     margin: 40px auto;
     margin-top: 100px;
+
     background-color: var(--organizador-color);
+
     border: 10px solid var(--tertiary-color);
     border-radius: 7px;
-    padding: 20px 40px;
+    
     box-shadow: 0 4px 15px black;
 }
 
-/* Estilização do título de emissão de certificado*/
+/* Emissão de certificados - Título */
 .emissao-certi-titulo {
-    text-align: center;
     margin-bottom: 30px;
-    color: white
+
+    color: white;
+
+    text-align: center;
 }
 
 .emissao-certi-titulo h1 {
@@ -797,30 +1008,35 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Estilização do quadro de eventos disponíveis */
+/* Emissão de certificados - Tela de certificados para emitir */
 .emissao-certi-quadro {
+    padding: 15px;
+
     background-color: var(--tertiary-color);
+
     border-radius: 10px;
-    padding: 15px
 }
 
-/* Estilização da tabela de eventos disponíveis */
+/* Emissão de certificados - Lista de eventos com certificados para emitir */
 .eventos-lista {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 20px;
 }
 
-/* Estilização de cada evento disponível */
 .eventos-itens {
-    background-color: white;
     padding: 15px;
+
+    background-color: white;
+    
     border-radius: 10px;
 }
 
 .eventos-itens h3 {
-    text-align: center;
     margin-bottom: 10px;
+
+    text-align: center;
     font-size: 20px;
 }
 
@@ -828,21 +1044,26 @@ nav a:hover {
     margin: 5px 0;
 }
 
+/* Emissão de certificados - Posição do botão de emitir */ 
 .botao-ctf {
     display: flex;
     justify-content: center;
 }         
 
-/* Estilização do botão de emitir certificado */
+/* Emissão de certificados - Design do botão de emitir */ 
 .botao-emissao-ctf {
     margin-top: 10px;
-    font-weight: bold;
+    padding: 10px 20px;
+
     background-color: var(--botao-emerg-color);
     color: white;
-    padding: 10px 20px;
+    
     border: none;
     border-radius: 10px;
+
+    font-weight: bold;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease; 
 }
@@ -852,25 +1073,34 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-/*-----------------------------------------------------------------------*/
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* Tabela de todos os eventos cadastrados */
+/* Tabela de todos os eventos - (visu_eventos.html) */
 .todos-eventos-container {
-    margin: 40px auto;
-    background-color: #fff;
-    margin-top: 100px;
     width: 1500px;
     max-width: 1560px;
+    padding: 20px 40px;
+
+    margin: 40px auto;
+    margin-top: 100px;
+
+    background-color: #fff;
+    
     border: 10px solid var(--tertiary-color);
     border-radius: 7px;
-    padding: 20px 40px;
+    
     box-shadow: 0 4px 15px black;
 }
 
+/* Tabela de todos os eventos - Título */
 .tabela-eventos-titulo {
-    text-align: center;
     margin-bottom: 30px;
+
     color: var(--tertiary-color);
+
+    text-align: center;
 }
 
 .tabela-eventos-titulo h1 {
@@ -878,40 +1108,50 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Tabela */
+/* Tabela de todos os eventos - Borda de tabela */
 .todos-eventos-tabela {
     border-collapse: collapse;
 }
 
 .todos-eventos-tabela th {
+    padding: 20px 15px;
+
     background-color: var(--organizador-color);
     color: #ffffff;
-    padding: 20px 15px;
+    
     text-align: center;
     font-size: 14px;
 }
 
-/* Linhas */
+/* Tabela de todos os eventos -Estilização das linhas */
 .todos-eventos-tabela td {
     padding: 5px 15px;
+
+    border-bottom: 1.5px solid var(--organizador-color);
+
     text-align: center;
     font-size: 14px;
-    border-bottom: 1.5px solid var(--organizador-color);
 }
 
 .todos-eventos-tabela tr:hover {
     background-color: var(--background-box-color)
 }
 
+/* Tabela de todos os eventos - Botões de editar e deletar eventos */
 .todos-eventos-tabela a.botao-tabela-eventos {
     display: inline-block;
+
     width: 80px;
+
     padding: 8px 15px;
     margin: 5px;
-    text-decoration: none;
-    border-radius: 4px;
+
     color: #ffffff;
+    border-radius: 4px;
+
+    text-decoration: none;
     font-size: 14px;
+    
     transition: background-color 0.3s ease;
 }
 
@@ -923,25 +1163,33 @@ nav a:hover {
     background-color: var(--botao-emerg-color);
 }
 
-/* ----------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* Tabela de todos os usuarios cadastrados */
-
+/* Tabela de todos os usuários - (usuarios.html) */
 .todos-usuarios-container {
-    margin: 40px auto;
-    background-color: #fff;
-    margin-top: 100px;
     width: 1100px;
+
+    margin: 40px auto;
+    margin-top: 100px;
+    padding: 30px 40px;
+
+    background-color: #fff;
+    
     border: 10px solid var(--tertiary-color);
     border-radius: 7px;
-    padding: 30px 40px;
+    
     box-shadow: 0 4px 15px black;
 }
 
+/* Tabela de todos os usuários - Título */
 .tabela-usuarios-titulo {
-    text-align: center;
     margin-bottom: 30px;
+
     color: var(--tertiary-color);
+
+    text-align: center;
 }
 
 .tabela-usuarios-titulo h1 {
@@ -949,24 +1197,28 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Tabela */
+/* Tabela de todos os usuários - Borda de tabela */
 .todos-usuarios-tabela {
     border-collapse: collapse;
 }
 
 .todos-usuarios-tabela th {
+    padding: 20px 15px;
+
     background-color: var(--organizador-color);
     color: #ffffff;
-    padding: 20px 15px;
+    
     text-align: center;
     font-size: 14px;
 }
 
-/* Linhas */
+/* Tabela de todos os usuários -Estilização das linhas */
 .todos-usuarios-tabela td {
     padding: 14px 15px;
-    text-align: center;
+
     border-bottom: 1.5px solid var(--organizador-color);
+
+    text-align: center;
     font-size: 14px;
 }
 
@@ -974,14 +1226,19 @@ nav a:hover {
     background-color: var(--background-box-color)
 }
 
+/* Tabela de todos os usuários - Botão de deletar usuários */
 .todos-usuarios-tabela a.botao-tabela-usuarios {
     display: inline-block;
+
     padding: 8px 15px;
     margin: 5px;
-    text-decoration: none;
+
     border-radius: 4px;
     color: #ffffff;
+
+    text-decoration: none;
     font-size: 14px;
+
     transition: background-color 0.3s ease;
 }
 
@@ -993,50 +1250,63 @@ nav a:hover {
     background-color: var(--botao-emerg-color);
 }
 
-/* --------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* Certificados do usuário */
-
-
+/* Certificados do usuário - (meus_certificados.html) */
 .meus-certificados-container {
     max-width: 1000px;
     margin: 40px auto;
-    background-color: none;
     padding: 15px;
+
+    background-color: none;
 }
 
+/* Certificados do usuário - Título */
 .meus-certificados-titulo {
-    margin: 40px auto;
-    text-align: center;
     width: 750px;
+
+    margin: 40px auto;
+
+    text-align: center;
 }
 
 .meus-certificados-titulo h1 {
-    text-align: center;
     color: var(--tertiary-color);
+
+    text-align: center;
 }
 
+/* Certificados do usuário - Lista de certificados */
 .meus-certificados-lista {
     display: grid;
+
     gap: 50px;
 }
 
+/* Certificados do usuário - Infos do certificados */
 .meus-certificados-itens {
     justify-content: column;
-    background-color: white;
+
     padding: 15px;
+
+    background-color: white;
+
     border: var(--primary-color) 12px solid;
     box-shadow: 0 4px 15px black;
 }
 
 .meus-certificados-itens h1 {
+    color: var(--primary-color);
+
     text-align: center;
     font-size: 40px;
-    color: var(--primary-color);
 }
 
 .certificado-texto {
     width: 600px;
+
     margin: 40px auto;
 }
 
@@ -1045,18 +1315,22 @@ nav a:hover {
     font-size: 20px;
 }
 
+/* Certificados do usuário - Nome do participante */
 .certificado-participante {
     width: 600px;
+
     margin: 40px auto;
 }
 
 .certificado-participante h2 {
+    border-bottom: 2px solid var(--tertiary-color);
+
     text-align: center;
     font-family: 'Allura';
     font-size: 35px;
-    border-bottom: 2px solid var(--tertiary-color);
 }
 
+/* Certificados do usuário - Imagem logo Casa de Atena */
 .logo-assinatura {
     display: flex;
     align-items: center;
@@ -1065,11 +1339,14 @@ nav a:hover {
 
 .certificado-logo img {
     height: 80px;
+
     margin-left: 50px;
 }
 
+/* Certificados do usuário - Assinatura do responsável */
 .certificado-assinatura {
     width: 350px;
+
     margin-right: 50px;
 }
 
@@ -1078,48 +1355,58 @@ nav a:hover {
 }
 
 .certificado-assinatura h2 {
+    border-bottom: 2px solid var(--tertiary-color);
+
     text-align: center;
     font-family: 'Allura';
     font-size: 35px;
-    border-bottom: 2px solid var(--tertiary-color);
 }
-/* caso nao tenha certificado */
 
+/* Certificados do usuário - Caso não tenha certificados ainda */
 .zero-certificados {
     text-align: center;
 }
 
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
-/* --------------------------------------------------------------------- */
-
-/* Botões do Organizador */
-
+/* Botões do Organizador - (começa em certificados.html) */
 .botoes-organizador {
     display: flex;
     justify-content: space-between; 
     align-items: center;
+    
     width: 1100px;
+
     margin: 40px auto;
     margin-top: 50px;
-    background-color: none  ;
     padding: 20px 70px;
+
+    background-color: none;
 }
 
 .botao-organizador a {
-    text-align: center;
     display: inline-block; 
-    text-decoration: none;
+
+    min-width: 150px; 
+
+    padding: 13px 20px;
+
     color: white;
-    font-weight: bold;
-    font-size: 20px;
     background-color: var(--tertiary-color);
+
     border-bottom: 4px solid transparent;
     border-radius: 7px;
-    padding: 13px 20px;
+
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 1s ease, background-color 0.3s ease;
-    min-width: 150px; 
 }
 
 .botao-organizador a:hover {
