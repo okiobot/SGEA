@@ -23,6 +23,7 @@ urlpatterns = [
     
     #Página incial
     path('', views.cadastro_usuarios, name = "cadastro"),
+    path("sobre/", views.sobre, name = "sobre"),
     
     #Verificar usuários cadastrados
     path("usuarios/", views.ver_usuarios, name = "listagem_usuarios"),

@@ -13,10 +13,21 @@ from django.views.decorators.http import require_POST
 def home(request):
     return render(request, 'usuarios/home.html')
 
+#Página de sobre------------------------------------------------------------------------------------------------------------
+
+def sobre(request):
+    # Adquire o ID e verifica se há algum, casa não haja, redireciona o usuário à tela de login
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+
+    usuario = get_object_or_404(Usuario, id_usuario = usuario_id)    
+    return render(request, "usuarios/sobre.html", {"usuario" : usuario})
+
 #Funções envolvendo usuários------------------------------------------------------------------------------------------------------------
 
 def deletar_usuario(request):
-    # Adquire o ID e verifica se há algum, casa não haja, redireciona o usuário à tela de login
     usuario_id = request.session.get("usuario_id")
 
     if not usuario_id:
@@ -156,13 +167,13 @@ def editar_usuario(request):
         if Usuario.objects.filter(telefone = telefone).exclude(id_usuario = usuario_id).exists():
             return HttpResponse("Este telefone já está cadastrado por outro usuário")
         
-        validator = RegexValidator(regex = r'^\d{13}$', message = "O número de telefone deve ser inserido no formato: '+9999999999999'.")
+        validator = RegexValidator(regex = r'^\d{13}$', message = "O número de telefone deve ser inserido no formato: '9999999999999'.")
         
         try:
             validator(telefone)
         
         except ValidationError:
-            return HttpResponse("O número deve ser inserido no seguinte formato: '+9999999999999'.")
+            return HttpResponse("O número deve ser inserido no seguinte formato: '9999999999999'.")
         
         # Caso as informações sejam inseridas corretamente, as mudanças são salvas
         usuario.nome = nome
