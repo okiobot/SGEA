@@ -477,7 +477,9 @@ def inscricao_evento(request, usuario_id, evento_id):
         evento.vagas -= 1
         evento.save()
         
-        return HttpResponse(f"Você foi inscrito com sucesso no seguinte evento!: {evento.nome}")
+        messages.success(request, f"Você foi inscrito com sucesso no seguinte evento: {evento.nome}!")
+        return redirect("inscricao")
+        
 
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
