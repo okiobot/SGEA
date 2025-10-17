@@ -31,6 +31,11 @@
                         class="{% if 'meus_certificados' in request.path %}ativo{% endif %}">Certificados
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'meus_eventos' %}" id="nav-certif" 
+                        class="{% if 'meus_eventos' in request.path %}ativo{% endif %}">Meus eventos
+                    </a>
+                </li>
                 {% if usuario.tipo == "organizador" %}
                 <li>
                     <a href="{% url 'ver_certs' %}">Emissão</a>

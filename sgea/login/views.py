@@ -483,7 +483,12 @@ def inscricao_evento(request, usuario_id, evento_id):
 
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
-def usuario_eventos(request, usuario_id):
+def usuario_eventos(request):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+    
     user = get_object_or_404(Usuario, id_usuario = usuario_id)
     inscricoes = Inscrito.objects.filter(usuario_id = user)
     
