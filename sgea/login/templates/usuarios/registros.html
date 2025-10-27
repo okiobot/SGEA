@@ -1,0 +1,36 @@
+{% extends 'usuarios/base2.html' %}
+{% load static %}
+
+{% block content %} 
+
+<section class="botoes-organizador">
+    <div class="botao-organizador">
+    <a href = "{% url 'inscricao' %}">
+        Voltar
+    </a>
+    </div>
+</section>
+
+<div>    
+    <table class="todos-eventos-tabela"> 
+        <tr>
+            <th>ID</th>
+            <th>Data/Hora</th>
+            <th>ID do Usuário</th>
+            <th>ID do Evento</th>
+            <th>ID do Ação</th>
+        </tr>
+
+    {% for registro in registros %}
+    <tr>
+        <td>{{ registro.id_registro }} </td>
+        <td>{{ registro.hora }} </td>
+        <td>{{ registro.usuario_id }} </td>
+        <td>{{ registro.evento_id }} </td>
+        <td>{{ registro.acao }} </td>
+    </tr>
+    {%endfor%}
+</table>
+</div>
+
+{%endblock%}

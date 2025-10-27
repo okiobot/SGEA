@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from .models import Usuario, Evento, Inscrito, Certificado
+from .models import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.core.validators import RegexValidator
@@ -47,9 +47,12 @@ def deletar_usuario(request):
         if usuario.senha != senha:
             return HttpResponse("Senha incorreta. Exclusão interrompida.")
         
+        # Adquire as informações, as registra e então deleta o usuário
+        Registro.objects.create(usuario_id = usuario_id, acao = "Exclusão de usuário" )
         usuario.delete()
+        
         return redirect("cadastro")
-
+        
 def cadastro_usuarios(request):
     # Adquire todas as informações inseridas pelo usuário
     if request.method == "POST":
@@ -98,8 +101,11 @@ def cadastro_usuarios(request):
         if Usuario.objects.filter(email = email).exists():
             return HttpResponse("Este email já foi cadastrado.")
             
-        # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado
-        Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
+        # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado 
+        novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
+        
+        Registro.objects.create(usuario_id = novo_usuario.id_usuario, acao = "Cadastro de usuário" )
+
         return redirect("login")
        
     return render(request, "usuarios/home.html")
@@ -175,6 +181,8 @@ def editar_usuario(request):
         except ValidationError:
             return HttpResponse("O número deve ser inserido no seguinte formato: '9999999999999'.")
         
+        Registro.objects.create(usuario_id = usuario_id, acao = "Edição de perfil")
+        
         # Caso as informações sejam inseridas corretamente, as mudanças são salvas
         usuario.nome = nome
         usuario.senha = senha
@@ -203,7 +211,7 @@ def todos_eventos(request):
         return redirect("inscricao")
     
     eventos = {
-        'eventos' : Evento.objects.all()
+        "eventos" : Evento.objects.all()
     }
     
     return render(request, "usuarios/visu_eventos.html", eventos)
@@ -283,7 +291,7 @@ def eventos(request):
             horas = horasC
         
         # Caso todas as informações sejam verificadas, um novo evento é criado
-        novo_evento = Evento(
+        novo_evento = Evento.objects.create(
         nome = request.POST.get("nome"),
         tipoevento = request.POST.get("tipoE"),
         dataI = dia_inicio,
@@ -297,6 +305,8 @@ def eventos(request):
         assinatura = ass,
         horas = horas
         )
+        
+        Registro.objects.create(evento_id = novo_evento.id_evento, acao = "Criação de evento")
         
         novo_evento.save()    
     
@@ -343,6 +353,8 @@ def deletar_evento(request, pk):
         return redirect("inscricao")
     
     evento = get_object_or_404(Evento, pk = pk)
+    
+    Registro.objects.create(evento_id = pk, acao = "Exclusão de evento")
     
     evento.delete()
     return redirect("even")
@@ -413,6 +425,8 @@ def editar_evento(request, pk):
                 if horarioI > horarioF:
                     return HttpResponse("O horário inicial não pode ser menor que o horário final.")
             
+                Registro.objects.create(evento_id = pk, acao = "Edição de evento")
+            
                 evento.nome = nome
                 evento.tipoevento = tipoevento
                 evento.dataI = dataI
@@ -472,7 +486,9 @@ def inscricao_evento(request, usuario_id, evento_id):
         if evento.vagas <= 0:
             return HttpResponse("Não há mais vagas disponíveis")
     
-        Inscrito.objects.create(usuario_id = usuario, evento_id = evento)
+        nova_inscricao = Inscrito.objects.create(usuario_id = usuario, evento_id = evento)
+
+        Registro.objects.create(usuario_id = nova_inscricao.usuario_id.id_usuario, evento_id = nova_inscricao.evento_id.id_evento, acao = "Inscrição em evento" )
 
         evento.vagas -= 1
         evento.save()
@@ -480,7 +496,6 @@ def inscricao_evento(request, usuario_id, evento_id):
         messages.success(request, f"Você foi inscrito com sucesso no seguinte evento: {evento.nome}!")
         return redirect("inscricao")
         
-
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
 def usuario_eventos(request):
@@ -516,9 +531,11 @@ def emitir_certificados(request, evento_id):
                 return HttpResponse("Não há inscritos para este evento.")
             
             for inscricao in inscricoes:
-                Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas)
+                nova_emissao = Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas)
             
             Inscrito.objects.filter(evento_id = evento.pk).delete()        
+            
+            Registro.objects.create(usuario_id = nova_emissao.usuario_id.id_usuario, evento_id = nova_emissao.evento_id.id_evento, acao = "Emissão de certificado" )
             
             evento.emitido = True
             evento.save()
@@ -550,3 +567,17 @@ def logout(request):
     request.session.flush()
     
     return redirect("login")
+
+#Registros---------------------------------------------------------------------------------------------------------
+
+def registros(request):
+    usuario_id = request.session.get("usuario_id")
+
+    if not usuario_id:
+        return redirect("login")
+    
+    registros = {
+        'registros' : Registro.objects.all()
+    }
+    
+    return render(request, "usuarios/registros.html", registros)

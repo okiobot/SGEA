@@ -41,3 +41,10 @@ class Certificado(models.Model):
     assinatura = models.TextField(max_length = 255, null = True, blank = True)
     data_emissao = models.DateTimeField(default = timezone.now)
     horas = models.TextField(max_length = 255, null = True, blank = True)
+    
+class Registro(models.Model):
+    id_registro = models.AutoField(primary_key = True, unique = True)
+    hora = models.DateTimeField(default = timezone.now)
+    usuario_id = models.TextField(max_length = 50, null = True)
+    evento_id = models.TextField(max_length = 50, null = True)
+    acao = models.TextField(max_length = 50, null = False)

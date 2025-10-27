@@ -38,6 +38,11 @@
                 </li>
                 {% if usuario.tipo == "organizador" %}
                 <li>
+                    <a href="{% url 'registro' %}" id="nav-certif" 
+                        class="{% if 'registro' in request.path %}ativo{% endif %}">Registros
+                    </a>
+                </li>
+                <li>
                     <a href="{% url 'ver_certs' %}">Emissão</a>
                 </li>
                 {% endif %}

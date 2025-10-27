@@ -52,4 +52,7 @@ urlpatterns = [
     
     #Finalizar sessão (logout)
     path("logout/", views.logout, name = "logout"),
+    
+    #Operaçõs com registros
+    path("registros/", views.registros, name = "registro"),
 ]
