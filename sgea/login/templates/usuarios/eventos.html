@@ -41,12 +41,12 @@
           <div class="form-linha">
             <div class="form-grupo">
               <label>Data de Início</label>
-              <input name = "dataI" class = "form-control-sm" type = "text" autocomplete="off" placeholder="dd" required>
+              <input name = "dataI" class = "form-control-sm" type = "date" autocomplete="off" placeholder="dd/mm/YYYY" min="{% now 'Y-m-d' %}" required>
             </div>
 
             <div class="form-grupo">
               <label>Data de término</label>
-              <input name = "dataF" class = "form-control-sm" type = "text" autocomplete="off" placeholder="dd" required>
+              <input name = "dataF" class = "form-control-sm" type = "date" autocomplete="off" placeholder="dd/mm/YYYY" min="{% now 'Y-m-d' %}" required>
             </div>
 
             <div class="form-grupo">
@@ -58,24 +58,24 @@
           <div class="form-linha">
             <div class="form-grupo">
               <label>Horário de Início</label>
-              <input name = "horarioI" class = "form-control-sm" type = "text" autocomplete="off" placeholder="hh" required>
+              <input name = "horarioI" class = "form-control-sm" type = "number" autocomplete="off" placeholder="hh" required>
             </div>
 
             <div class="form-grupo">
               <label>Horário de término</label> 
-              <input name = "horarioF" class = "form-control-sm" type = "text" autocomplete="off" placeholder="hh" required>
+              <input name = "horarioF" class = "form-control-sm" type = "number" autocomplete="off" placeholder="hh" required>
             </div>
             
             <div class="form-grupo">
               <label>Nº Participantes</label>
-              <input name = "quantPart" class = "form-control-sm" type ="text" autocomplete="off" placeholder="" required>
+              <input name = "quantPart" class = "form-control-sm" type ="number" autocomplete="off" placeholder="" required>
             </div>
           </div>
 
           <div class="form-linha">
             <div class="form-grupo">  
               <label>Nº Vagas</label>
-              <input name="vagas" class = "form-control-sm" type = "text" autocomplete="off" placeholder="" required> 
+              <input name="vagas" class = "form-control-sm" type = "number" autocomplete="off" placeholder="" required> 
             </div>
 
             <div class="form-grupo">  

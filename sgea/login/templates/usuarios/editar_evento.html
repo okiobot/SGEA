@@ -42,12 +42,12 @@
             <div class="form-linha">
                 <div class="form-grupo">
                     <label for="dataI">Data inicial</label>
-                    <input type="text" class="form-control-sm" name="dataI" value="{{ evento.dataI }}" required>
+                    <input type="date" class="form-control-sm" name="dataI" value="{{ evento.dataI|date:'Y-m-d' }}" min="{% now 'Y-m-d' %}" required>
                 </div>
 
                 <div class="form-grupo">
                     <label for="dataF">Data final</label>
-                    <input type="text" class="form-control-sm" name="dataF" value="{{ evento.dataF }}" required>
+                    <input type="date" class="form-control-sm" name="dataF" value="{{ evento.dataF|date:'Y-m-d' }}" min="{% now 'Y-m-d' %}" required>
                 </div>
 
                 <div class="form-grupo">
@@ -59,24 +59,24 @@
             <div class="form-linha">
                 <div class="form-grupo">
                     <label for="horarioI">Horário inicial</label>
-                    <input type="text" class="form-control-sm" name="horarioI" value="{{ evento.horarioI }}" required>
+                    <input type="number" class="form-control-sm" name="horarioI" value="{{ evento.horarioI }}" required>
                 </div>
 
                 <div class="form-grupo">
                     <label for="horarioF">Horário final</label>
-                    <input type="text" class="form-control-sm" name="horarioF" value="{{ evento.horarioF }}" required>
+                    <input type="number" class="form-control-sm" name="horarioF" value="{{ evento.horarioF }}" required>
                 </div>
 
                 <div class="form-grupo">
                     <label for="quantPart">Nº Participantes</label>
-                    <input type="text" class="form-control-sm" name="quantPart" value="{{ evento.quantPart }}" required>
+                    <input type="number" class="form-control-sm" name="quantPart" value="{{ evento.quantPart }}" required>
                 </div>
             </div>
             
             <div class="form-linha">
                 <div class="form-grupo">
                     <label for="vagas">Nº vagas</label>
-                    <input type="text" class="form-control-sm" name="vagas" value="{{ evento.vagas }}" required>
+                    <input type="number" class="form-control-sm" name="vagas" value="{{ evento.vagas }}" required>
                 </div>
 
                 <div class="form-grupo">

@@ -8,6 +8,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from datetime import date, datetime
 
 # Create your views here.
 def home(request):
@@ -131,7 +132,7 @@ def ver_usuarios(request):
     usuarios = {
     'usuarios' : Usuario.objects.all(),
     }  
-
+    
     return render(request, 'usuarios/usuarios.html', usuarios)
 
 def loginU(request):
@@ -229,15 +230,20 @@ def eventos(request):
         ass = request.POST.get("assinatura")
 
         try:
-            dia_inicio = int(dia_inicio_str)
-            dia_fim = int(dia_fim_str)
+            dia_inicio = datetime.strptime(dia_inicio_str, "%Y-%m-%d").date()
+            dia_fim = datetime.strptime(dia_fim_str, "%Y-%m-%d").date()
+            
         except ValueError:
-            return HttpResponse("O campo data de início e final devem ser um número inteiro")
+            return HttpResponse("Formatação da data inválido, use: 'dia-mes-ano'.")
  
-        # Verifica se a data é um dia válido (entre 1 ou 31)
-        if dia_inicio < 1 or dia_inicio > 31 or dia_fim < 1 or dia_fim > 31:
-            return HttpResponse("O dia de início e final devem estar entre 1 e 31")
-        
+        data_hj = timezone.now().date()
+ 
+        if dia_fim < dia_inicio:
+            return HttpResponse("A data final não pode ser anterior a data inicial.")
+
+        if dia_inicio < data_hj:
+            return HttpResponse("A data de início não pode ser anterior à data atual.")
+
         # Validação das informações adquiridas no campo dos horários
         horarioI_str = request.POST.get("horarioI")
         horarioF_str = request.POST.get("horarioF")
