@@ -100,6 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_REDIRECT_URL = "/cadastro/"
+
 LOGIN_URL = "/login/"
 
 # Internationalization

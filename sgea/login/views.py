@@ -70,15 +70,14 @@ def cadastro_usuarios(request):
         SENHAPROF = "123"
         SENHAORG = "321"
         
-        # Verifica se o número inserido está conforme a regra definida (, possuir 13 caracteres e apenas números)
-        validatorT = RegexValidator(regex = r'^\d{13}$')
+        # Verifica se o número inserido está conforme a regra definida (possuir 11 caracteres e apenas números)
         validatorE = RegexValidator(regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
-        
-        try:
-            validatorT(telefone)
+        tamanhoT = len(telefone)
+
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
-        except Exception:
-            return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '9999999999999'.")
+
+        if not tamanhoT == 11:
+            return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '99999999999'.")
             
         try:
             validatorE(email)
@@ -102,8 +101,10 @@ def cadastro_usuarios(request):
         if Usuario.objects.filter(email = email).exists():
             return HttpResponse("Este email já foi cadastrado.")
             
+        telefone_arrumado = (f"({telefone[0:2]}) {telefone[2:7]}-{telefone[7:11]}")
+            
         # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado 
-        novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone, email = email, instituicao = instituicao, tipo = tipo_usuario)
+        novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone_arrumado, email = email, instituicao = instituicao, tipo = tipo_usuario)
         
         Registro.objects.create(usuario_id = novo_usuario.id_usuario, acao = "Cadastro de usuário" )
 
