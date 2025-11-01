@@ -27,6 +27,7 @@ class Evento(models.Model):
     emitido = models.BooleanField(default = False)
     assinatura = models.TextField(max_length = 255, null = False)
     horas = models.IntegerField(null = True, blank = True)
+    imagem = models.ImageField(upload_to = 'eventos/imagens/', blank = True, null = True)
 
 class Inscrito(models.Model):
     id_inscricao = models.AutoField(primary_key = True)

@@ -13,7 +13,7 @@
   </div>
 </section>
 
-  <form action = "{% url 'visu_eventos' %}" method = "post"> 
+  <form action = "{% url 'visu_eventos' %}" method = "post" enctype="multipart/form-data"> 
   {% csrf_token %}
       <div class='evento-container'> 
         <div class="cadastro-titulo">
@@ -86,6 +86,12 @@
             <div class="form-grupo">  
               <label>Assinatura</label>
               <input name="assinatura" class = "form-control-sm" type = "text" autocomplete="off" placeholder="" required> 
+            </div>
+          </div>
+            
+            <div class="form-grupo">  
+              <label>Imagens (PNG/JPEG)</label>
+              <input name="imagem" class = "form-control-sm" type = "file" accept="image/png,image/jpeg" autocomplete="off"> 
             </div>
           </div>
 

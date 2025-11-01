@@ -34,6 +34,7 @@
             <th>Emitido</th>
             <th>Horas complementares</th>
             <th>Assinado por</th>
+            <th>Imagens</th>
         </tr>
         
         {% for evento in eventos %}
@@ -52,7 +53,13 @@
             <td>{{evento.emitido | yesno:"Sim,Não" }} </td>
             <td>{{evento.horas}} </td>
             <td>{{evento.assinatura}} </td>
-
+            <td>
+            {% if evento.imagem %}
+                <img src={{ evento.imagem.url }} alt="Imagem para {{evento.nome}}" style="max-width: 100px; height: auto; border-ratius:5px">
+            {% else %}
+                <td>Sem imagem disponível</td>
+            {% endif %}
+            </td>
             <td> 
                 <a href = "{% url 'deletar_evento' evento.id_evento %}" class="botao-tabela-eventos">Deletar</a>
                 <a href = "{% url 'editar_evento' pk=evento.pk %}" class="botao-tabela-eventos">Editar</a>

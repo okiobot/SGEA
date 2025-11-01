@@ -297,6 +297,8 @@ def eventos(request):
         else:
             horas = horasC
         
+        imagem = request.FILES.get("imagem")
+        
         # Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento.objects.create(
         nome = request.POST.get("nome"),
@@ -310,7 +312,8 @@ def eventos(request):
         organResp = request.POST.get("organResp"),
         vagas = vagasInt,
         assinatura = ass,
-        horas = horas
+        horas = horas,
+        imagem = imagem
         )
         
         Registro.objects.create(evento_id = novo_evento.id_evento, acao = "Criação de evento")
