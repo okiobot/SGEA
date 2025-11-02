@@ -7,6 +7,7 @@ class Usuario(models.Model):
     nome = models.TextField(max_length= 255, null = False)
     sobrenome = models.TextField(max_length = 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
+    confirmar_senha = models.TextField(max_length = 255, null = False)
     telefone = models.CharField(max_length = 13, unique = True, null = False)
     email = models.CharField(max_length = 255, unique = True, null = False)
     instituicao = models.CharField(max_length = 50, null = False)
@@ -18,17 +19,48 @@ class Evento(models.Model):
     tipoevento = models.TextField(max_length = 255)
     dataI = models.DateField()
     dataF = models.DateField()
-    horarioI = models.IntegerField()
-    horarioF = models.IntegerField()    
+    horarioI = models.TimeField()
+    horarioF = models.TimeField()    
     local = models.TextField(max_length = 255)
     quantPart = models.IntegerField()
     organResp = models.TextField(max_length = 255)
     vagas = models.IntegerField()
     emitido = models.BooleanField(default = False)
     assinatura = models.TextField(max_length = 255, null = False)
-    horas = models.IntegerField(null = True, blank = True)
+    horas = models.DecimalField(decimal_places = 2, max_digits = 5, null = True, blank = True)
     imagem = models.ImageField(upload_to = 'eventos/imagens/', blank = True, null = True)
 
+    @property
+    def horas_e_minutos(self):
+
+        horas_str = str(self.horas)
+        
+        # Separa os números a partir do '.' em uma lista. ex: ['12', '45']
+        horas_min = horas_str.split(".")
+        
+        # Primeiro valor da lista
+        horasInteiras = horas_min[0]
+        minutos = 0
+        total = ""
+        
+        if len(horas_min) > 1:
+            minutos = int(horas_min[1][:2])
+    
+        if horasInteiras == 1:
+            total = f"{horasInteiras} Hora e "
+        else:
+            total = f"{horasInteiras} Horas e "
+        
+        if minutos > 0:
+            if minutos == 1:
+                total += f"{minutos} Minuto"
+            else:    
+                total += f"{minutos} Minutos"
+        else:
+            return "0 minutos"
+
+        return total
+    
 class Inscrito(models.Model):
     id_inscricao = models.AutoField(primary_key = True)
     usuario_id = models.ForeignKey(Usuario, on_delete = models.CASCADE)

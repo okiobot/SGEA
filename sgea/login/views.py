@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from datetime import date, datetime
+from decimal import Decimal
 
 # Create your views here.
 def home(request):
@@ -65,6 +66,7 @@ def cadastro_usuarios(request):
         instituicao = request.POST.get("ensi")
         tipo_usuario = request.POST.get("tipo")
         senha_tipo = request.POST.get("senha_acesso")
+        confirmar_senha = request.POST.get("confirmar_senha")
         
         # Senhas de acesso para a criação de perfis de tipo 'professor' e 'organizador', respectivamente
         SENHAPROF = "123"
@@ -73,9 +75,26 @@ def cadastro_usuarios(request):
         # Verifica se o número inserido está conforme a regra definida (possuir 11 caracteres e apenas números)
         validatorE = RegexValidator(regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b')
         tamanhoT = len(telefone)
+        telefone_arrumado = (f"({telefone[0:2]}) {telefone[2:7]}-{telefone[7:11]}")
+
+        if not confirmar_senha == senha:
+            messages.error(request, "As senhas são diferentes.")
+            return redirect("cadastro")
+
+        if len(senha) >= 8:
+            carac_especial = "@#$%^&*()-+?_=,<>/\.|"
+            numeros = "0123456789"
+            if any(c in carac_especial for c in senha):
+                if any(c in numeros for c in senha):
+                    pass
+                else:
+                    return HttpResponse("A senha deve possuir ao menos um número.")
+            else:
+                return HttpResponse("A senha deve possuir ao menos um caracter especial.")
+        else:
+            return HttpResponse("A senha deve possuir no mínimo 8 caracteres.")
 
         # Caso o número inserido não esteja no formato definido, esta mensagem irá aparecer ao usuário
-
         if not tamanhoT == 11:
             return HttpResponse("Número inserido de forma inválida, deve seguir o seguinte formato: '99999999999'.")
             
@@ -100,9 +119,7 @@ def cadastro_usuarios(request):
         
         if Usuario.objects.filter(email = email).exists():
             return HttpResponse("Este email já foi cadastrado.")
-            
-        telefone_arrumado = (f"({telefone[0:2]}) {telefone[2:7]}-{telefone[7:11]}")
-            
+        
         # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado 
         novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone_arrumado, email = email, instituicao = instituicao, tipo = tipo_usuario)
         
@@ -254,14 +271,15 @@ def eventos(request):
             return HttpResponse("O campo do horário inicial e final são obrigatórios")
         
         try:
-            horario_inicio = int(horarioI_str)
-            horario_final = int(horarioF_str)
+            horario_inicio = datetime.strptime(horarioI_str, "%H:%M").time()
+            horario_final = datetime.strptime(horarioF_str, "%H:%M").time()
+        
         except ValueError:
-            return HttpResponse("O campo do horário inicial e final devem ser número inteiros")
+            return HttpResponse("Formato de data inserido inválido.")
             
         # Verifica se os horários estão entre horários existentes (entre 0 ou 24 horas)
-        if horario_inicio < 0 or horario_inicio > 24 or horario_final < 0 or horario_final > 24:
-            return HttpResponse("O horário inicial e final devem estar entre 0 e 24")
+        if horario_final <= horario_inicio:
+            return HttpResponse("O horário final não pode ser anterior ao inicial.")
         
         # Validação das informações adquiridas no campo das vagas
         vagas_str = request.POST.get("vagas")
@@ -289,16 +307,30 @@ def eventos(request):
         if vagasInt < 0:
             return HttpResponse("Não pode haver uma quantidade negativa de vagas")
         
-        horasC = horario_final - horario_inicio
+        datetime_inicio = datetime.combine(date.min, horario_inicio)
+        datetime_final = datetime.combine(date.min, horario_final)
+        duracao_timedelta = datetime_final - datetime_inicio
+                
+        total_segundos = duracao_timedelta.total_seconds()
+        horas_inteiras = total_segundos // 3600
+        segundos_restantes = total_segundos % 3600
+        minutos_restantes = round(segundos_restantes / 60)
+        minutos_decimal = minutos_restantes / 100.0
+        horasC = Decimal(horas_inteiras) + Decimal(f"{minutos_decimal:.2f}")
         
         horasinp = request.POST.get("horas")
-        if horasinp and horasinp.isdigit():
-            horas = int(horasinp)
+        if horasinp:
+            try:
+                horas = Decimal(horasinp)
+        
+            except ValueError:
+                horas = horasC
+        
         else:
             horas = horasC
         
         imagem = request.FILES.get("imagem")
-        
+
         # Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento.objects.create(
         nome = request.POST.get("nome"),
@@ -325,7 +357,7 @@ def eventos(request):
         return redirect("visu_eventos")
     
     eventos = {
-        'eventos' : Evento.objects.all()
+        'eventos' : Evento.objects.all(),
     }
     
     return render(request, 'usuarios/visu_eventos.html', eventos)
@@ -401,22 +433,36 @@ def editar_evento(request, pk):
         horasinp = request.POST.get("horas")
         
         try:
-            if nome and tipoevento and dataI_str and dataF_str and horarioI_str and horarioF_str and local and quantPart_str and organResp and vagas_str and assinatura and horasinp:
-                dataI = int(dataI_str)
-                dataF = int(dataF_str)
+            if nome and tipoevento and dataI_str and dataF_str and horarioI_str and horarioF_str and local and quantPart_str and organResp and vagas_str and assinatura:
+                dataI = datetime.strptime(dataI_str, "%Y-%m-%d").date()
+                dataF = datetime.strptime(dataF_str, "%Y-%m-%d").date()
                 vagas = int(vagas_str)
                 quantPart = int(quantPart_str)
-                horarioI = int(horarioI_str)
-                horarioF = int(horarioF_str)
+                horarioI = datetime.strptime(horarioI_str, "%H:%M").time()
+                horarioF = datetime.strptime(horarioF_str, "%H:%M").time()
                 
-                if horasinp and horasinp.isdigit():
-                    horas = int(horasinp)
+                datetime_inicio = datetime.combine(date.min, horarioI)
+                datetime_final = datetime.combine(date.min, horarioF)
+                duracao_timedelta = datetime_final - datetime_inicio
+                        
+                total_segundos = duracao_timedelta.total_seconds()
+                horas_inteiras = total_segundos // 3600                  
+                segundos_restantes = total_segundos % 3600                   
+                minutos_restantes = round(segundos_restantes / 60)
+                minutos_decimal = minutos_restantes / 100.0              
+                horasC = Decimal(horas_inteiras) + Decimal(f"{minutos_decimal:.2f}")
+
+                horasinp = request.POST.get("horas")
+                if horasinp:
+                    try:
+                        horas = Decimal(horasinp)
+                
+                    except ValueError:
+                        horas = horasC
+                
                 else:
-                    horas = horarioF - horarioI 
-                
-                if dataI < 1 or dataI > 31 or dataF < 1 or dataF > 31:
-                    return HttpResponse("A data inicial e final devem estar entre os dias 1 e 31.")
-                
+                    horas = horasC
+                   
                 if quantPart == 0:
                     return HttpResponse("Um evento não pode ter 0 participantes.")
                 
@@ -425,10 +471,7 @@ def editar_evento(request, pk):
             
                 if dataI > dataF:
                     return HttpResponse("A data inicial não pode ser depois da data final.")
-            
-                if horarioI < 0 or horarioI > 24 or horarioF < 0 or horarioF > 31:
-                    return HttpResponse("O horário deve ser entre 0 e 24.")
-            
+
                 if vagas > quantPart:
                     return HttpResponse("Não pode haver uma quantidade maior de vagas do que de participantes.")
             
@@ -541,7 +584,7 @@ def emitir_certificados(request, evento_id):
                 return HttpResponse("Não há inscritos para este evento.")
             
             for inscricao in inscricoes:
-                nova_emissao = Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas)
+                nova_emissao = Certificado.objects.create(usuario_id = inscricao.usuario_id, evento_id = inscricao.evento_id, assinatura = inscricao.evento_id.assinatura, horas = inscricao.evento_id.horas_e_minutos)
             
             Inscrito.objects.filter(evento_id = evento.pk).delete()        
             

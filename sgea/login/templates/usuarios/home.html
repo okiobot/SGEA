@@ -4,6 +4,14 @@
 {% block title %}Cadastre-se - Casa de Atena{% endblock %}
 {% block content %}
 
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     <form action = "{% url 'cadastro' %}" method = "post"> 
         {% csrf_token %}
             <div class='cadastroUsu-container'>
@@ -30,7 +38,12 @@
                       <label>Senha</label>
                       <input name = "senha" class = "form-control-sm" type = "text" required style="width: 220px">
                     </div> 
-                    
+                
+                  <div class="form-cadastroUsu-grupo">
+                    <label>Confirmar senha</label>
+                    <input name = "confirmar_senha" class = "form-control-sm" type = "text" required style="width: 220px">
+                  </div> 
+                  
                     <div class="form-cadastroUsu-grupo">
                       <label>Telefone</label>
                       <input name = "telefone" class = "form control-sm" type = "text" required style="width: 220px" placeholder="XX XXXXX-XXXX">

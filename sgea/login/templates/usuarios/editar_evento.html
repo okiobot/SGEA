@@ -59,12 +59,12 @@
             <div class="form-linha">
                 <div class="form-grupo">
                     <label for="horarioI">Horário inicial</label>
-                    <input type="number" class="form-control-sm" name="horarioI" value="{{ evento.horarioI }}" required>
+                    <input type="time" class="form-control-sm" name="horarioI" value="{{ evento.horarioI }}" required>
                 </div>
 
                 <div class="form-grupo">
                     <label for="horarioF">Horário final</label>
-                    <input type="number" class="form-control-sm" name="horarioF" value="{{ evento.horarioF }}" required>
+                    <input type="time" class="form-control-sm" name="horarioF" value="{{ evento.horarioF }}" required>
                 </div>
 
                 <div class="form-grupo">
@@ -86,7 +86,7 @@
 
                 <div class="form-grupo">
                     <label for="horas">Horas complementares: </label>
-                    <input type="number" class="form-control-sm" name="horas" value="{{ evento.horas }}" oninput="validity.valid||(value='');" >
+                    <input type="number" class="form-control-sm" name="horas" value="" oninput="validity.valid||(value='');" >
                 </div>
             </div>
             
