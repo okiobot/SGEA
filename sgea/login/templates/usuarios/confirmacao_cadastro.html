@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Comprovante de cadastro</title>
+    </head>
+    <body>
+    </h2> Confirmação de cadastro
+    <h1>Olá, {{usuario.nome}}!</h1>
+    <p>Você foi cadastrado com sucesso em nosso sistema.</p>
+    
+    <h3>Detalhes do cadastro:</h3>
+    <ul>
+        <li><strong>Nome: </strong>{{usuario.nome}} {{usuario.sobrenome}}</li>
+        <li><strong>Telefone: </strong> {{usuario.telefone}}</li>
+        <li><strong>Instituição de ensino: </strong> {{usuario.instituicao}}</li>
+    </ul>
+    
+    <p>Obrigado por se cadastrar, esperamos que nossos serviços te satisfaçam!</p>
+    <p>Abaixo está um código que você pode utilizar para acessar o sistema:</p>
+    
+    <strong>{{codigo}}</strong>
+    
+    <p>Atenciosamente, equipe Casa de Atena.</p>
+</body>
+</html>

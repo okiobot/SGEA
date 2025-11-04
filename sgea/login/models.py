@@ -12,6 +12,7 @@ class Usuario(models.Model):
     email = models.CharField(max_length = 255, unique = True, null = False)
     instituicao = models.CharField(max_length = 50, null = False)
     tipo = models.CharField(max_length = 50, choices = [("estudante","Estudante"), ("professor","Professor"), ("organizador","Organizador")], default = "estudante") 
+    codigo = models.CharField(max_length = 6, null = False)
 
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)

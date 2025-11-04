@@ -5,11 +5,15 @@ from django.contrib.auth import authenticate, login
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from datetime import date, datetime
 from decimal import Decimal
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+import random
 
 # Create your views here.
 def home(request):
@@ -120,8 +124,27 @@ def cadastro_usuarios(request):
         if Usuario.objects.filter(email = email).exists():
             return HttpResponse("Este email já foi cadastrado.")
         
+        # Gerador de código que escolhe entre 10 números aleatórios e 26 letras aleatórias
+        # O usuário pode escolher entrar com o código disponibilizado ou com a senha criada anteriormente
+        codigo = ""
+        for i in range(0,3):
+            num = random.randint(0,9)
+            let = random.choice("abcdefghijklmnopqrstuvwxyz")
+            codigo += str(num)
+            codigo += let
+       
         # Caso todas as informações sejam inseridas corretamente, um novo usuário é criado 
-        novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone_arrumado, email = email, instituicao = instituicao, tipo = tipo_usuario)
+        novo_usuario = Usuario.objects.create(nome = nome, sobrenome = sobrenome, senha = senha, telefone = telefone_arrumado, email = email, instituicao = instituicao, tipo = tipo_usuario, codigo = codigo)
+
+        emailhtml = render_to_string('usuarios/confirmacao_cadastro.html', {"usuario" : novo_usuario, "codigo" : codigo})
+        try:
+            email = EmailMessage(subject=f"Confirmação de cadastro: {novo_usuario.nome} {novo_usuario.sobrenome}", 
+                                body= emailhtml, from_email="casa.de.atenaa@gmail.com", to=[novo_usuario.email])
+            email.content_subtype = 'html'
+            email.send()
+        
+        except Exception as e:
+            print("Erro ao enviar confirmação pelo email: "+e)
         
         Registro.objects.create(usuario_id = novo_usuario.id_usuario, acao = "Cadastro de usuário" )
 
@@ -156,14 +179,14 @@ def ver_usuarios(request):
 def loginU(request):
     if request.method == "POST":
         email = request.POST.get("email")
-        senha = request.POST.get("senha")
+        inputS = request.POST.get("senha")
 
+        if not email or not inputS:
+            return HttpResponse("Insira um email e uma senha.")
         try:
-            if not email or not senha:
-                return HttpResponse("Insira um email e uma senha.")
-
-            user = Usuario.objects.get(email=email, senha=senha)
-
+            # O usuário pode escolher entrar com a senha criada anteriormente ou com o código disponibilizado pelo email
+            user = Usuario.objects.get(Q(senha=inputS) | Q(codigo=inputS), email=email)
+    
             if user:
                 request.session["usuario_id"] = user.id_usuario
                 return redirect("inscricao")
@@ -248,6 +271,7 @@ def eventos(request):
         ass = request.POST.get("assinatura")
 
         try:
+            # Define a forma que a data deve ser inserida para criar a string, .date() é utilizado para adquirir apenas a parte da data
             dia_inicio = datetime.strptime(dia_inicio_str, "%Y-%m-%d").date()
             dia_fim = datetime.strptime(dia_fim_str, "%Y-%m-%d").date()
             
@@ -271,6 +295,7 @@ def eventos(request):
             return HttpResponse("O campo do horário inicial e final são obrigatórios")
         
         try:
+            # Define a forma que o horário deve ser inserido para criar 
             horario_inicio = datetime.strptime(horarioI_str, "%H:%M").time()
             horario_final = datetime.strptime(horarioF_str, "%H:%M").time()
         
@@ -307,14 +332,25 @@ def eventos(request):
         if vagasInt < 0:
             return HttpResponse("Não pode haver uma quantidade negativa de vagas")
         
+        # Cria um objeto datetime com uma data de placeholder e o horário definido pelo usuário
         datetime_inicio = datetime.combine(date.min, horario_inicio)
         datetime_final = datetime.combine(date.min, horario_final)
+       
+        # Duração do evento      
         duracao_timedelta = datetime_final - datetime_inicio
                 
+        # Duração do evento em segundos
         total_segundos = duracao_timedelta.total_seconds()
+        
+        # Horas do evento, sem conter resto, sendo um número inteiro
         horas_inteiras = total_segundos // 3600
+        
+        # Segundos do evento, adquirindo o total possível divido por 3600
         segundos_restantes = total_segundos % 3600
+        
+        # Resto dos minutos, arredondando para baixo
         minutos_restantes = round(segundos_restantes / 60)
+        
         minutos_decimal = minutos_restantes / 100.0
         horasC = Decimal(horas_inteiras) + Decimal(f"{minutos_decimal:.2f}")
         
@@ -548,7 +584,7 @@ def inscricao_evento(request, usuario_id, evento_id):
         
         messages.success(request, f"Você foi inscrito com sucesso no seguinte evento: {evento.nome}!")
         return redirect("inscricao")
-        
+           
     return render(request,"usuarios/meus_eventos.html", {"usuarios": Usuario.objects.all(), "eventos": Evento.objects.all()}) 
 
 def usuario_eventos(request):
