@@ -7,12 +7,12 @@ class Usuario(models.Model):
     nome = models.TextField(max_length= 255, null = False)
     sobrenome = models.TextField(max_length = 255, null = False)
     senha = models.TextField(max_length = 255, null = False)
-    confirmar_senha = models.TextField(max_length = 255, null = False)
+    confirmar_senha = models.TextField(max_length = 255, null = True)
     telefone = models.CharField(max_length = 13, unique = True, null = False)
     email = models.CharField(max_length = 255, unique = True, null = False)
     instituicao = models.CharField(max_length = 50, null = False)
     tipo = models.CharField(max_length = 50, choices = [("estudante","Estudante"), ("professor","Professor"), ("organizador","Organizador")], default = "estudante") 
-    codigo = models.CharField(max_length = 6, null = False)
+    codigo = models.CharField(max_length = 6, null = True)
 
 class Evento(models.Model):
     id_evento = models.AutoField(primary_key = True)
