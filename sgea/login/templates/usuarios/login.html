@@ -8,11 +8,13 @@
     <form method="post">
         {% csrf_token %}
 
-        <div class="botao-organizador">
-            <a href = "{% url 'cadastro' %}">
-                Voltar
-            </a>
-        </div>
+        <section class="botoes-organizador">
+            <div class="botao-organizador">
+                <a href = "{% url 'cadastro' %}">
+                    Voltar
+                </a>
+            </div>
+        </section>
 
         <div class="login-container">
             <div class="login-titulo">
@@ -26,7 +28,7 @@
                 </div>
 
                 <div class="form-login-grupo">
-                    <input type="text" name="senha" required autocomplete="off" placeholder="Senha ou Código de acesso" maxlength=6>
+                    <input type="text" name="senha" required autocomplete="off" placeholder="Senha ou Código de acesso" maxlength=255>
                     <img src="../../static/assets/icons/cadeado-icon.png" alt="ícone de cadeado" width="20px" height="20px" style="margin-right: 20px;">
                 </div>
 
