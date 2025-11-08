@@ -22,32 +22,39 @@
                   </div>
 
                   <div class="form-cadastroUsu-linha">
-                    <div class="form-cadastroUsu-grupo">
-                      <label>Nome</label>
-                      <input name = "nome" class = "form-control-sm" type = "text" required style="width: 220px">
-                    </div> 
-                    
-                    <div class="form-cadastroUsu-grupo">
-                      <label>Sobrenome</label>
-                      <input name = "sobrenome" class = "form-control-sm" type = "text" required style="width: 220px">
-                    </div> 
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Nome</label>
+                        <input name = "nome" class = "form-control-sm" type = "text" required style="width: 220px">
+                      </div> 
+                      
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Sobrenome</label>
+                        <input name = "sobrenome" class = "form-control-sm" type = "text" required style="width: 220px">
+                      </div> 
                   </div>
 
                   <div class="form-cadastroUsu-linha">
-                    <div class="form-cadastroUsu-grupo">
-                      <label>Senha</label>
-                      <input name = "senha" class = "form-control-sm" type = "text" required style="width: 220px">
-                    </div> 
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Senha</label>
+                        <input name = "senha" class = "form-control-sm" type = "text" required style="width: 220px">
+                      </div> 
                 
-                  <div class="form-cadastroUsu-grupo">
-                    <label>Confirmar senha</label>
-                    <input name = "confirmar_senha" class = "form-control-sm" type = "text" required style="width: 220px">
-                  </div> 
-                  
-                    <div class="form-cadastroUsu-grupo">
-                      <label>Telefone</label>
-                      <input name = "telefone" class = "form control-sm" type = "text" required style="width: 220px" placeholder="XX XXXXX-XXXX">
-                    </div>  
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Confirmar senha</label>
+                        <input name = "confirmar_senha" class = "form-control-sm" type = "text" required style="width: 220px">
+                      </div> 
+                  </div>
+
+                  <div class="form-cadastroUsu-linha">
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Email</label>
+                        <input name = "email" class = "form control-sm" type = "text" required style="width: 220px">
+                      </div>
+
+                      <div class="form-cadastroUsu-grupo">
+                        <label>Telefone</label>
+                        <input name = "telefone" class = "form control-sm" type = "text" required style="width: 220px" placeholder="XX XXXXX-XXXX">
+                      </div>  
                   </div>
 
                   <div class="form-cadastroUsu-linha">
@@ -68,13 +75,6 @@
                     </div>
 
                     <div class="form-cadastroUsu-grupo">
-                      <label>Email</label>
-                      <input name = "email" class = "form control-sm" type = "text" required style="width: 220px">
-                    </div>
-                  </div>
-                  
-                  <div class="form-cadastroUsu-linha">
-                    <div class="form-cadastroUsu-grupo">
                       <label for="tipo">Você é</label>
                         <select name="tipo" id="tipo" onchange="mostrarCampoSenha()" class = "form control-sm" style="width: 220px">
                             <option value="" disabled selected>Selecione</option>
@@ -83,7 +83,9 @@
                             <option value="organizador">Organizador</option>
                         </select>
                     </div>
-
+                  </div>
+                  
+                  <div class="form-cadastroUsu-linha">
                     <div class="form-cadastroUsu-grupo" id="campoSenhaAcesso" style="display:none;" style="width: 220px" >
                         <label for="senha_acesso">Senha de acesso</label>
                         <input type="password" name="senha_acesso" id="senha_acesso" style="width: 220px">

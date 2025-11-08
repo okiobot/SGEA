@@ -287,6 +287,65 @@ nav a:hover {
 .logo-container-footer {
     margin-top: 30px; 
 }
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* RESPONSIVIDADE DO HEADER E DO FOOTER */
+
+@media (max-width: 1025px) {
+
+    /* HEADER 2 */
+    #header-usuario-2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        padding: 45px;
+        text-align: center;
+    }
+
+    #header-usuario-2 .logo-container-2 img {
+        height: 70px;
+    }
+
+    
+    /* FOOTER 1 */
+    #footer-container {
+        margin-top: 100px;
+        padding: 40px 0;
+    }
+
+    #footer-container .footer-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .footer-email {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    #footer-container .footer-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .logo-container-footer {
+        margin-top: 20px;
+    }
+
+    .logo-container-footer img {
+        width: 90px;
+    }
+}
+
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
@@ -298,166 +357,118 @@ nav a:hover {
     justify-content: space-between;
     align-items: center;
 
-    max-width: 1200px;
-    width: 950px;
+    max-width: 1100px;
+    width: 95%;
 
-    margin: 40px auto;
-    margin-top: 100px;
-    padding: 25px 25px;
+    margin: 60px auto;
+    padding: 25px;
 
     background-color: var(--primary-color);
-
-    border-radius: 7px;
-    box-shadow: 0 4px 15px black;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    gap: 30px;
 }
 
-/* Cadastro USU - Formulário de envio */
 .formulario-cadastroUsu {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    width: 550px;
-
     gap: 20px;
     padding: 30px;
-
     background-color: white;
-
-    border-radius: 10px; 
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Cadastro USU - Título */
 .cadastroUsu-titulo {
     color: var(--primary-color);
     text-align: center;
 }
 
-/* Cadastro USU - Cada linha de inputs */
 .form-cadastroUsu-linha {
     display: flex;
     flex-wrap: wrap;
-    
-    gap: 20px;
+    gap: 40px;
 }
 
-/* Cadastro USU - Cada grupo de inputs dentro de uma linha */
 .form-cadastroUsu-grupo {
     display: flex;
     flex-direction: column;
 }
 
 .form-cadastroUsu-grupo label {
-    display: inline-block;
-    white-space: nowrap;
-
     margin-bottom: 6px;
-
     font-weight: 600;
 }
 
-.form-cadastroUsu-grupo input {
-    padding: 15px;
-
-    background-color: var(--background-box-color);
-
-    border-radius: 10px;
-    border: none;
-
-    font-size: 14px;
-
-    outline: none;
-}
-
-/* Cadastro USU - Campo de senha para professores e organizadores */
-#campoSenhaProfessor {
-    display: flex;
-    flex-direction: column;
-}
-
-/* Cadastro USU - Campo de seleção de faculdade */
+.form-cadastroUsu-grupo input,
 .form-cadastroUsu-grupo select {
-    width: 227px;
-
+    width: 220px;
     padding: 15px;
-
     background-color: var(--background-box-color);
     border-radius: 10px;
     border: none;
-
     font-size: 14px;
     outline: none;
 }
 
-/* Cadastro USU - Botão de se cadastrar */
-.botao-enviar-cadastroUsu{
+.botao-enviar-cadastroUsu {
     display: flex;
     justify-content: center;
 }
 
 #botao-enviar-cadastroUsu {
     width: 145px;
-
     margin-top: 30px;
     padding: 15px 25px;
-    
     background-color: var(--primary-color);
     color: white;
-
     border: none;
     border-radius: 10px;
-
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-
     transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease; 
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 #botao-enviar-cadastroUsu:hover {
     background-color: var(--botao-emerg-color);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
-/* Cadastro USU - Tela para seguir ao login caso o usuário já tenha conta */
 .ja-possui-conta {
+    flex: 0.8;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    padding-left: 20px;
-    padding-right: 20px;
-
     text-align: center;
 }
 
 .ja-possui-conta h1 {
     color: white;
-
     font-size: 25px;
-    text-align: center;
+    margin-bottom: 20px;
 }
 
 .ja-possui-conta a {
-    
     padding: 10px 40px;
-
     color: white;
     border: 3px solid white;
     border-radius: 10px;
-
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
-
     transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease; 
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .ja-possui-conta a:hover {
     background-color: var(--botao-preto-color);
-    border: 3px solid var(--botao-preto-color);
-    transform: scale(1.1);
+    border-color: var(--botao-preto-color);
+    transform: scale(1.05);
 }
 
 /* --------------------------------------------------------------------------- */
@@ -467,22 +478,16 @@ nav a:hover {
 /* Login de usuários (login.html) */
 
 .login-container {
-    max-width: 1200px;
-    width: 450px;
-
-    margin: 40px auto;
-    margin-top: 100px;
+    max-width: 450px;
+    width: 90%;
+    margin: 40px auto 100px auto;
     padding: 50px 70px;
-
     background-color: white;
-
     border: 10px solid var(--primary-color);
-    border-radius: 7px;
-    
-    box-shadow: 0 4px 15px black;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* Login USU - Título */
 .login-titulo {
     margin-bottom: 30px;
     color: var(--primary-color);
@@ -494,75 +499,54 @@ nav a:hover {
     font-weight: 700;
 }
 
-/* Login USU - Formulário de envio */
 .formulario-login {
     display: flex;
     flex-direction: column;
     align-items: center;
-
     gap: 35px;
 }
 
-/* Login USU - Inputs */
 .form-login-grupo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     width: 330px;
-
     background-color: var(--background-box-color);
     border-radius: 10px;
-}
-
-.form-login-grupo label {
-    display: inline-block;
-    white-space: nowrap;
-
-    margin-bottom: 6px;
-
-    font-weight: 600px;
+    padding-right: 10px;
 }
 
 .form-login-grupo input {
-    width: 300px;
-
+    width: 100%;
     padding: 15px;
-
     background-color: var(--background-box-color);
-
     border-radius: 10px;
     border: none;
-
     font-size: 14px;
     outline: none;
 }
 
-/* Login USU - Botão de entrar no site com a conta */
 #botao-entrar-login {
-    align-self: self-start;
-
-    width: 150px;
-
-    margin-top: 30px;
-    padding: 10px 25px;
-
+    align-self: center;
+    width: 160px;
+    margin-top: 25px;
+    padding: 12px 25px;
     background-color: var(--primary-color);
     color: white;
-
     border: none;
     border-radius: 10px;
-
     font-weight: bold;
     cursor: pointer;
-
-    transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease; 
+    font-size: 18px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 #botao-entrar-login:hover {
     background-color: var(--botao-preto-color);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
+
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
@@ -1377,39 +1361,286 @@ nav a:hover {
     justify-content: space-between; 
     align-items: center;
     
-    width: 1100px;
+    max-width: 1100px;
+    width: 95%;
 
-    margin: 40px auto;
-    margin-top: 50px;
-    padding: 20px 70px;
-
-    background-color: none;
+    margin: 50px auto 0 auto;
+    padding: 20px 40px;
 }
 
 .botao-organizador a {
-    display: inline-block; 
-
-    min-width: 150px; 
-
-    padding: 13px 20px;
+    display: inline-block;
+    min-width: 150px;
+    padding: 13px 25px;
 
     color: white;
     background-color: var(--tertiary-color);
 
-    border-bottom: 4px solid transparent;
-    border-radius: 7px;
+    border: none;
+    border-radius: 8px;
 
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 20px;
     cursor: pointer;
 
     transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .botao-organizador a:hover {
     background-color: var(--botao-emerg-color);
-    transform: scale(1.1); 
+    transform: scale(1.05);
 }
+
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* RESPONSIVIDADE - CELULAR */
+
+@media (max-width: 768px) {
+    .cadastroUsu-container {
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        padding: 20px;
+    }
+
+    .formulario-cadastroUsu {
+        width: 100%;
+        padding: 20px;
+        align-items: stretch;
+    }
+
+    .form-cadastroUsu-linha {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-cadastroUsu-grupo input,
+    .form-cadastroUsu-grupo select {
+        width: 100% !important;
+    }
+
+    .ja-possui-conta {
+        margin-top: 25px;
+        padding: 15px;
+    }
+
+    .ja-possui-conta h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .ja-possui-conta a {
+        width: 100%;
+        max-width: 200px;
+    }
+
+
+    /* LOGIN */
+    .botoes-organizador {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        padding: 10px;
+        margin-top: 30px;
+        gap: 10px;
+    }
+
+    .botao-organizador a {
+        width: 100%;
+        max-width: 250px;
+        font-size: 18px;
+        padding: 12px 15px;
+    }
+
+    .login-container {
+        width: 90%;
+        padding: 30px 20px;
+        border-width: 6px;
+        margin-top: 40px;
+    }
+
+    .login-titulo h1 {
+        font-size: 26px;
+    }
+
+    .formulario-login {
+        gap: 25px;
+    }
+
+    .form-login-grupo {
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    .form-login-grupo input {
+        font-size: 15px;
+    }
+
+    #botao-entrar-login {
+        width: 100%;
+        max-width: 250px;
+        font-size: 17px;
+    }
+}
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* RESPONSIVIDADE TABLET */
+
+@media (min-width: 768px) and (max-width: 1181px) {
+    .cadastroUsu-container {
+        flex-direction: row;
+        align-items: stretch;
+        width: 95%;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .formulario-cadastroUsu {
+        width: 60%;
+        padding: 25px;
+    }
+
+    .form-cadastroUsu-linha {
+        flex-wrap: wrap;
+        gap: 15px;
+        align-self: stretch;
+    }
+
+    .form-cadastroUsu-grupo input,
+    .form-cadastroUsu-grupo select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .ja-possui-conta {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ja-possui-conta h1 {
+        font-size: 22px;
+    }
+
+    /* LOGIN */
+    .botoes-organizador {
+        justify-content: flex-start;
+        width: 90%;
+        padding: 20px 40px;
+        gap: 30px;
+    }
+
+    .botao-organizador a {
+        font-size: 19px;
+        padding: 13px 25px;
+    }
+
+    .login-container {
+        width: 70%;
+        max-width: 550px;
+        padding: 45px 60px;
+    }
+
+    .form-login-grupo {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .login-titulo h1 {
+        font-size: 30px;
+    }
+
+    #botao-entrar-login {
+        font-size: 17px;
+        width: 180px;
+    }
+}
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+/* RESPONSIVIDADE TELA MAIOR DE IPAD */
+
+@media (min-width: 1024px) and (max-width: 1366px) {
+    .cadastroUsu-container {
+        margin-top: 130px;
+        max-width: 1000px;
+        padding: 35px;
+        gap: 25px;
+    }
+
+    .formulario-cadastroUsu {
+        width: 58%;
+        padding: 25px;
+    }
+
+    .form-cadastroUsu-grupo input,
+    .form-cadastroUsu-grupo select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .ja-possui-conta {
+        width: 42%;
+        text-align: center;
+    }
+
+    .ja-possui-conta h1 {
+        font-size: 24px;
+    }
+
+
+    /* LOGIN */
+    .login-container {
+        width: 60%;
+        max-width: 500px;
+        padding: 50px 60px;
+        border-width: 8px;
+    }
+
+    .form-login-grupo {
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .login-titulo h1 {
+        font-size: 32px;
+    }
+
+    #botao-entrar-login {
+        font-size: 18px;
+        width: 180px;
+    }
+
+    /* BOTOES DO ORGANIZADOR */
+    #botao-enviar-cadastroUsu {
+        width: 160px;
+        font-size: 17px;
+    }
+
+    .botoes-organizador {
+        width: 90%;
+        padding: 25px 50px;
+        justify-content: space-between;
+    }
+
+    .botao-organizador a {
+        font-size: 20px;
+        padding: 14px 30px;
+        border-radius: 8px;
+    }
+}
+
+
