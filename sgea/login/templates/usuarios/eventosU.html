@@ -23,24 +23,38 @@
             {% for evento in eventos  %}
                 {%if not evento.emitido %}
                 <div class="eventos-itens">
-                    <h3>{{ evento.nome }} - {{ evento.tipoevento }}</h3>
-                    <p><strong>Local:</strong> {{ evento.local }}</p> 
-                    <p><strong>Data:</strong> {{ evento.dataI }} até {{ evento.dataF }}</p> 
-                    <p><strong>Horário:</strong> {{ evento.horarioI }}h às {{ evento.horarioF }}h</p> 
-                    
-                    {% if evento.id_evento in inscritos %}
-                    <span style="color: green; font-weight: bold;">✅ Já inscrito</span>
-                    {% else %}
-                    <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p> 
-                        <form method="post" action="{% url 'inscricao_evento' usuario.id_usuario evento.id_evento %}">
-                            {% csrf_token %}
-                            <div class="eve-btn"> 
+                    <div class="evento-imagem">
+                        <img src="{{ evento.imagem.url }}" alt="Imagem do evento {{ evento.nome }}">
+                    </div>
+
+                    <h3>{{ evento.nome }}</h3>
+
+                    <div class="evento-botoes">
+                        {% if evento.id_evento in inscritos %}
+                            <span style="color: green; font-weight: bold;">✅ Já inscrito</span>
+                        {% else %}
+                            <form method="post" action="{% url 'inscricao_evento' usuario.id_usuario evento.id_evento %}">
+                                {% csrf_token %}
                                 <button type="submit" class="eventos-inscricao-btn">Inscrever-se</button>
-                            </div>
-                        </form>
-                    {% endif %}
+                            </form>
+                        {% endif %}
+                        <button class="botao-detalhe" data-evento-id="{{ evento.id_evento }}">Ver detalhes</button>
+                    </div>
+
+                    <div class="evento-modal" id="modal-{{ evento.id_evento }}">
+                        <div class="evento-modal-conteudo">
+                            <span class="fechar-modal">&times;</span>
+                            <h2>{{ evento.nome }}</h2>
+                            <p><strong>Tipo:</strong> {{ evento.tipoevento }}</p>
+                            <p><strong>Local:</strong> {{ evento.local }}</p>
+                            <p><strong>Data:</strong> {{ evento.dataI }} até {{ evento.dataF }}</p>
+                            <p><strong>Horário:</strong> {{ evento.horarioI }}h às {{ evento.horarioF }}h</p>
+                            <p><strong>Vagas disponíveis:</strong> {{ evento.vagas }}</p>
+                            <p><strong>Descrição:</strong> {{ evento.descricao }}</p>
+                        </div>
+                    </div>
                 </div>
-            {% endif %}
+                {% endif %}
             {% endfor %}        
         </div>
     </div>
