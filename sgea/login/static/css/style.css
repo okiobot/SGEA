@@ -50,23 +50,22 @@ body {
 /* Header (base.html)*/
 #header-usuario {
     display: flex;
-    position: relative;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
-
-    padding: 40px;
-
     background-color: #2a2a2a;
     color: #fff;
+    padding: 25px 40px;
+    position: relative;
 }
+
 .logo-container {
-    flex: 1;
+    height: 90px;
+
 }
 
 #header-usuario .logo-container img {
     height: 90px;
 }
-
 /* Header 2 (base2.html) */
 #header-usuario-2 {
     display: flex;
@@ -94,39 +93,25 @@ nav {
 
 nav ul {
     display: flex;
-    align-items: center;
-
     gap: 30px;
-    margin: 0;
-    padding: 0;
-
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 nav a {
-    position: relative;
-
-    line-height: 1.2;
-    box-sizing: border-box;
-    
-
-    color: white;
-
-    font-weight: bold;
-    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
     text-decoration: none;
-    border-bottom: 4px solid transparent;
-
-    transition: color 0.3s ease-in-out;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
 }
 
+nav a:hover,
 nav a.ativo {
-    color: var(--quaternary-color); 
-    border-bottom: 4px solid var(--quaternary-color); 
-}
-
-nav a:hover {
-    color: var(--quaternary-color); 
+    color: var(--quaternary-color);
+    border-color: var(--quaternary-color);
 }
 
 /* --------------------------------------------------------------------------- */
@@ -134,85 +119,76 @@ nav a:hover {
 /* --------------------------------------------------------------------------- */
 
 /* Header - Info de usuários */
-.usuario-icon-container {    /* icon */
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-
+.usuario-icon-container {
+    position: relative;
     cursor: pointer;
 }
 
-.usuario-icon-container img {  /* icon */
-    background-color: var(--primary-color);
-
-    border: 3px solid  white;
+.usuario-icon-container img {
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-
-    transition: transform 1s ease;
+    background-color: var(--primary-color);
+    border: 2px solid white;
+    transition: transform 0.3s ease;
 }
 
-.usuario-icon-container img:hover {  
-    transform: scale(1.2);
+.usuario-icon-container img:hover {
+    transform: scale(1.05);
 }
 
-/* Informações do usuário */
 .info-usuario-container {
     position: absolute;
-    top: 110px;  
-    right: 10px;  
-
-    width: 400px;
-
+    top: 60px;
+    right: 0;
+    width: 320px;
     padding: 15px;
-
-    background-color: white;       
-    color: black; 
-
-    border: var(--tertiary-color) 3px solid;
-    border-radius: 10px;
-
-    box-shadow: 0 4px 10px black;
+    background-color: white;
+    color: var(--tertiary-color);
+    border: 3px solid var(--primary-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     opacity: 0;
     visibility: hidden;
-    
-    transition: opacity 0.8s ease, visibility 0.5s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
 }
 
-.usuario-icon-container:hover .info-usuario-container, .info-usuario-container:hover {
+.usuario-icon-container:hover .info-usuario-container {
     opacity: 1;
     visibility: visible;
-    
 }
+
 .info-usuario-container h2 {
     color: var(--primary-color);
-    font-size: 20px;
-}
-.info-usuario-container a {
-    display: inline-block; 
-    margin-right: 10px;  
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
-/* Botões de editar, deletar e sair do perfil */
+.info-usuario-container p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
 .info-usuario-container button {
-    margin-top: 10px;
-    padding: 8px 15px;
-    
+    margin-top: 8px;
+    padding: 6px 12px;
     background-color: var(--primary-color);
     color: white;
-
-    border-radius: 10px;
     border: none;
-
-    font-weight: bold;
+    border-radius: 6px;
+    font-size: 14px;
     cursor: pointer;
-
-    transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
 }
 
 .info-usuario-container button:hover {
     background-color: var(--botao-preto-color);
-    transform: scale(1.1);
+}
+
+.info-usuario-container a {
+    display: inline-block;
+    margin: 0;
 }
 
 /* --------------------------------------------------------------------------- */
@@ -936,7 +912,6 @@ nav a:hover {
 
 /* Eventos disponíveis - Botão de se inscrever no evento*/
 .eventos-inscricao-btn {
-    margin-top: 10px;
     padding: 10px 20px;
     
     background-color: var(--primary-color);
@@ -955,6 +930,93 @@ nav a:hover {
 .eventos-inscricao-btn:hover {
     background-color: var(--botao-preto-color);
     transform: scale(1.1);
+}
+
+.evento-imagem img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.evento-botoes {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.botao-detalhe {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.botao-detalhe:hover {
+    background-color: var(--botao-preto-color);
+    transform: scale(1.1);
+}
+
+/* Modal de detalhes */
+.evento-modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.evento-modal-conteudo {
+    background-color: white;
+    margin-top: 80px;
+    padding: 20px 30px;
+    border: 5px solid var(--quaternary-color);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    animation: slideDown 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+/* Botão X */
+.fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fechar-modal:hover {
+    color: var(--primary-color);
+}
+
+/* Animação do modal */
+@keyframes slideDown {
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* --------------------------------------------------------------------------- */
@@ -1402,6 +1464,8 @@ nav a:hover {
 /* RESPONSIVIDADE - CELULAR */
 
 @media (max-width: 768px) {
+
+    /* CADASTRO DE USUÁRIOS */
     .cadastroUsu-container {
         flex-direction: column;
         align-items: center;
@@ -1488,6 +1552,107 @@ nav a:hover {
         max-width: 250px;
         font-size: 17px;
     }
+
+
+    /* HEADER PRINCIPAL */
+    #header-usuario {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .logo-container {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .logo-container img {
+        height: 75px;
+    }
+
+    nav {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 17px;
+    }
+
+    .usuario-icon-container {
+        order: 3;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .info-usuario-container {
+        position: absolute;
+        top: 60px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 300px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    
+    /* EVENTOS DISPONIVEIS */
+    .eventosDisp-container {
+        max-width: 95%;
+        margin: 20px auto;
+        padding: 15px;
+        border-width: 6px;
+    }
+
+    .eventosDisp-titulo h1 {
+        font-size: 24px;
+    }
+
+    .eventos-lista {
+        grid-template-columns: 1fr;
+        gap: 55px;
+    }
+
+    .eventos-itens {
+        padding: 10px;
+    }
+
+    .evento-imagem img {
+        height: 180px;
+    }
+
+    .evento-botoes {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .eventos-inscricao-btn,
+    .botao-detalhe {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .evento-modal-conteudo {
+        width: 90%;
+        padding: 15px;
+        margin-top: 60px;
+    }
+
+    .fechar-modal {
+        font-size: 24px;
+        right: 15px;
+    }
 }
 
 /* --------------------------------------------------------------------------- */
@@ -1497,6 +1662,8 @@ nav a:hover {
 /* RESPONSIVIDADE TABLET */
 
 @media (min-width: 768px) and (max-width: 1181px) {
+
+    /*CADASTRO DE USUARIOS*/
     .cadastroUsu-container {
         flex-direction: row;
         align-items: stretch;
@@ -1533,6 +1700,7 @@ nav a:hover {
         font-size: 22px;
     }
 
+
     /* LOGIN */
     .botoes-organizador {
         justify-content: flex-start;
@@ -1565,6 +1733,91 @@ nav a:hover {
         font-size: 17px;
         width: 180px;
     }
+
+
+    /* HEADER PRINCIPAL */
+    #header-usuario {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .logo-container {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .logo-container img {
+        height: 75px;
+    }
+
+    nav {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 17px;
+    }
+
+    .usuario-icon-container {
+        order: 3;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .info-usuario-container {
+        position: absolute;
+        top: 60px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 300px;
+        opacity: 0;
+        visibility: hidden;
+    }
+ 
+    
+    /* EVENTOS DISPONIVEIS */
+    .eventosDisp-container {
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .eventosDisp-titulo h1 {
+        font-size: 28px;
+    }
+
+    .eventos-lista {
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    .evento-imagem img {
+        height: 220px;
+    }
+
+    .eventos-inscricao-btn,
+    .botao-detalhe {
+        font-size: 15px;
+        padding: 10px 15px;
+    }
+
+    .evento-modal-conteudo {
+        width: 80%;
+        max-width: 600px;
+    }
 }
 
 /* --------------------------------------------------------------------------- */
@@ -1574,6 +1827,8 @@ nav a:hover {
 /* RESPONSIVIDADE TELA MAIOR DE IPAD */
 
 @media (min-width: 1024px) and (max-width: 1366px) {
+
+    /*CADASTRO DE USUARIOS*/
     .cadastroUsu-container {
         margin-top: 130px;
         max-width: 1000px;
@@ -1624,22 +1879,57 @@ nav a:hover {
         width: 180px;
     }
 
-    /* BOTOES DO ORGANIZADOR */
-    #botao-enviar-cadastroUsu {
-        width: 160px;
+
+    /* HEADER PRINCIPAL */
+    #header-usuario {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .logo-container {
+        order: 1;
+        margin-bottom: 10px;
+    }
+
+    .logo-container img {
+        height: 75px;
+    }
+
+    nav {
+        order: 2;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
         font-size: 17px;
     }
 
-    .botoes-organizador {
-        width: 90%;
-        padding: 25px 50px;
-        justify-content: space-between;
+    .usuario-icon-container {
+        order: 3;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
     }
 
-    .botao-organizador a {
-        font-size: 20px;
-        padding: 14px 30px;
-        border-radius: 8px;
+    .info-usuario-container {
+        position: absolute;
+        top: 60px;
+        right: 50%;
+        transform: translateX(50%);
+        width: 300px;
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
