@@ -29,6 +29,7 @@ class Evento(models.Model):
     emitido = models.BooleanField(default = False)
     assinatura = models.TextField(max_length = 255, null = False)
     horas = models.DecimalField(decimal_places = 2, max_digits = 5, null = True, blank = True)
+    descricao = models.TextField(max_length = 999, null = False)
     imagem = models.ImageField(upload_to = 'eventos/imagens/', blank = True, null = True)
 
     @property

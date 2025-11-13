@@ -89,7 +89,12 @@
                     <input type="number" class="form-control-sm" name="horas" value="" oninput="validity.valid||(value='');" >
                 </div>
             </div>
-            
+                
+                <div class="form-grupo">
+                    <label for="descricao">Descrição: </label>
+                    <input type="text" class="form-control-sm" name="descricao" value="{{ evento.descricao }}" required >
+                </div>
+
             <div class="botao-enviar">
                 <button type="submit" class="form-control-sm" id="botao-enviar">Salvar alterações</button>
             </div>

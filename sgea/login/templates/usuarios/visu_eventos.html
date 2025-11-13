@@ -34,6 +34,7 @@
             <th>Emitido</th>
             <th>Horas complementares</th>
             <th>Assinado por</th>
+            <th>Descrição</th>
             <th>Imagens</th>
         </tr>
         
@@ -53,6 +54,7 @@
             <td>{{evento.emitido | yesno:"Sim,Não" }} </td>
             <td>{{evento.horas_e_minutos}} </td>
             <td>{{evento.assinatura}} </td>
+            <td>{{evento.descricao}} </td>
             <td>
             {% if evento.imagem %}
                 <img src={{ evento.imagem.url }} alt="Imagem para {{evento.nome}}" style="max-width: 100px; height: auto; border-ratius:5px">

@@ -86,7 +86,7 @@ def cadastro_usuarios(request):
             return redirect("cadastro")
 
         if len(senha) >= 8:
-            carac_especial = "@#$%^&*()-+?_=,<>/\.|"
+            carac_especial = "@#$%^&*()-+?_=,<>/\|."
             numeros = "0123456789"
             if any(c in carac_especial for c in senha):
                 if any(c in numeros for c in senha):
@@ -366,6 +366,7 @@ def eventos(request):
             horas = horasC
         
         imagem = request.FILES.get("imagem")
+        descricao = request.POST.get("descricao")
 
         # Caso todas as informações sejam verificadas, um novo evento é criado
         novo_evento = Evento.objects.create(
@@ -381,7 +382,8 @@ def eventos(request):
         vagas = vagasInt,
         assinatura = ass,
         horas = horas,
-        imagem = imagem
+        imagem = imagem,
+        descricao = descricao
         )
         
         Registro.objects.create(evento_id = novo_evento.id_evento, acao = "Criação de evento")
@@ -467,9 +469,10 @@ def editar_evento(request, pk):
         vagas_str = request.POST.get("vagas")
         assinatura = request.POST.get("assinatura")
         horasinp = request.POST.get("horas")
+        descricao = request.POST.get("descricao")
         
         try:
-            if nome and tipoevento and dataI_str and dataF_str and horarioI_str and horarioF_str and local and quantPart_str and organResp and vagas_str and assinatura:
+            if nome and tipoevento and dataI_str and dataF_str and horarioI_str and horarioF_str and local and quantPart_str and organResp and vagas_str and assinatura and descricao:
                 dataI = datetime.strptime(dataI_str, "%Y-%m-%d").date()
                 dataF = datetime.strptime(dataF_str, "%Y-%m-%d").date()
                 vagas = int(vagas_str)
@@ -528,6 +531,7 @@ def editar_evento(request, pk):
                 evento.vagas = vagas
                 evento.horas = horas
                 evento.assinatura = assinatura 
+                evento.descricao = descricao
                 evento.save()
 
                 return redirect("even")

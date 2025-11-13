@@ -23,9 +23,15 @@
             {% for evento in eventos  %}
                 {%if not evento.emitido %}
                 <div class="eventos-itens">
+                    {% if evento.imagem %}
                     <div class="evento-imagem">
                         <img src="{{ evento.imagem.url }}" alt="Imagem do evento {{ evento.nome }}">
                     </div>
+                    {% else %}
+                    <div>
+                        Imagem não disponível
+                    </div>
+                    {% endif %}
 
                     <h3>{{ evento.nome }}</h3>
 
