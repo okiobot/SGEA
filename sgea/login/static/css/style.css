@@ -1,10 +1,11 @@
-/* Fontes do site */
+/* --------> Fontes do site */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
-/* Variáveis de cores do site */
+
+/* --------> Variáveis de cores do site */
 :root {
-    --primary-color: #0d6031;
+    --primary-color: #2a553d;
     --secondary-color: #5f9074;
     --tertiary-color: black;
     --quaternary-color: #00ff4c;
@@ -15,8 +16,22 @@
     --botao-emerg-color: #ff5757;
 }
 
+/* --------> Animações utilizadas */
+
+/* slide pra baixo */
+@keyframes slideDown { 
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /*
-EM CADA ID/CLASSE, AS CATEGORIAS ESTÃO SEPARADAS NESSA ORDEM:
+EM CADA ID/CLASSE, AS CATEGORIAS ESTÃO SEPARADAS NESSA ORDEM (ORGANIZAÇÃO AINDA INCOMPLETA!!!!!: 
 
 -> POSICIONAMENTO
 -> TAMANHO
@@ -28,45 +43,51 @@ EM CADA ID/CLASSE, AS CATEGORIAS ESTÃO SEPARADAS NESSA ORDEM:
 
 */
 
-/* Global */
+
+/* --------> Global */
 * {
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
-/* Body */
+
+/* --------> Body */
 body {
     min-height: 100vh;
+
     margin: 0;
     padding: 0;
+
     background: var(--background-color);
     
 }
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Header (base.html)*/
+
+/* --------> Header principal */
 #header-usuario {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2a2a2a;
-    color: #fff;
+
     padding: 25px 40px;
-    position: relative;
+
+    background-color: #2a2a2a;
 }
 
 .logo-container {
     height: 90px;
-
 }
 
 #header-usuario .logo-container img {
     height: 90px;
 }
-/* Header 2 (base2.html) */
+
+
+/* --------> Header 2 */
 #header-usuario-2 {
     display: flex;
     position: relative;
@@ -76,7 +97,6 @@ body {
     padding: 40px;
 
     background-color: #2a2a2a;
-    color: #fff;
 }
 
 #header-usuario-2 .logo-container-2 img {
@@ -84,7 +104,7 @@ body {
     height: 90px;
 }
 
-/* Header - navegação*/
+/* --------> Header navegação */
 nav {
     flex: 2;
     display: flex;
@@ -93,18 +113,23 @@ nav {
 
 nav ul {
     display: flex;
+
     gap: 30px;
-    list-style: none;
     padding: 0;
     margin: 0;
+
+    list-style: none;
 }
 
 nav a {
-    color: #fff;
+    color: white;
+
     font-weight: 600;
     font-size: 18px;
     text-decoration: none;
+
     border-bottom: 3px solid transparent;
+
     transition: all 0.3s ease;
 }
 
@@ -116,9 +141,10 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Header - Info de usuários */
+
+/* --------> Header - Info de usuários */
+
 .usuario-icon-container {
     position: relative;
     cursor: pointer;
@@ -127,9 +153,12 @@ nav a.ativo {
 .usuario-icon-container img {
     width: 45px;
     height: 45px;
-    border-radius: 50%;
+
     background-color: var(--primary-color);
+
     border: 2px solid white;
+    border-radius: 50%;
+
     transition: transform 0.3s ease;
 }
 
@@ -139,19 +168,24 @@ nav a.ativo {
 
 .info-usuario-container {
     position: absolute;
+    z-index: 10;
+
+    width: 320px;
+
     top: 60px;
     right: 0;
-    width: 320px;
     padding: 15px;
+
     background-color: white;
     color: var(--tertiary-color);
+
     border: 3px solid var(--primary-color);
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     opacity: 0;
     visibility: hidden;
+
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 10;
 }
 
 .usuario-icon-container:hover .info-usuario-container {
@@ -161,7 +195,9 @@ nav a.ativo {
 
 .info-usuario-container h2 {
     color: var(--primary-color);
+
     font-size: 18px;
+
     margin-bottom: 8px;
 }
 
@@ -173,12 +209,17 @@ nav a.ativo {
 .info-usuario-container button {
     margin-top: 8px;
     padding: 6px 12px;
+
     background-color: var(--primary-color);
     color: white;
+
+    font-size: 14px;
+
     border: none;
     border-radius: 6px;
-    font-size: 14px;
+
     cursor: pointer;
+
     transition: background-color 0.3s ease;
 }
 
@@ -191,11 +232,12 @@ nav a.ativo {
     margin: 0;
 }
 
-/* --------------------------------------------------------------------------- */
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Footer (Rodapé, tambem nos arquivos bases) */
+
+/* --------> Footer (também está nos arquivos base/base2.html) */
 #footer-container {
     padding: 50px 0;
     margin-top: 200px;
@@ -232,13 +274,11 @@ nav a.ativo {
     gap: 10px; 
 }
 
-/* Icon de email */
 .footer-email img {
     display: inline-block;
     vertical-align: middle;
 }
 
-/* Links de navegação do footer */
 #footer-container .footer-links {
     display: flex;
     justify-content: center;
@@ -263,12 +303,13 @@ nav a.ativo {
 .logo-container-footer {
     margin-top: 30px; 
 }
-/* --------------------------------------------------------------------------- */
+
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* RESPONSIVIDADE DO HEADER E DO FOOTER */
 
+/* --------> RESPONSIVIDADE DO HEADER 2 E DO FOOTER */
 @media (max-width: 1025px) {
 
     /* HEADER 2 */
@@ -278,6 +319,7 @@ nav a.ativo {
         align-items: center;
 
         padding: 45px;
+
         text-align: center;
     }
 
@@ -325,9 +367,9 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Cadastro de usuários (home.html) */
+
+/* --------> Cadastro de usuários */
 .cadastroUsu-container {
     display: flex;
     justify-content: space-between;
@@ -349,12 +391,15 @@ nav a.ativo {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 30px;
-    background-color: white;
-    border-radius: 10px;
     align-items: center;
     justify-content: center;
+    
+    gap: 20px;
+    padding: 30px;
+
+    background-color: white;
+
+    border-radius: 10px;
 }
 
 .cadastroUsu-titulo {
@@ -365,6 +410,7 @@ nav a.ativo {
 .form-cadastroUsu-linha {
     display: flex;
     flex-wrap: wrap;
+
     gap: 40px;
 }
 
@@ -381,11 +427,16 @@ nav a.ativo {
 .form-cadastroUsu-grupo input,
 .form-cadastroUsu-grupo select {
     width: 220px;
+
     padding: 15px;
+
+    font-size: 14px;
+    
     background-color: var(--background-box-color);
+
     border-radius: 10px;
     border: none;
-    font-size: 14px;
+    
     outline: none;
 }
 
@@ -396,15 +447,21 @@ nav a.ativo {
 
 #botao-enviar-cadastroUsu {
     width: 145px;
+
     margin-top: 30px;
     padding: 15px 25px;
+
     background-color: var(--primary-color);
     color: white;
-    border: none;
-    border-radius: 10px;
+
     font-size: 18px;
     font-weight: bold;
+
+    border: none;
+    border-radius: 10px;
+
     cursor: pointer;
+
     transform: scale(1);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -420,45 +477,55 @@ nav a.ativo {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     text-align: center;
 }
 
 .ja-possui-conta h1 {
-    color: white;
-    font-size: 25px;
     margin-bottom: 20px;
+
+    color: white;
+
+    font-size: 25px;
 }
 
 .ja-possui-conta a {
     padding: 10px 40px;
+
     color: white;
-    border: 3px solid white;
-    border-radius: 10px;
+
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
+
+    border: 3px solid white;
+    border-radius: 10px;
+
     transform: scale(1);
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .ja-possui-conta a:hover {
     background-color: var(--botao-preto-color);
+
     border-color: var(--botao-preto-color);
+
     transform: scale(1.05);
 }
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Login de usuários (login.html) */
-
+/* --------> Login de usuários */
 .login-container {
     max-width: 450px;
     width: 90%;
+
     margin: 40px auto 100px auto;
     padding: 50px 70px;
+
     background-color: white;
+
     border: 10px solid var(--primary-color);
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -466,7 +533,9 @@ nav a.ativo {
 
 .login-titulo {
     margin-bottom: 30px;
+
     color: var(--primary-color);
+
     text-align: center;
 }
 
@@ -479,6 +548,7 @@ nav a.ativo {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     gap: 35px;
 }
 
@@ -488,33 +558,45 @@ nav a.ativo {
     justify-content: space-between;
 
     width: 330px;
-    background-color: var(--background-box-color);
+
     border-radius: 10px;
     padding-right: 10px;
+
+    background-color: var(--background-box-color);
 }
 
 .form-login-grupo input {
     width: 100%;
+
     padding: 15px;
+
     background-color: var(--background-box-color);
+
+    font-size: 14px;
+
     border-radius: 10px;
     border: none;
-    font-size: 14px;
     outline: none;
 }
 
 #botao-entrar-login {
     align-self: center;
+
     width: 160px;
+
     margin-top: 25px;
     padding: 12px 25px;
+
     background-color: var(--primary-color);
     color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
     border: none;
     border-radius: 10px;
-    font-weight: bold;
     cursor: pointer;
-    font-size: 18px;
+    
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
@@ -528,9 +610,8 @@ nav a.ativo {
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Editar perfil de usuário (editar_usuario.html) */
 
-/* Editar perfil USU - Tela */
+/* --------> Editar perfil de usuário */
 .editar-perfil-container {
     max-width: 1200px;
     width: 530px;
@@ -545,14 +626,14 @@ nav a.ativo {
     box-shadow: 0 4px 15px black;
 }
 
-/* Editar perfil USU - Título */
 .editar-perfil-titulo {
     margin-bottom: 30px;
+
     color: var(--primary-color);
+
     text-align: center;
 }
 
-/* Editar perfil USU - Formulário de envio */
 .formulario-editar-perfil {
     display: flex;
     align-items: center;
@@ -584,7 +665,6 @@ nav a.ativo {
     outline: none;
 }
 
-/* Editar perfil USU - Botão de salvar alterações */
 .botao-salvar-editar-perfil button {
     align-self: self-start;
 
@@ -611,12 +691,12 @@ nav a.ativo {
     transform: scale(1.1);
 }
 
-/* --------------------------------------------------------------------------- */
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Deletar perfil (deletar_usuario.html) */
 
+/* --------> Deletar perfil*/
 .deletar-perfil-container {
     max-width: 1200px;
     width: 530px;
@@ -632,14 +712,14 @@ nav a.ativo {
     box-shadow: 0 4px 15px black;
 }
 
-/* Deletar Perfil - Título */
 .deletar-perfil-titulo {
     margin-bottom: 30px;
+
     color: var(--primary-color);
+
     text-align: center;
 }
 
-/* Deletar Perfil - Formulário de Envio */ 
 .formulario-deletar-perfil {
     display: flex;
     align-items: center;
@@ -671,8 +751,6 @@ nav a.ativo {
     outline: none;
 }
 
-/* Deletar Perfil - Botão de confirmar deleção */ 
-
 .botao-salvar-deletar-perfil button {
     align-self: self-start;
 
@@ -699,8 +777,6 @@ nav a.ativo {
     transform: scale(1.1);
 }
 
-/* Deletar Perfil - Botão para voltar para página anterior */ 
-
 .botao-voltar a {
     width: 180px;
 
@@ -725,33 +801,27 @@ nav a.ativo {
     transform: scale(1.1);
 }
 
-/* --------------------------------------------------------------------------- */
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Cadastro de Eventos (eventos.html) */
+
+/* --------> Cadastro de Eventos */
 .evento-container {
     max-width: 1200px;
-    width: 900px;
-
+    width: 90%;
     padding: 30px 40px;
     margin: 40px auto;
     margin-top: 100px;
-
     background-color: white;
-
     border: 10px solid var(--tertiary-color);
     border-radius: 7px;
-    
     box-shadow: 0 4px 15px black;
 }
 
-/* Cadastro de Eventos - Título */
 .cadastro-titulo {
     margin-bottom: 30px;
-
     color: var(--tertiary-color);
-
     text-align: center;
 }
 
@@ -760,72 +830,55 @@ nav a.ativo {
     font-weight: 700;
 }
 
-/* Cadastro de Eventos - Formulário */
 .formulario {
     display: flex;
     flex-direction: column;
-
     gap: 20px;
 }
 
-/* Cadastro de Eventos - Cada linha de inputs */
 .form-linha {
     display: flex;
     flex-wrap: wrap;
-
     gap: 20px;
 }
 
-/* Cadastro de Eventos - Cada grupo de inputs nas linhas */
 .form-grupo {
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-width: 250px;
 }
 
 .form-grupo label {
-    display: inline-block;
-    white-space: nowrap;
-
     margin-bottom: 6px;
-
     font-weight: 600;
 }
 
 .form-grupo input {
     padding: 15px;
-
     background-color: var(--background-box-color);
     border-radius: 10px;
     border: none;
-
     font-size: 14px;
     outline: none;
 }
 
-/* Cadastro de Eventos - Botão de enviar evento */
-.botao-enviar{
+.botao-enviar {
     display: flex;
     justify-content: center;
-
     margin-top: 20px;
 }
 
 #botao-enviar {
-    align-self: flex-start;
-
     padding: 10px 25px;
-
     background-color: var(--tertiary-color);
     color: white;
-
     border: none;
     border-radius: 10px;
-
     font-weight: bold;
     cursor: pointer;
-
     transform: scale(1);
-    transition: transform 1s ease, background-color 0.3s ease; 
+    transition: transform 1s ease, background-color 0.3s ease;
 }
 
 #botao-enviar:hover {
@@ -835,9 +888,8 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Eventos disponíveis (eventosU.html) */
+/* --------> Eventos disponíveis */
 .eventosDisp-container {
     max-width: 1000px;
 
@@ -845,19 +897,17 @@ nav a.ativo {
     margin-top: 100px;
     padding: 20px 40px;
 
-    background-color: white;
+    background-color: var(--primary-color);
 
-    border: 10px solid var(--primary-color);
     border-radius: 7px;
     
-    box-shadow: 0 4px 15px black;
+    box-shadow: 0 5px 10px black;
 }
 
-/* Eventos disponíveis - Título */
 .eventosDisp-titulo {
     margin-bottom: 30px;
 
-    color: var(--primary-color);
+    color: white;
 
     text-align: center;
 }
@@ -867,16 +917,12 @@ nav a.ativo {
     font-weight: 700;
 }
 
-/* Eventos disponíveis - Tela de eventos */
 .eventosDisp-quadro {
     padding: 15px;
-
-    background-color: var(--secondary-color);
-
     border-radius: 10px;
+    
 }
 
-/* Eventos disponíveis - Lista de cada evento */
 .eventos-lista {
     display: grid;
 
@@ -885,7 +931,6 @@ nav a.ativo {
     gap: 20px;
 }
 
-/* Eventos disponíveis - Informações sobre cada evento */
 .eventos-itens {
     padding: 15px;
 
@@ -901,8 +946,19 @@ nav a.ativo {
     text-align: center;
 }
 
-.eventos-itens p {
-    margin: 5px 0;
+evento-imagem,
+.eventos-itens > div i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 215px; 
+    width: 100%;
+    background-color: rgb(218, 218, 218); 
+    border-radius: 10px;
+}
+
+.eventos-itens > div i {
+    color: var(--organizador-color);
 }
 
 .eve-btn {
@@ -910,11 +966,10 @@ nav a.ativo {
     justify-content: center;
 }         
 
-/* Eventos disponíveis - Botão de se inscrever no evento*/
-.eventos-inscricao-btn {
+.eventos-inscricao-btn, .botao-detalhe {
     padding: 10px 20px;
     
-    background-color: var(--primary-color);
+    background-color: var(--tertiary-color);
     color: white;
     
     border: none;
@@ -927,62 +982,51 @@ nav a.ativo {
     transition: transform 1s ease, background-color 0.3s ease; 
 }
 
-.eventos-inscricao-btn:hover {
-    background-color: var(--botao-preto-color);
+.eventos-inscricao-btn:hover, .botao-detalhe:hover {
+    background-color: var(--secondary-color);
     transform: scale(1.1);
 }
 
 .evento-imagem img {
-    width: 100%;
     height: 200px;
+
+    width: 100%;
+
+    margin-bottom: 10px;
+
     object-fit: cover;
     border-radius: 10px;
-    margin-bottom: 10px;
 }
 
 .evento-botoes {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     margin-top: 10px;
 }
 
-.botao-detalhe {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.botao-detalhe:hover {
-    background-color: var(--botao-preto-color);
-    transform: scale(1.1);
-}
-
-/* Modal de detalhes */
 .evento-modal {
     display: none; 
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
     justify-content: center;
     align-items: center;
     z-index: 1000;
     overflow-y: auto;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0.6);
 }
 
 .evento-modal-conteudo {
     background-color: white;
     margin-top: 80px;
     padding: 20px 30px;
-    border: 5px solid var(--quaternary-color);
+    border: 8px solid var(--quaternary-color);
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
@@ -991,7 +1035,11 @@ nav a.ativo {
     position: relative;
 }
 
-/* Botão X */
+.evento-modal-conteudo p {
+    margin: 10px 0;
+    line-height: 1.8;
+}
+
 .fechar-modal {
     position: absolute;
     top: 10px;
@@ -1007,24 +1055,11 @@ nav a.ativo {
     color: var(--primary-color);
 }
 
-/* Animação do modal */
-@keyframes slideDown {
-    from {
-        transform: translateY(-40px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Emissão de certificados (certificados.html) */
 
+/* --------> Emissão de certificados */
 .emissao-certi-container {
     max-width: 1000px;
 
@@ -1040,7 +1075,6 @@ nav a.ativo {
     box-shadow: 0 4px 15px black;
 }
 
-/* Emissão de certificados - Título */
 .emissao-certi-titulo {
     margin-bottom: 30px;
 
@@ -1054,16 +1088,12 @@ nav a.ativo {
     font-weight: 700;
 }
 
-/* Emissão de certificados - Tela de certificados para emitir */
 .emissao-certi-quadro {
     padding: 15px;
-
-    background-color: var(--tertiary-color);
 
     border-radius: 10px;
 }
 
-/* Emissão de certificados - Lista de eventos com certificados para emitir */
 .eventos-lista {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1090,13 +1120,11 @@ nav a.ativo {
     margin: 5px 0;
 }
 
-/* Emissão de certificados - Posição do botão de emitir */ 
 .botao-ctf {
     display: flex;
     justify-content: center;
 }         
 
-/* Emissão de certificados - Design do botão de emitir */ 
 .botao-emissao-ctf {
     margin-top: 10px;
     padding: 10px 20px;
@@ -1121,31 +1149,22 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Tabela de todos os eventos - (visu_eventos.html) */
+/* ------> Tabela todos os eventos */
 .todos-eventos-container {
-    width: 1500px;
-    max-width: 1560px;
-    padding: 20px 40px;
-
-    margin: 40px auto;
-    margin-top: 100px;
-
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 20px 30px;
     background-color: #fff;
-    
-    border: 10px solid var(--tertiary-color);
-    border-radius: 7px;
-    
-    box-shadow: 0 4px 15px black;
+    border: 8px solid var(--tertiary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* Tabela de todos os eventos - Título */
 .tabela-eventos-titulo {
-    margin-bottom: 30px;
-
+    margin-bottom: 25px;
     color: var(--tertiary-color);
-
     text-align: center;
 }
 
@@ -1154,66 +1173,131 @@ nav a.ativo {
     font-weight: 700;
 }
 
-/* Tabela de todos os eventos - Borda de tabela */
 .todos-eventos-tabela {
+    width: 100%;
     border-collapse: collapse;
+    font-size: 14px;
 }
 
 .todos-eventos-tabela th {
-    padding: 20px 15px;
-
     background-color: var(--organizador-color);
-    color: #ffffff;
-    
+    color: #fff;
+    padding: 15px 10px;
     text-align: center;
-    font-size: 14px;
+    font-weight: 600;
 }
 
-/* Tabela de todos os eventos -Estilização das linhas */
 .todos-eventos-tabela td {
-    padding: 5px 15px;
-
+    padding: 12px 10px;
     border-bottom: 1.5px solid var(--organizador-color);
-
     text-align: center;
-    font-size: 14px;
 }
 
 .todos-eventos-tabela tr:hover {
-    background-color: var(--background-box-color)
+    background-color: var(--background-box-color);
 }
 
-/* Tabela de todos os eventos - Botões de editar e deletar eventos */
-.todos-eventos-tabela a.botao-tabela-eventos {
-    display: inline-block;
-
-    width: 80px;
-
-    padding: 8px 15px;
-    margin: 5px;
-
-    color: #ffffff;
+.botao-detalhe-tabela-evento {
+    background-color: var(--botao-preto-color);
+    color: white;
+    border: none;
+    padding: 8px 14px;
     border-radius: 4px;
-
-    text-decoration: none;
-    font-size: 14px;
-    
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
-.todos-eventos-tabela a.botao-tabela-eventos {
-    background-color: var(--botao-preto-color);
-}
-
-.todos-eventos-tabela a.botao-tabela-eventos:hover {
+.botao-detalhe-tabela-evento:hover {
     background-color: var(--botao-emerg-color);
 }
 
-/* --------------------------------------------------------------------------- */
+.modal-evento {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-evento-cima {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-evento-cima h2 {
+    font-size: 24px;
+    margin: 0;
+    flex: 1;
+}
+
+.modal-evento-cima .botoes-modal-evento {
+    display: flex;
+    gap: 10px;
+    margin-top: 0;
+    margin-right: 10px;
+}
+
+.modal-evento-cima .botao-modal-evento {
+    padding: 8px 14px;
+    font-size: 14px;
+}
+.modal-evento-conteudo {
+    background: white;
+    border: 8px solid var(--organizador-color);
+    color: var(--tertiary-color);
+    border-radius: 10px;
+    padding: 25px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideDown 0.4s ease;
+}
+
+.fechar-modal-evento {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.fechar-modal-evento:hover {
+    color: var(--primary-color);
+}
+.botoes-modal-evento {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.botao-modal-evento {
+    text-decoration: none;
+    color: white;
+    background-color: var(--botao-preto-color);
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: opacity 0.2s ease;
+}
+
+.botao-modal-evento:hover {
+    background-color: var(--botao-emerg-color);
+}
+
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* Tabela de todos os usuários - (usuarios.html) */
+/* --------> Tabela de todos os usuários */
 .todos-usuarios-container {
     width: 1100px;
 
@@ -1229,7 +1313,6 @@ nav a.ativo {
     box-shadow: 0 4px 15px black;
 }
 
-/* Tabela de todos os usuários - Título */
 .tabela-usuarios-titulo {
     margin-bottom: 30px;
 
@@ -1243,7 +1326,6 @@ nav a.ativo {
     font-weight: 700;
 }
 
-/* Tabela de todos os usuários - Borda de tabela */
 .todos-usuarios-tabela {
     border-collapse: collapse;
 }
@@ -1258,7 +1340,6 @@ nav a.ativo {
     font-size: 14px;
 }
 
-/* Tabela de todos os usuários -Estilização das linhas */
 .todos-usuarios-tabela td {
     padding: 14px 15px;
 
@@ -1272,7 +1353,6 @@ nav a.ativo {
     background-color: var(--background-box-color)
 }
 
-/* Tabela de todos os usuários - Botão de deletar usuários */
 .todos-usuarios-tabela a.botao-tabela-usuarios {
     display: inline-block;
 
@@ -1298,9 +1378,9 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Certificados do usuário - (meus_certificados.html) */
+
+/* --------> Certificados do usuário  */
 .meus-certificados-container {
     max-width: 1000px;
     margin: 40px auto;
@@ -1309,7 +1389,6 @@ nav a.ativo {
     background-color: none;
 }
 
-/* Certificados do usuário - Título */
 .meus-certificados-titulo {
     width: 750px;
 
@@ -1324,14 +1403,12 @@ nav a.ativo {
     text-align: center;
 }
 
-/* Certificados do usuário - Lista de certificados */
 .meus-certificados-lista {
     display: grid;
 
     gap: 50px;
 }
 
-/* Certificados do usuário - Infos do certificados */
 .meus-certificados-itens {
     justify-content: column;
 
@@ -1361,7 +1438,6 @@ nav a.ativo {
     font-size: 20px;
 }
 
-/* Certificados do usuário - Nome do participante */
 .certificado-participante {
     width: 600px;
 
@@ -1376,7 +1452,6 @@ nav a.ativo {
     font-size: 35px;
 }
 
-/* Certificados do usuário - Imagem logo Casa de Atena */
 .logo-assinatura {
     display: flex;
     align-items: center;
@@ -1389,7 +1464,6 @@ nav a.ativo {
     margin-left: 50px;
 }
 
-/* Certificados do usuário - Assinatura do responsável */
 .certificado-assinatura {
     width: 350px;
 
@@ -1408,16 +1482,14 @@ nav a.ativo {
     font-size: 35px;
 }
 
-/* Certificados do usuário - Caso não tenha certificados ainda */
 .zero-certificados {
     text-align: center;
 }
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* Botões do Organizador - (começa em certificados.html) */
+/* --------> Botões do organizador */
 .botoes-organizador {
     display: flex;
     justify-content: space-between; 
@@ -1459,24 +1531,27 @@ nav a.ativo {
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* RESPONSIVIDADE - CELULAR */
 
+/* --------> RESPONSIVIDADE (CELULAR) */
 @media (max-width: 768px) {
 
-    /* CADASTRO DE USUÁRIOS */
+    /* Cadastro de usuários */
     .cadastroUsu-container {
         flex-direction: column;
         align-items: center;
+
         width: 90%;
+
         padding: 20px;
     }
 
     .formulario-cadastroUsu {
-        width: 100%;
-        padding: 20px;
         align-items: stretch;
+
+        width: 100%;
+
+        padding: 20px;
     }
 
     .form-cadastroUsu-linha {
@@ -1495,8 +1570,8 @@ nav a.ativo {
     }
 
     .ja-possui-conta h1 {
-        font-size: 20px;
         margin-bottom: 15px;
+        font-size: 20px;
     }
 
     .ja-possui-conta a {
@@ -1505,12 +1580,14 @@ nav a.ativo {
     }
 
 
-    /* LOGIN */
+    /* Login de usuários */
     .botoes-organizador {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
         width: 90%;
+
         padding: 10px;
         margin-top: 30px;
         gap: 10px;
@@ -1519,8 +1596,10 @@ nav a.ativo {
     .botao-organizador a {
         width: 100%;
         max-width: 250px;
-        font-size: 18px;
+
         padding: 12px 15px;
+
+        font-size: 18px;
     }
 
     .login-container {
@@ -1554,11 +1633,13 @@ nav a.ativo {
     }
 
 
-    /* HEADER PRINCIPAL */
+    /* Header principal*/
     #header-usuario {
         flex-direction: column;
         align-items: center;
+
         padding: 20px;
+
         text-align: center;
     }
 
@@ -1573,9 +1654,11 @@ nav a.ativo {
 
     nav {
         order: 2;
-        width: 100%;
         display: flex;
         justify-content: center;
+
+        width: 100%;
+
         margin-bottom: 15px;
     }
 
@@ -1593,6 +1676,7 @@ nav a.ativo {
         position: relative;
         display: flex;
         justify-content: center;
+
         margin-top: 10px;
     }
 
@@ -1600,18 +1684,22 @@ nav a.ativo {
         position: absolute;
         top: 60px;
         right: 50%;
-        transform: translateX(50%);
+
         width: 300px;
+
         opacity: 0;
         visibility: hidden;
+        transform: translateX(50%);
     }
 
     
-    /* EVENTOS DISPONIVEIS */
+    /* Eventos disponíveis */
     .eventosDisp-container {
         max-width: 95%;
+
         margin: 20px auto;
         padding: 15px;
+
         border-width: 6px;
     }
 
@@ -1653,21 +1741,115 @@ nav a.ativo {
         font-size: 24px;
         right: 15px;
     }
+
+
+    /* Cadastro de eventos */
+    .evento-container {
+        width: 95%;
+        padding: 20px;
+        margin-top: 60px;
+        border-width: 6px;
+    }
+
+    .cadastro-titulo h1 {
+        font-size: 24px;
+    }
+
+    .form-linha {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-grupo input {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    #botao-enviar {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    
+    /* TABELA DE EVENTOS */
+
+    .todos-eventos-container {
+        width: 95%;
+        padding: 15px 10px;
+        margin: 40px auto;
+        border-width: 5px;
+    }
+
+    .tabela-eventos-titulo h1 {
+        font-size: 22px;
+    }
+
+    .todos-eventos-tabela {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+
+    .todos-eventos-tabela th,
+    .todos-eventos-tabela td {
+        padding: 8px 6px;
+    }
+
+    .botao-detalhe-tabela-evento {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .modal-evento-conteudo {
+        width: 95%;
+        max-width: none;
+        max-height: 90vh;
+        padding: 15px;
+        border-width: 5px;
+    }
+
+    .modal-evento-cima {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .modal-evento-cima h2 {
+        font-size: 18px;
+    }
+
+    .modal-evento-cima .botoes-modal-evento {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .botao-modal-evento {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .fechar-modal-evento {
+        font-size: 22px;
+    }
 }
 
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------- */
 
-/* RESPONSIVIDADE TABLET */
 
+/* --------> Responsidivdade (Tablet) */
 @media (min-width: 768px) and (max-width: 1181px) {
 
-    /*CADASTRO DE USUARIOS*/
+    /* Cadastro de usuários */
     .cadastroUsu-container {
         flex-direction: row;
         align-items: stretch;
+
         width: 95%;
+
         padding: 20px;
         gap: 20px;
     }
@@ -1679,8 +1861,10 @@ nav a.ativo {
 
     .form-cadastroUsu-linha {
         flex-wrap: wrap;
-        gap: 15px;
+
         align-self: stretch;
+
+        gap: 15px;
     }
 
     .form-cadastroUsu-grupo input,
@@ -1690,10 +1874,11 @@ nav a.ativo {
     }
 
     .ja-possui-conta {
-        width: 40%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        width: 40%;
     }
 
     .ja-possui-conta h1 {
@@ -1701,10 +1886,12 @@ nav a.ativo {
     }
 
 
-    /* LOGIN */
+    /* Login */
     .botoes-organizador {
         justify-content: flex-start;
+
         width: 90%;
+
         padding: 20px 40px;
         gap: 30px;
     }
@@ -1735,11 +1922,13 @@ nav a.ativo {
     }
 
 
-    /* HEADER PRINCIPAL */
+    /* Header principal */
     #header-usuario {
         flex-direction: column;
         align-items: center;
+
         padding: 20px;
+
         text-align: center;
     }
 
@@ -1754,9 +1943,11 @@ nav a.ativo {
 
     nav {
         order: 2;
-        width: 100%;
         display: flex;
         justify-content: center;
+
+        width: 100%;
+
         margin-bottom: 15px;
     }
 
@@ -1774,6 +1965,7 @@ nav a.ativo {
         position: relative;
         display: flex;
         justify-content: center;
+
         margin-top: 10px;
     }
 
@@ -1781,16 +1973,20 @@ nav a.ativo {
         position: absolute;
         top: 60px;
         right: 50%;
-        transform: translateX(50%);
+        
         width: 300px;
+
         opacity: 0;
         visibility: hidden;
+
+        transform: translateX(50%);
     }
  
     
-    /* EVENTOS DISPONIVEIS */
+    /* Eventos disoníveis */
     .eventosDisp-container {
         max-width: 90%;
+
         margin: 30px auto;
         padding: 20px;
     }
@@ -1818,20 +2014,94 @@ nav a.ativo {
         width: 80%;
         max-width: 600px;
     }
+
+
+    /* Cadastro de eventos */
+    .evento-container {
+        width: 80%;
+        padding: 25px 30px;
+    }
+
+    .cadastro-titulo h1 {
+        font-size: 28px;
+    }
+
+    .form-linha {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .form-grupo {
+        flex: 1 1 45%;
+        min-width: 300px;
+    }
+
+    .form-grupo input {
+        font-size: 14px;
+        padding: 13px;
+    }
+
+    #botao-enviar {
+        padding: 12px 30px;
+        font-size: 15px;
+    }
+
+
+    /* Tabela de eventos */
+    .todos-eventos-container {
+        width: 90%;
+        padding: 20px;
+        border-width: 6px;
+    }
+
+    .tabela-eventos-titulo h1 {
+        font-size: 26px;
+    }
+
+    .todos-eventos-tabela {
+        font-size: 13px;
+    }
+
+    .todos-eventos-tabela th,
+    .todos-eventos-tabela td {
+        padding: 10px 8px;
+    }
+
+    .botao-detalhe-tabela-evento {
+        padding: 7px 12px;
+        font-size: 13px;
+    }
+
+    .modal-evento-conteudo {
+        width: 85%;
+        max-width: 600px;
+        padding: 20px;
+    }
+
+    .modal-evento-cima h2 {
+        font-size: 20px;
+    }
+
+    .botao-modal-evento {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
 }
 
-/* --------------------------------------------------------------------------- */
+
 /* --------------------------------------------------------------------------- */
 /* --------------------------------------------------------------------------- */
 
-/* RESPONSIVIDADE TELA MAIOR DE IPAD */
 
+/* Responsividade para o maior IPAD */
 @media (min-width: 1024px) and (max-width: 1366px) {
 
-    /*CADASTRO DE USUARIOS*/
+    /* Cadastro de usuários */
     .cadastroUsu-container {
-        margin-top: 130px;
         max-width: 1000px;
+
+        margin-top: 130px;
         padding: 35px;
         gap: 25px;
     }
@@ -1857,11 +2127,13 @@ nav a.ativo {
     }
 
 
-    /* LOGIN */
+    /* Login */
     .login-container {
         width: 60%;
         max-width: 500px;
+
         padding: 50px 60px;
+
         border-width: 8px;
     }
 
@@ -1880,11 +2152,13 @@ nav a.ativo {
     }
 
 
-    /* HEADER PRINCIPAL */
+    /* Header principal */
     #header-usuario {
         flex-direction: column;
         align-items: center;
+
         padding: 20px;
+
         text-align: center;
     }
 
@@ -1899,9 +2173,11 @@ nav a.ativo {
 
     nav {
         order: 2;
-        width: 100%;
         display: flex;
         justify-content: center;
+
+        width: 100%;
+
         margin-bottom: 15px;
     }
 
@@ -1919,6 +2195,7 @@ nav a.ativo {
         position: relative;
         display: flex;
         justify-content: center;
+
         margin-top: 10px;
     }
 
@@ -1926,11 +2203,82 @@ nav a.ativo {
         position: absolute;
         top: 60px;
         right: 50%;
-        transform: translateX(50%);
+        
         width: 300px;
+
         opacity: 0;
         visibility: hidden;
+
+        transform: translateX(50%);
+    }
+
+
+    /* Cadastro de eventos */
+    .evento-container {
+        width: 75%;
+        padding: 30px 40px;
+    }
+
+    .cadastro-titulo h1 {
+        font-size: 30px;
+    }
+
+    .form-linha {
+        gap: 20px;
+    }
+
+    .form-grupo {
+        flex: 1 1 30%;
+        min-width: 280px;
+    }
+
+    .form-grupo input {
+        font-size: 15px;
+    }
+
+    #botao-enviar {
+        padding: 12px 35px;
+        font-size: 16px;
+    }
+
+    
+    /* Tabela de Eventos */
+    .todos-eventos-container {
+        width: 85%;
+        padding: 25px;
+        border-width: 7px;
+    }
+
+    .tabela-eventos-titulo h1 {
+        font-size: 28px;
+    }
+
+    .todos-eventos-tabela {
+        font-size: 14px;
+    }
+
+    .todos-eventos-tabela th,
+    .todos-eventos-tabela td {
+        padding: 12px 10px;
+    }
+
+    .botao-detalhe-tabela-evento {
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .modal-evento-conteudo {
+        width: 80%;
+        max-width: 700px;
+        padding: 25px;
+    }
+
+    .modal-evento-cima h2 {
+        font-size: 22px;
+    }
+
+    .botao-modal-evento {
+        padding: 10px 16px;
+        font-size: 14px;
     }
 }
-
-

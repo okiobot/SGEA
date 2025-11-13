@@ -7,67 +7,77 @@
 
 <section class="botoes-organizador">
     <div class="botao-organizador">
-    <a href = "{% url 'ver_certs' %}">
-        Voltar
-    </a>
+        <a href = "{% url 'ver_certs' %}">
+            Voltar
+        </a>
     </div>
 </section>
 
-<div class="todos-eventos-container"> 
+<div class="todos-eventos-container">
     <div class="tabela-eventos-titulo">
         <h1>Eventos Cadastrados</h1>
     </div>
 
-    <table class="todos-eventos-tabela"> 
-        <tr> 
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Tipo</th>
-            <th>Data de início</th>
-            <th>Data de término</th>
-            <th>Horário de início</th>
-            <th>Horário de término</th>
-            <th>Local</th>
-            <th>Organizador responsável</th>
-            <th>Quantidade de participantes</th>
-            <th>Vagas</th>
-            <th>Emitido</th>
-            <th>Horas complementares</th>
-            <th>Assinado por</th>
-            <th>Descrição</th>
-            <th>Imagens</th>
-        </tr>
-        
+    <table class="todos-eventos-tabela">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Data de início</th>
+                <th>Data de término</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
         {% for evento in eventos %}
-        <tr>
-            <td>{{evento.id_evento}} </td>
-            <td>{{evento.nome}} </td>
-            <td>{{evento.tipoevento}} </td>
-            <td>{{evento.dataI}} </td>
-            <td>{{evento.dataF}} </td>
-            <td>{{evento.horarioI}} </td>
-            <td>{{evento.horarioF}} </td>
-            <td>{{evento.local}} </td>
-            <td>{{evento.organResp}} </td>
-            <td>{{evento.quantPart}} </td>
-            <td>{{evento.vagas}} </td>
-            <td>{{evento.emitido | yesno:"Sim,Não" }} </td>
-            <td>{{evento.horas_e_minutos}} </td>
-            <td>{{evento.assinatura}} </td>
-            <td>{{evento.descricao}} </td>
-            <td>
-            {% if evento.imagem %}
-                <img src={{ evento.imagem.url }} alt="Imagem para {{evento.nome}}" style="max-width: 100px; height: auto; border-ratius:5px">
-            {% else %}
-                Sem imagem disponível
-            {% endif %}
-            </td>
-            <td> 
-                <a href = "{% url 'deletar_evento' evento.id_evento %}" class="botao-tabela-eventos">Deletar</a>
-                <a href = "{% url 'editar_evento' pk=evento.pk %}" class="botao-tabela-eventos">Editar</a>
-            </td>
-        </tr>
+            <tr>
+                <td>{{evento.id_evento}}</td>
+                <td>{{evento.nome}}</td>
+                <td>{{evento.tipoevento}}</td>
+                <td>{{evento.dataI}}</td>
+                <td>{{evento.dataF}}</td>
+                <td>
+                    <button class="botao-detalhe-tabela-evento" data-evento-id="{{evento.id_evento}}">Ver detalhes</button>
+                </td>
+            </tr>
+
+            <div class="modal-evento" id="modal-{{evento.id_evento}}">
+                <div class="modal-evento-conteudo">
+                    <span class="fechar-modal-evento">&times;</span>
+
+                    <div class="modal-evento-cima">
+                        <h2>{{evento.nome}}</h2>
+                        <div class="botoes-modal-evento">
+                            <a href="{% url 'editar_evento' pk=evento.pk %}" class="botao-modal-evento">Editar</a>
+                            <a href="{% url 'deletar_evento' evento.id_evento %}" class="botao-modal-evento">Deletar</a>
+                        </div>
+                    </div>
+
+                    {% if evento.imagem %}
+                        <img src="{{evento.imagem.url}}" alt="Imagem de {{evento.nome}}" style="max-width:100%; border-radius:5px; margin-top:10px;">
+                    {% else %}
+                    <div>
+                        <i>imagem não disponível</i>
+                    </div>
+                    {% endif %}
+
+                    <p><strong>Tipo:</strong> {{evento.tipoevento}}</p>
+                    <p><strong>Descrição:</strong> {{evento.descricao}}</p>
+                    <p><strong>Data de início:</strong> {{evento.dataI}}</p>
+                    <p><strong>Data de término:</strong> {{evento.dataF}}</p>
+                    <p><strong>Horário:</strong> {{evento.horarioI}} - {{evento.horarioF}}</p>
+                    <p><strong>Local:</strong> {{evento.local}}</p>
+                    <p><strong>Organizador:</strong> {{evento.organResp}}</p>
+                    <p><strong>Participantes:</strong> {{evento.quantPart}}</p>
+                    <p><strong>Vagas:</strong> {{evento.vagas}}</p>
+                    <p><strong>Emitido:</strong> {{evento.emitido | yesno:"Sim,Não"}}</p>
+                    <p><strong>Horas complementares:</strong> {{evento.horas_e_minutos}}</p>
+                    <p><strong>Asssinado por:</strong> {{evento.assinatura}}</p>
+                </div>
+            </div>
         {% endfor %}
+        </tbody>
     </table>
 </div>
 

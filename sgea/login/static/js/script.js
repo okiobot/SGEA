@@ -21,26 +21,31 @@ document.addEventListener("DOMContentLoaded", function () {
         tipoSelect.addEventListener("change", mostrarCampoSenha);
     }
     
-    
-    /* Detalhes de eventos */
-    const botoesDetalhes = document.querySelectorAll(".botao-detalhe");
-    const modais = document.querySelectorAll(".evento-modal");
+
+    /* --------------------------------------------------------------------------- */
+    /* --------------------------------------------------------------------------- */
+
+
+    /* MODAIS PARA DETALHES */
+    const botoesDetalhes = document.querySelectorAll(".botao-detalhe, .botao-detalhe-tabela-evento");
+    const modais = document.querySelectorAll(".evento-modal, .modal-evento");
 
     botoesDetalhes.forEach(botao => {
         botao.addEventListener("click", () => {
             const eventoId = botao.getAttribute("data-evento-id");
             const modal = document.getElementById(`modal-${eventoId}`);
-            modal.style.display = "flex";
+            if (modal) modal.style.display = "flex";
         });
     });
 
     modais.forEach(modal => {
-        const fechar = modal.querySelector(".fechar-modal");
-        fechar.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
+        const fechar = modal.querySelector(".fechar-modal, .fechar-modal-evento");
+        if (fechar) {
+            fechar.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        }
 
-        // fecha se clicar fora tbm
         modal.addEventListener("click", e => {
             if (e.target === modal) {
                 modal.style.display = "none";
