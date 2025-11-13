@@ -9,9 +9,15 @@ Permite o cadastro e autenticação de usuários, criação e inscrição em eve
 - **👤💻 [corvinyy (Lorena Araujo)](https://github.com/corvinyy)**
 - **👤💻 [devlucasaf (Lucas Freitas)](https://github.com/devlucasaf)**
 
-## 📸 PREVIEW (Projeto em progresso!)
+## ⚠️ ATENÇÃO: Os eventos apresentados neste projeto são fictícios e utilizados apenas para fins de demonstração e testes, sem qualquer relação comercial ou institucional com os organizadores originais.
 
-![Preview of the current progress](./sgea/login/static/assets/imgs/PreviewCasaDeAtena.png)
+### 📸 PREVIEW (Projeto em progresso!)
+
+![Preview of the current progress](./sgea/login/static/assets/imgs/PreviewNOVA.png)
+
+### 📸 AO CLICAR EM "VER DETALHES"
+![Preview of the current progress](./sgea/login/static/assets/imgs/PreviewNOVA2.png)
+
 
 ## 🛠️ Status
 
